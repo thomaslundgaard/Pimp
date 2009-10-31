@@ -1,0 +1,6 @@
+
+
+Requires py-libmpdclient2. If you have python installed, you can (as root or sudo) do a:
+easy_install py-libmpdclient2
+This is also in the py-libmpdclient2 ubuntu package.
+See http://incise.org/py-libmpdclient2.html
