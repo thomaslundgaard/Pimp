@@ -1,29 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <author>Thomas</author>
- <class>Main</class>
- <widget class="QMainWindow" name="Main">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1004</width>
+    <width>621</width>
     <height>738</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>PyMpdJuke</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="res.qrc">
+    <normaloff>:/res/karaoke.png</normaloff>:/res/karaoke.png</iconset>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:0, stop:0.565217 rgba(50, 50, 50, 255), stop:1 rgba(100, 100, 100, 255));
+color: rgb(237, 237, 237);</string>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+   </property>
    <layout class="QGridLayout" name="gridLayout_2">
-    <item row="0" column="0">
+    <item row="1" column="0">
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
        <widget class="QLabel" name="label">
         <property name="font">
          <font>
-          <pointsize>22</pointsize>
+          <family>Sans Serif</family>
+          <pointsize>20</pointsize>
+          <weight>50</weight>
+          <italic>false</italic>
+          <bold>false</bold>
          </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
         </property>
         <property name="text">
          <string>Currently playing:</string>
@@ -64,6 +82,9 @@
             <weight>75</weight>
             <bold>true</bold>
            </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
           </property>
           <property name="text">
            <string>TextLabel</string>
@@ -142,7 +163,7 @@
       </item>
      </layout>
     </item>
-    <item row="1" column="0">
+    <item row="3" column="0">
      <layout class="QHBoxLayout" name="horizontalLayout_3">
       <item>
        <widget class="QPushButton" name="searchBtn">
@@ -151,6 +172,9 @@
           <width>0</width>
           <height>100</height>
          </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(75, 75, 75);</string>
         </property>
         <property name="text">
          <string>Search for tracks</string>
@@ -171,6 +195,9 @@
           <height>100</height>
          </size>
         </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(75, 75, 75);</string>
+        </property>
         <property name="text">
          <string>Admin</string>
         </property>
@@ -178,8 +205,15 @@
       </item>
      </layout>
     </item>
-    <item row="2" column="0">
-     <widget class="QListWidget" name="playlist"/>
+    <item row="4" column="0">
+     <widget class="QListWidget" name="playlist">
+      <property name="styleSheet">
+       <string notr="true">selection-color: rgba(255, 255, 255, 0);</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout_4"/>
     </item>
    </layout>
   </widget>
@@ -197,12 +231,14 @@
   <tabstop>adminBtn</tabstop>
   <tabstop>playlist</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="res.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>adminBtn</sender>
    <signal>clicked()</signal>
-   <receiver>Main</receiver>
+   <receiver>MainWindow</receiver>
    <slot>enterAdmin()</slot>
    <hints>
     <hint type="sourcelabel">

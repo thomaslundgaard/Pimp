@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 import os,sys
 from PyQt4 import QtCore,QtGui
-from ui_mainClass import Ui_MainClass
+from mainWindow import MainWindow
 
 def main():
     app = QtGui.QApplication(sys.argv)
-    window = Ui_MainClass()
+    window = MainWindow()
     window.show()
     sys.exit(app.exec_())
 

@@ -1,5 +1,5 @@
 from PyQt4 import QtCore,QtGui
-from ui_main import Ui_Main
+from mainWindow_ui import Ui_MainWindow
 import mpdclient2
 
 # This is a hack, to capture if the window loses focus (fx by alt-tab)
@@ -15,11 +15,11 @@ class EventFilter(QtCore.QObject):
             obj.recentlyMinimized = False
         return QtCore.QObject.eventFilter(self, obj, event)
 
-class Ui_MainClass(QtGui.QMainWindow):
+class MainWindow(QtGui.QMainWindow):
     def __init__(self):
         QtGui.QMainWindow.__init__(self)
 
-        self.ui=Ui_Main()
+        self.ui=Ui_MainWindow()
         self.ui.setupUi(self)
         self.installEventFilter(EventFilter(self))
 
