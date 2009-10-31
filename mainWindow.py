@@ -1,5 +1,6 @@
 from PyQt4 import QtCore,QtGui
 from mainWindow_ui import Ui_MainWindow
+import adminDialog
 import mpdclient2
 
 # This is a hack, to capture if the window loses focus (fx by alt-tab)
@@ -9,10 +10,10 @@ class EventFilter(QtCore.QObject):
         QtCore.QObject.__init__(self, parent)
     def eventFilter(self, obj, event):
         if event.type() == QtCore.QEvent.ActivationChange:
-            if not obj.recentlyMinimized:
+            if not obj.ignoreFocusOut:
                 obj.isFullscreen = True
                 obj.showFullScreen()
-            obj.recentlyMinimized = False
+            obj.ignoreFocusOut = False
         return QtCore.QObject.eventFilter(self, obj, event)
 
 class MainWindow(QtGui.QMainWindow):
@@ -26,7 +27,7 @@ class MainWindow(QtGui.QMainWindow):
         self.mpd = mpdclient2.connect()
         self.showFullScreen()
         self.isFullscreen = True
-        self.recentlyMinimized = False
+        self.ignoreFocusOut = False
         self.startTimer(250)
 
     def timerEvent(self, event):
@@ -54,10 +55,13 @@ class MainWindow(QtGui.QMainWindow):
 
     def enterAdmin(self):
         if self.isFullscreen:
-            self.isFullscreen = False
-            self.recentlyMinimized = True
-            self.showNormal()
-            self.showMinimized()
+            self.ignoreFocusOut = True
+            dialog = adminDialog.AdminDialog()
+            if dialog.exec_():
+                if str(dialog.ui.pwdEdit.text()) == "kkk":
+                    self.isFullscreen = False
+                    self.showNormal()
+                    self.showMinimized()
         else:
             self.isFullscreen = True
             self.showFullScreen()
