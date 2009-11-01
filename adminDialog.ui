@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>380</width>
-    <height>119</height>
+    <width>381</width>
+    <height>151</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -24,29 +24,34 @@
     <normaloff>:/res/karaoke.png</normaloff>:/res/karaoke.png</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0">
+   <item row="0" column="0" colspan="4">
     <widget class="QLabel" name="label_2">
+     <property name="minimumSize">
+      <size>
+       <width>363</width>
+       <height>25</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>363</width>
+       <height>25</height>
+      </size>
+     </property>
      <property name="font">
       <font>
        <pointsize>15</pointsize>
       </font>
      </property>
      <property name="text">
-      <string>Please enter admin password:</string>
+      <string>Please enter admin &amp;password:</string>
+     </property>
+     <property name="buddy">
+      <cstring>pwdEdit</cstring>
      </property>
     </widget>
    </item>
-   <item row="3" column="0">
-    <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="0">
+   <item row="1" column="0" colspan="4">
     <widget class="QLineEdit" name="pwdEdit">
      <property name="focusPolicy">
       <enum>Qt::TabFocus</enum>
@@ -56,47 +61,148 @@
      </property>
     </widget>
    </item>
+   <item row="2" column="1">
+    <widget class="QPushButton" name="minimizeBtn">
+     <property name="minimumSize">
+      <size>
+       <width>100</width>
+       <height>60</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>&amp;Minimize</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="2">
+    <widget class="QPushButton" name="quitBtn">
+     <property name="minimumSize">
+      <size>
+       <width>100</width>
+       <height>60</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>&amp;Quit</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="3">
+    <widget class="QPushButton" name="cancelBtn">
+     <property name="minimumSize">
+      <size>
+       <width>100</width>
+       <height>60</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>&amp;Cancel</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="2">
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="2" column="0">
+    <spacer name="horizontalSpacer">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>40</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
   </layout>
  </widget>
  <tabstops>
   <tabstop>pwdEdit</tabstop>
-  <tabstop>buttonBox</tabstop>
  </tabstops>
  <resources>
   <include location="res.qrc"/>
  </resources>
  <connections>
   <connection>
-   <sender>buttonBox</sender>
-   <signal>accepted()</signal>
-   <receiver>AdminDialog</receiver>
-   <slot>accept()</slot>
+   <sender>pwdEdit</sender>
+   <signal>editingFinished()</signal>
+   <receiver>minimizeBtn</receiver>
+   <slot>click()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>257</x>
-     <y>109</y>
+     <x>19</x>
+     <y>56</y>
     </hint>
     <hint type="destinationlabel">
-     <x>157</x>
-     <y>274</y>
+     <x>54</x>
+     <y>87</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>buttonBox</sender>
-   <signal>rejected()</signal>
+   <sender>minimizeBtn</sender>
+   <signal>clicked()</signal>
    <receiver>AdminDialog</receiver>
-   <slot>reject()</slot>
+   <slot>minimizeApp()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>325</x>
-     <y>109</y>
+     <x>62</x>
+     <y>123</y>
     </hint>
     <hint type="destinationlabel">
-     <x>286</x>
-     <y>274</y>
+     <x>48</x>
+     <y>114</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>quitBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>AdminDialog</receiver>
+   <slot>quitApp()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>178</x>
+     <y>118</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>194</x>
+     <y>141</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cancelBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>AdminDialog</receiver>
+   <slot>cancelDialog()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>267</x>
+     <y>115</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>330</x>
+     <y>144</y>
     </hint>
    </hints>
   </connection>
  </connections>
+ <slots>
+  <slot>minimizeApp()</slot>
+  <slot>quitApp()</slot>
+  <slot>cancelDialog()</slot>
+ </slots>
 </ui>

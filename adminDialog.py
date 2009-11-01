@@ -7,4 +7,23 @@ class AdminDialog(QtGui.QDialog):
         self.ui = Ui_AdminDialog ()
         self.ui.setupUi (self)
         self.ui.pwdEdit.setFocus()
+    
+    def checkPwd(self):
+        if str(self.ui.pwdEdit.text()) == "kkk":
+            return True
+        else:
+            return False
+
+    def minimizeApp(self):
+        if self.checkPwd():
+            self.parent().isFullscreen = False
+            self.parent().showMinimized()
+        self.close()
         
+    def quitApp(self):
+        print "quitting?"
+        if self.checkPwd():
+            self.parent().close()
+
+    def cancelDialog(self):
+        self.close()

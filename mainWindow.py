@@ -55,14 +55,11 @@ class MainWindow(QtGui.QMainWindow):
 
     def enterAdmin(self):
         if self.isFullscreen:
-            self.ignoreFocusOut = True
-            dialog = adminDialog.AdminDialog()
-            if dialog.exec_():
-                if str(dialog.ui.pwdEdit.text()) == "kkk":
-                    self.isFullscreen = False
-                    self.showNormal()
-                    self.showMinimized()
+            dialog = adminDialog.AdminDialog(self)
+            dialog.exec_()
         else:
             self.isFullscreen = True
             self.showFullScreen()
+
+
 
