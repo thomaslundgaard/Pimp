@@ -177,7 +177,7 @@ color: rgb(237, 237, 237);</string>
          <string notr="true">background-color: rgb(75, 75, 75);</string>
         </property>
         <property name="text">
-         <string>Search for tracks</string>
+         <string>&amp;Search for tracks</string>
         </property>
        </widget>
       </item>
@@ -199,7 +199,7 @@ color: rgb(237, 237, 237);</string>
          <string notr="true">background-color: rgb(75, 75, 75);</string>
         </property>
         <property name="text">
-         <string>Admin</string>
+         <string>&amp;Admin</string>
         </property>
        </widget>
       </item>
