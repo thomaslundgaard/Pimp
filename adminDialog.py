@@ -1,5 +1,7 @@
 from PyQt4 import QtGui, QtCore
 from adminDialog_ui import Ui_AdminDialog
+import settingsDialog
+from settings import Settings
 
 class AdminDialog(QtGui.QDialog):
     def __init__ (self,  parent = None):
@@ -11,7 +13,8 @@ class AdminDialog(QtGui.QDialog):
         self.ui.pwdEdit.setFocus()
     
     def checkPwd(self):
-         if self.ui.pwdEdit.text() == "kkk":
+         settings = Settings()
+         if self.ui.pwdEdit.text() == settings.value("adminPassword"):
             return True
          else:
             self.ui.pwdEdit.clear()
@@ -34,3 +37,8 @@ class AdminDialog(QtGui.QDialog):
     def cancelDialog(self):
         self.close()
 
+    def settings (self):
+        if self.checkPwd():
+            dialog = settingsDialog.SettingsDialog(self)
+            dialog.exec_()
+            self.close()

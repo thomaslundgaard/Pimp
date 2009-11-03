@@ -12,7 +12,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>423</width>
+    <width>591</width>
     <height>188</height>
    </rect>
   </property>
@@ -33,7 +33,7 @@
    <string notr="true"/>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="10" column="0" colspan="5">
+   <item row="10" column="0" colspan="6">
     <widget class="QLineEdit" name="pwdEdit">
      <property name="font">
       <font>
@@ -81,7 +81,7 @@
      </property>
     </widget>
    </item>
-   <item row="11" column="4">
+   <item row="11" column="5">
     <widget class="QPushButton" name="cancelBtn">
      <property name="minimumSize">
       <size>
@@ -125,7 +125,7 @@
      </property>
     </spacer>
    </item>
-   <item row="0" column="0" colspan="5">
+   <item row="0" column="0" colspan="6">
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
       <widget class="QLabel" name="label_2">
@@ -183,6 +183,24 @@ background-color: rgba(255, 255, 255, 0);</string>
      </item>
     </layout>
    </item>
+   <item row="11" column="4">
+    <widget class="QPushButton" name="pushButton">
+     <property name="minimumSize">
+      <size>
+       <width>100</width>
+       <height>60</height>
+      </size>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>15</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>&amp;Settings</string>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
  <tabstops>
@@ -215,7 +233,7 @@ background-color: rgba(255, 255, 255, 0);</string>
    <slot>cancelDialog()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>413</x>
+     <x>580</x>
      <y>171</y>
     </hint>
     <hint type="destinationlabel">
@@ -256,10 +274,27 @@ background-color: rgba(255, 255, 255, 0);</string>
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>AdminDialog</receiver>
+   <slot>settings()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>424</x>
+     <y>141</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>438</x>
+     <y>181</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>minimizeApp()</slot>
   <slot>quitApp()</slot>
   <slot>cancelDialog()</slot>
+  <slot>settings()</slot>
  </slots>
 </ui>
