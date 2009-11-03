@@ -11,23 +11,26 @@ class AdminDialog(QtGui.QDialog):
         self.ui.pwdEdit.setFocus()
     
     def checkPwd(self):
-         if str(self.ui.pwdEdit.text()) == "kkk":
-            self.close()
+         if self.ui.pwdEdit.text() == "kkk":
             return True
          else:
             self.ui.pwdEdit.clear()
             self.ui.infoLabel.setText("Invalid password - please try again:")
             self.ui.infoLabel.show()
+            self.ui.pwdEdit.setFocus()
             return False
 
     def minimizeApp(self):
         if self.checkPwd():
             self.parent().isFullscreen = False
             self.parent().showMinimized()
+            self.close()
         
     def quitApp(self):
         if self.checkPwd():
             QtGui.qApp.quit()
+            self.close()
 
     def cancelDialog(self):
         self.close()
+
