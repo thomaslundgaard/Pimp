@@ -13,15 +13,15 @@ class AdminDialog(QtGui.QDialog):
         self.ui.pwdEdit.setFocus()
     
     def checkPwd(self):
-         settings = Settings()
-         if self.ui.pwdEdit.text() == settings.value("adminPassword"):
+        settings = Settings()
+        if self.ui.pwdEdit.text() == settings.value("adminPassword"):
             return True
-         else:
-            self.ui.pwdEdit.clear()
-            self.ui.infoLabel.setText("Invalid password - please try again:")
-            self.ui.infoLabel.show()
-            self.ui.pwdEdit.setFocus()
-            return False
+        else:
+           self.ui.pwdEdit.clear()
+           self.ui.infoLabel.setText("Invalid password - please try again:")
+           self.ui.infoLabel.show()
+           self.ui.pwdEdit.setFocus()
+           return False
 
     def minimizeApp(self):
         if self.checkPwd():
