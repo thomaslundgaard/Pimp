@@ -20,6 +20,7 @@
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:0, stop:0.565217 rgba(50, 50, 50, 255), stop:1 rgba(100, 100, 100, 255));
+font: 14pt &quot;Sans Serif&quot;;
 color: rgb(237, 237, 237);</string>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -41,7 +42,7 @@ color: rgb(237, 237, 237);</string>
          </font>
         </property>
         <property name="styleSheet">
-         <string notr="true"/>
+         <string notr="true">font: 20pt &quot;Sans Serif&quot;;</string>
         </property>
         <property name="text">
          <string>Currently playing:</string>
@@ -66,8 +67,15 @@ color: rgb(237, 237, 237);</string>
           </property>
           <property name="font">
            <font>
-            <pointsize>17</pointsize>
+            <family>Sans Serif</family>
+            <pointsize>14</pointsize>
+            <weight>50</weight>
+            <italic>false</italic>
+            <bold>false</bold>
            </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
           </property>
           <property name="text">
            <string>Artist:</string>
@@ -78,13 +86,15 @@ color: rgb(237, 237, 237);</string>
          <widget class="QLabel" name="curArtist">
           <property name="font">
            <font>
-            <pointsize>17</pointsize>
-            <weight>75</weight>
-            <bold>true</bold>
+            <family>Sans Serif</family>
+            <pointsize>28</pointsize>
+            <weight>50</weight>
+            <italic>false</italic>
+            <bold>false</bold>
            </font>
           </property>
           <property name="styleSheet">
-           <string notr="true"/>
+           <string notr="true">font: 28pt &quot;Sans Serif&quot;;</string>
           </property>
           <property name="text">
            <string>TextLabel</string>
@@ -124,7 +134,11 @@ color: rgb(237, 237, 237);</string>
           </property>
           <property name="font">
            <font>
-            <pointsize>17</pointsize>
+            <family>Sans Serif</family>
+            <pointsize>14</pointsize>
+            <weight>50</weight>
+            <italic>false</italic>
+            <bold>false</bold>
            </font>
           </property>
           <property name="text">
@@ -136,10 +150,15 @@ color: rgb(237, 237, 237);</string>
          <widget class="QLabel" name="curTitle">
           <property name="font">
            <font>
-            <pointsize>17</pointsize>
-            <weight>75</weight>
-            <bold>true</bold>
+            <family>Sans Serif</family>
+            <pointsize>28</pointsize>
+            <weight>50</weight>
+            <italic>false</italic>
+            <bold>false</bold>
            </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">font: 28pt &quot;Sans Serif&quot;;</string>
           </property>
           <property name="text">
            <string>TextLabel</string>
@@ -174,7 +193,8 @@ color: rgb(237, 237, 237);</string>
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(75, 75, 75);</string>
+         <string notr="true">background-color: rgb(75, 75, 75);
+font: 20pt &quot;Sans Serif&quot;;</string>
         </property>
         <property name="text">
          <string>&amp;Search for tracks</string>
@@ -209,6 +229,9 @@ color: rgb(237, 237, 237);</string>
      <widget class="QListWidget" name="playlist">
       <property name="styleSheet">
        <string notr="true">selection-color: rgba(255, 255, 255, 0);</string>
+      </property>
+      <property name="selectionMode">
+       <enum>QAbstractItemView::NoSelection</enum>
       </property>
      </widget>
     </item>

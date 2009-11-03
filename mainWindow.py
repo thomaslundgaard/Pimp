@@ -12,7 +12,7 @@ class MainWindow(QtGui.QMainWindow):
         self.ui.setupUi(self)
 
         self.mpd = mpdclient2.connect()
-        self.oldPlaylist = -1
+        self.oldPlaylistId = -1
         self.oldSongId = -99	# -1 means not playing
         self.startTimer(250)
         
@@ -42,29 +42,32 @@ class MainWindow(QtGui.QMainWindow):
     def periodicMpdCheck (self):
         somethingChanged = False
         # See if playlist changed
-        if self.oldPlaylist != int (self.mpd.status()['playlist']):
+        if self.oldPlaylistId != int (self.mpd.status()['playlist']):
             somethingChanged = True
-        # See if song changed
-        curSong = self.mpd.currentsong()
-        if curSong and int(curSong['id']) != self.oldSongId:
-            somethingChanged = True
-        elif not curSong and self.oldSongId != -1:
-            somethingChanged = True
-
+        # See if play status or song changed
+        if self.mpd.status()['state'] == "play":
+            if int (self.mpd.currentsong()['id']) != self.oldSongId:
+                somethingChanged = True
+        else:
+            if self.oldSongId != -1:
+                somethingChanged = True
 
         if somethingChanged:
             self.ui.playlist.clear()
             for song in self.mpd.playlistinfo():
                 self.ui.playlist.addItem( str(int(song['pos'])+1) + '. ' \
-                        + song['artist'] + ' - ' + song['title'] )
-            self.oldPlaylist = int (self.mpd.status()['playlist'])
+                        + unicode(song['artist'],"utf8") + ' - ' \
+                        + unicode(song['title'],"utf8") )
+            self.oldPlaylistId = int (self.mpd.status()['playlist'])
 
-            if curSong:
-                self.ui.curTitle.setText (curSong['title'])
-                self.ui.curArtist.setText (curSong['artist'])
+            if self.mpd.status()['state'] == "play":
+                curSong = self.mpd.currentsong()
+                self.ui.curTitle.setText (unicode(curSong['title'],"utf8"))
+                self.ui.curArtist.setText (unicode(curSong['artist'],"utf8"))
                 curItem = self.ui.playlist.item(int(curSong['pos']))
                 curItem.setFont (QtGui.QFont("Arial", -1, QtGui.QFont.Bold))
-                self.ui.playlist.scrollToItem (curItem, QtGui.QAbstractItemView.PositionAtCenter)
+                self.ui.playlist.scrollToItem (curItem, \
+                        QtGui.QAbstractItemView.PositionAtCenter)
                 self.oldSongId = int(curSong['id'])
             else:
                 self.ui.curTitle.setText ("Not playing")

@@ -21,13 +21,11 @@ class AdminDialog(QtGui.QDialog):
             return False
 
     def minimizeApp(self):
-        print "mini"
         if self.checkPwd():
             self.parent().isFullscreen = False
             self.parent().showMinimized()
         
     def quitApp(self):
-        print "quit"
         if self.checkPwd():
             QtGui.qApp.quit()
 
