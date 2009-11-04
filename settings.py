@@ -10,8 +10,8 @@ class Settings (QtCore.QSettings):
                 "maxPlaylist":			"5" }
 
     def value (self, key):
-        res = QtCore.QSettings.value (self, key)
-        if res.toString() == '':
+        res = QtCore.QSettings.value (self, key, "THIS_KEY_DIDN'T_EXIST")
+        if res.toString() == "THIS_KEY_DIDN'T_EXIST":
             return self.default[key]
         else:
             return res.toString()
