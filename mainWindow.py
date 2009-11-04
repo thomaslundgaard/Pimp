@@ -11,6 +11,12 @@ class MainWindow(QtGui.QMainWindow):
         self.ui=Ui_MainWindow()
         self.ui.setupUi(self)
 
+        #Set UI styles TODO:Setting progressbar color doesnt work
+        tmppalette = self.ui.songProgress.palette()
+        tmppalette.setColor(QtGui.QPalette.Highlight, QtGui.QColor("red"))
+        tmppalette.setColor(QtGui.QPalette.Foreground, QtGui.QColor("red"))
+        self.ui.songProgress.setPalette(tmppalette)
+
         self.mpd = mpdclient2.connect()
         self.oldPlaylistId = -1
         self.oldSongId = -99	# -1 means not playing
@@ -46,6 +52,8 @@ class MainWindow(QtGui.QMainWindow):
             somethingChanged = True
         # See if play status or song changed
         if self.mpd.status()['state'] == "play":
+            if self.oldSongId == -1:
+                somethingChanged = True
             if int (self.mpd.currentsong()['id']) != self.oldSongId:
                 somethingChanged = True
         else:
@@ -74,3 +82,11 @@ class MainWindow(QtGui.QMainWindow):
                 self.ui.curArtist.setText ("")
                 self.oldSongId = -1
 
+        #Always update progress bar
+        try: 
+            timestr = self.mpd.status()['time']
+        except KeyError:
+            timestr = "-1:-1"
+        now, length = timestr.split(":")
+        now = str( int(now)/60 ) + ":" + str(int(now)%60)
+        length = str( int(length)/60 ) + ":" + str(int(length)%60)

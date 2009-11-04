@@ -180,6 +180,13 @@ color: rgb(237, 237, 237);</string>
         </item>
        </layout>
       </item>
+      <item>
+       <widget class="QProgressBar" name="songProgress">
+        <property name="value">
+         <number>24</number>
+        </property>
+       </widget>
+      </item>
      </layout>
     </item>
     <item row="3" column="0">
