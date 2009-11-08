@@ -7,8 +7,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>621</width>
-    <height>738</height>
+    <width>665</width>
+    <height>635</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -183,7 +183,7 @@ color: rgb(237, 237, 237);</string>
       <item>
        <widget class="QProgressBar" name="songProgress">
         <property name="value">
-         <number>24</number>
+         <number>50</number>
         </property>
        </widget>
       </item>
