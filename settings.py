@@ -10,7 +10,11 @@ class Settings (QtCore.QSettings):
                 "maxPlaylist":			"5", \
                 "mpdServer":			"localhost", \
                 "mpdPort":				"", \
-                "mpdPwd":				"" }
+                "mpdPwd":				"", \
+                "vkRow1":               "1234567890", \
+                "vkRow2":               "qwertyuiop", \
+                "vkRow3":               "asdfghjkl", \
+                "vkRow4":               "zxcvbnm"}
 
     def value (self, key):
         res = QtCore.QSettings.value (self, key, "THIS_KEY_DIDN'T_EXIST")
