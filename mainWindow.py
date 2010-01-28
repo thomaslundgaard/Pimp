@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from PyQt4 import QtCore,QtGui
 from mainWindow_ui import Ui_MainWindow
 from serverInterface import ServerInterface
@@ -6,12 +8,13 @@ import mpdclient2
 import time
 
 class MainWindow(QtGui.QMainWindow):
+    def stateChanged(self):
+        print "state blev ændret"
     def __init__(self):
         QtGui.QMainWindow.__init__(self)
 
         self.ui=Ui_MainWindow()
         self.ui.setupUi(self)
-        self.server = ServerInterface()
 
         #Set UI styles TODO:Setting progressbar color doesnt work
         tmppalette = self.ui.songProgress.palette()
@@ -19,13 +22,12 @@ class MainWindow(QtGui.QMainWindow):
         tmppalette.setColor(QtGui.QPalette.Foreground, QtGui.QColor("red"))
         self.ui.songProgress.setPalette(tmppalette)
 
-        self.mpd = mpdclient2.connect()
-        self.oldPlaylistId = -1
-        self.oldSongId = -99	# -1 means not playing
-        self.startTimer(250)
-        
         self.isFullscreen = False
         #self.showFullScreen()
+
+        # Server & callbacks
+        self.server = ServerInterface()
+        self.server.sigStateChanged.connect(self.stateChanged)
 
     def timerEvent(self, event):
         if QtGui.qApp.activeWindow() == None and self.isFullscreen:
@@ -46,6 +48,7 @@ class MainWindow(QtGui.QMainWindow):
         else:
             self.isFullscreen = True
             self.showFullScreen()
+
 
     def periodicMpdCheck (self):
         somethingChanged = False

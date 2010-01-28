@@ -31,7 +31,7 @@ color: rgb(237, 237, 237);</string>
     <item row="1" column="0">
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
-       <widget class="QLabel" name="label">
+       <widget class="QLabel" name="stateLabel">
         <property name="font">
          <font>
           <family>Sans Serif</family>

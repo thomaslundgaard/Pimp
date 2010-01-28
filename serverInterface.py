@@ -11,14 +11,19 @@ import socket
 
 
 class ServerInterface(QtCore.QObject):
+    sigConnected = QtCore.pyqtSignal()
+    sigDisconnected = QtCore.pyqtSignal()
+    sigSongChanged = QtCore.pyqtSignal()
+    sigTimeChanged = QtCore.pyqtSignal()
+    sigPlaylistChanged = QtCore.pyqtSignal()
+    sigStateChanged = QtCore.pyqtSignal()
+
     def __init__(self):
         QtCore.QObject.__init__(self)
+        self.lastState=-23
         self.settings = Settings()
         self.mpd = MPDClient()
         self.connect()
-
-    def timerEvent(self, event):
-        self.emit(QtCore.SIGNAL("songChanged"))
 
     def connect(self):
         server = self.settings.value("server")
@@ -36,8 +41,12 @@ class ServerInterface(QtCore.QObject):
             except CommandError:
                 print "Unable to connect: Invalid password"
                 return False
-
-        self.emit(QtCore.SIGNAL("connected()"))
+        self.sigConnected.emit()
         self.startTimer(250)
         return True
 
+    def timerEvent(self, event):
+        status = self.mpd.status()
+        if status['state'] != self.lastState:
+            self.sigStateChanged.emit()
+            self.lastState = status['state']
