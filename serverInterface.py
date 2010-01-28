@@ -13,16 +13,19 @@ import socket
 class ServerInterface(QtCore.QObject):
     sigConnected = QtCore.pyqtSignal()
     sigDisconnected = QtCore.pyqtSignal()
-    sigSongChanged = QtCore.pyqtSignal()
-    sigTimeChanged = QtCore.pyqtSignal()
-    sigPlaylistChanged = QtCore.pyqtSignal()
-    sigStateChanged = QtCore.pyqtSignal()
+    sigSongChanged = QtCore.pyqtSignal(int)
+    sigTimeChanged = QtCore.pyqtSignal(int)
+    sigPlaylistChanged = QtCore.pyqtSignal(int)
+    sigStateChanged = QtCore.pyqtSignal(str)
 
     def __init__(self):
         QtCore.QObject.__init__(self)
-        self.lastState=-23
         self.settings = Settings()
         self.mpd = MPDClient()
+        self.lastSong=-9999
+        self.lastTime=-9999
+        self.lastPlaylist=-9999
+        self.lastState=-9999
         self.connect()
 
     def connect(self):
@@ -48,5 +51,9 @@ class ServerInterface(QtCore.QObject):
     def timerEvent(self, event):
         status = self.mpd.status()
         if status['state'] != self.lastState:
-            self.sigStateChanged.emit()
+            self.sigStateChanged.emit(status['state'])
             self.lastState = status['state']
+        if status['songid'] != self.lastSong:
+            self.sigSongChanged.emit(status['songid'])
+            self.lastSong = status['songid']
+        if s

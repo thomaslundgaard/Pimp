@@ -8,8 +8,6 @@ import mpdclient2
 import time
 
 class MainWindow(QtGui.QMainWindow):
-    def stateChanged(self):
-        print "state blev ændret"
     def __init__(self):
         QtGui.QMainWindow.__init__(self)
 
@@ -49,6 +47,8 @@ class MainWindow(QtGui.QMainWindow):
             self.isFullscreen = True
             self.showFullScreen()
 
+    def stateChanged(self, state):
+        print "state blev ændret:", state
 
     def periodicMpdCheck (self):
         somethingChanged = False
