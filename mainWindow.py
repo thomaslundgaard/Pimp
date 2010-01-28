@@ -1,5 +1,6 @@
 from PyQt4 import QtCore,QtGui
 from mainWindow_ui import Ui_MainWindow
+from serverInterface import ServerInterface
 import adminDialog
 import mpdclient2
 import time
@@ -10,6 +11,7 @@ class MainWindow(QtGui.QMainWindow):
 
         self.ui=Ui_MainWindow()
         self.ui.setupUi(self)
+        self.server = ServerInterface()
 
         #Set UI styles TODO:Setting progressbar color doesnt work
         tmppalette = self.ui.songProgress.palette()
