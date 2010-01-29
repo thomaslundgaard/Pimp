@@ -27,6 +27,7 @@ class MainWindow(QtGui.QStackedWidget):
     def gotoFullscreen(self):
         self.isFullscreen = True
         self.showFullScreen()
+        self.raise()
 
     def leaveFullscreen(self):
         self.isFullscreen = False
@@ -40,10 +41,12 @@ class MainWindow(QtGui.QStackedWidget):
     def changeEvent(self, event):
         if QtGui.qApp.activeWindow() == None and self.isFullscreen:
             self.showFullScreen()
+            self.raise()
 
     def timerEvent(self, event):
         if QtGui.qApp.activeWindow() == None and self.isFullscreen:
             self.showFullScreen()
+            self.raise()
 
     def gotoMainWidget(self):
         self.setCurrentWidget (self.mainWidget)
