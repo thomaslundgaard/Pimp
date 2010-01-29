@@ -12,9 +12,7 @@
    </rect>
   </property>
   <property name="styleSheet">
-   <string notr="true">background: qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:0, stop:0.565217 rgba(50, 50, 50, 255), stop:1 rgba(100, 100, 100, 255));
-font: 14pt &quot;Sans Serif&quot;;
-color: rgb(237, 237, 237);</string>
+   <string notr="true"/>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
@@ -31,7 +29,8 @@ color: rgb(237, 237, 237);</string>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 20pt &quot;Sans Serif&quot;;</string>
+        <string notr="true">font: 20pt &quot;Sans Serif&quot;;
+background-color: rgba(255, 255, 255, 0);</string>
        </property>
        <property name="text">
         <string>Currently playing:</string>
@@ -64,7 +63,7 @@ color: rgb(237, 237, 237);</string>
           </font>
          </property>
          <property name="styleSheet">
-          <string notr="true"/>
+          <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
          </property>
          <property name="text">
           <string>Artist:</string>
@@ -83,7 +82,8 @@ color: rgb(237, 237, 237);</string>
           </font>
          </property>
          <property name="styleSheet">
-          <string notr="true">font: 28pt &quot;Sans Serif&quot;;</string>
+          <string notr="true">font: 28pt &quot;Sans Serif&quot;;
+background-color: rgba(255, 255, 255, 0);</string>
          </property>
          <property name="text">
           <string>TextLabel</string>
@@ -130,6 +130,9 @@ color: rgb(237, 237, 237);</string>
            <bold>false</bold>
           </font>
          </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+         </property>
          <property name="text">
           <string>Title:</string>
          </property>
@@ -147,7 +150,8 @@ color: rgb(237, 237, 237);</string>
           </font>
          </property>
          <property name="styleSheet">
-          <string notr="true">font: 28pt &quot;Sans Serif&quot;;</string>
+          <string notr="true">font: 28pt &quot;Sans Serif&quot;;
+background-color: rgba(255, 255, 255, 0);</string>
          </property>
          <property name="text">
           <string>TextLabel</string>
@@ -179,6 +183,9 @@ selection-background-color: rgb(126, 0, 2);
        </property>
        <property name="value">
         <number>0</number>
+       </property>
+       <property name="format">
+        <string/>
        </property>
       </widget>
      </item>

@@ -8,8 +8,14 @@ class MainWidget(QtGui.QWidget):
         QtGui.QWidget.__init__(self, parent)
         self.ui = Ui_MainWidget()
         self.ui.setupUi(self)
+        self.widgets = (self.ui.stateLabel, self.ui.label_2, self.ui.label_5, \
+                self.ui.curTitle, self.ui.curArtist, self.ui.songProgress, \
+                self.ui.searchBtn, self.ui.playlist )
+        self.disconnected()     # setup UI to reflect current status
 
         # Signals from MPD server
+        self.parent().server.sigConnected.connect(self.connected)
+        self.parent().server.sigDisconnected.connect(self.disconnected)
         self.parent().server.sigStateChanged.connect(self.stateChanged)
         self.parent().server.sigSongChanged.connect(self.songChanged)
         self.parent().server.sigTimeChanged.connect(self.timeChanged)
@@ -32,6 +38,7 @@ class MainWidget(QtGui.QWidget):
         if state == 'stop':
             self.ui.curTitle.setText ("Not playing")
             self.ui.curArtist.setText ("")
+            self.ui.songProgress.setFormat("")
 
     def songChanged(self, songId):
         if self.parent().server.status()['state'] != 'stop':
@@ -55,4 +62,18 @@ class MainWidget(QtGui.QWidget):
             self.ui.playlist.addItem( str(int(song['pos'])+1) + '. ' \
                     + unicode(song['artist'],"utf8") + ' - ' \
                     + unicode(song['title'],"utf8") )
+
+    def connected(self):
+        for widget in self.widgets:
+            widget.setDisabled(False)
+        self.ui.curTitle.setText("Not playing")
+
+    def disconnected(self):
+        for widget in self.widgets:
+            widget.setDisabled(True)
+        self.ui.curArtist.setText("")
+        self.ui.curTitle.setText("Not connected")
+        self.ui.playlist.clear()
+        self.ui.songProgress.setValue(0)
+        self.ui.songProgress.setFormat("")
 

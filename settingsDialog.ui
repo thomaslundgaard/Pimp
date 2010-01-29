@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>564</width>
-    <height>348</height>
+    <height>353</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -30,7 +30,7 @@
       <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
      </property>
      <property name="title">
-      <string>MPD Setting</string>
+      <string>MPD Setting (restart required)</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_4">
       <item row="0" column="2">
@@ -236,6 +236,9 @@
   <tabstop>pwdEdit</tabstop>
   <tabstop>pwdRepeatEdit</tabstop>
   <tabstop>maxPlaylistSpinBox</tabstop>
+  <tabstop>mpdServerEdit</tabstop>
+  <tabstop>mpdPort</tabstop>
+  <tabstop>mpdPwdEdit</tabstop>
   <tabstop>buttonBox</tabstop>
  </tabstops>
  <resources/>

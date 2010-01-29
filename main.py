@@ -5,6 +5,7 @@ from mainWindow import MainWindow
 
 def main():
     app = QtGui.QApplication(sys.argv)
+    app.setWindowIcon(QtGui.QIcon("res/karaoke.png"))
     app.setOrganizationName("Blupix");
     app.setApplicationName("PyMpdJuke");
     #QtCore.Qt.setOrganizationDomain("mysoft.com");
