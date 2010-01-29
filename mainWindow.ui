@@ -182,8 +182,14 @@ color: rgb(237, 237, 237);</string>
       </item>
       <item>
        <widget class="QProgressBar" name="songProgress">
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(75, 75, 75);
+selection-background-color: rgb(126, 0, 2);
+
+</string>
+        </property>
         <property name="value">
-         <number>50</number>
+         <number>0</number>
         </property>
        </widget>
       </item>
