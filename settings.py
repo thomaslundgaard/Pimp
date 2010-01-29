@@ -10,7 +10,7 @@ class Settings (QtCore.QSettings):
                 "maxPlaylist":			"5", \
                 "server":	    		"localhost", \
                 "port":		    		"6600", \
-                "password": 		    "" }
+                "password": 		    "", \
                 "vkRow1":               "1234567890", \
                 "vkRow2":               "qwertyuiop", \
                 "vkRow3":               "asdfghjkl", \
