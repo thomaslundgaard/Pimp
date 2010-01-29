@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from PyQt4 import QtGui, QtCore
 from adminDialog_ui import Ui_AdminDialog
 import settingsDialog
