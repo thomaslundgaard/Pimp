@@ -1,15 +1,38 @@
 # -*- coding: utf-8 -*-
 from PyQt4 import QtGui
+from serverInterface import ServerInterface
 from searchWidget import SearchWidget
 from mainWidget import MainWidget
 
 class MainWindow(QtGui.QStackedWidget):
     def __init__(self):
         QtGui.QStackedWidget.__init__(self)
+        self.isFullscreen = False
+
+        self.server = ServerInterface()
         self.mainWidget = MainWidget(self)
         self.addWidget(self.mainWidget)
         self.searchWidget = SearchWidget(self)
         self.addWidget(self.searchWidget)
+
+        self.server.connect()
+        self.startTimer(500)
+
+    def gotoFullscreen(self):
+        self.isFullscreen = True
+        self.showFullScreen()
+
+    def leaveFullscreen(self):
+        self.isFullscreen = False
+        self.showMinimized()
+
+    def closeEvent(self, event):
+        if self.isFullscreen:
+            QtCore.QEvent.ignore(event)
+
+    def timerEvent(self, event):
+        if QtGui.qApp.activeWindow() == None and self.isFullscreen:
+            self.showFullScreen()
 
     def gotoMainWidget(self):
         self.setCurrentWidget (self.mainWidget)

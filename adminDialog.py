@@ -27,8 +27,7 @@ class AdminDialog(QtGui.QDialog):
 
     def minimizeApp(self):
         if self.checkPwd():
-            self.parent().isFullscreen = False
-            self.parent().showMinimized()
+            self.parent().parent().leaveFullscreen()
             self.close()
         
     def quitApp(self):

@@ -11,14 +11,10 @@
     <height>635</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string>PyMpdJuke</string>
-  </property>
   <property name="styleSheet">
-   <string notr="true">background-color: qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:0, stop:0.565217 rgba(50, 50, 50, 255), stop:1 rgba(100, 100, 100, 255));
+   <string notr="true">background: qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:0, stop:0.565217 rgba(50, 50, 50, 255), stop:1 rgba(100, 100, 100, 255));
 font: 14pt &quot;Sans Serif&quot;;
-color: rgb(237, 237, 237);
-</string>
+color: rgb(237, 237, 237);</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
@@ -229,6 +225,29 @@ font: 20pt &quot;Sans Serif&quot;;</string>
        </property>
       </widget>
      </item>
+     <item>
+      <widget class="QPushButton" name="fullscreenBtn">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>100</width>
+         <height>100</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string>background-color: rgb(75, 75, 75);</string>
+       </property>
+       <property name="text">
+        <string>Full-
+screen</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
    <item>
@@ -252,7 +271,7 @@ font: 20pt &quot;Sans Serif&quot;;</string>
    <slot>enterAdmin()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>812</x>
+     <x>711</x>
      <y>294</y>
     </hint>
     <hint type="destinationlabel">
@@ -268,8 +287,8 @@ font: 20pt &quot;Sans Serif&quot;;</string>
    <slot>enterSearch()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>616</x>
-     <y>237</y>
+     <x>601</x>
+     <y>294</y>
     </hint>
     <hint type="destinationlabel">
      <x>655</x>
@@ -277,9 +296,26 @@ font: 20pt &quot;Sans Serif&quot;;</string>
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>fullscreenBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWidget</receiver>
+   <slot>enterFullscreen()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>777</x>
+     <y>257</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>803</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>enterAdmin()</slot>
   <slot>enterSearch()</slot>
+  <slot>enterFullscreen()</slot>
  </slots>
 </ui>

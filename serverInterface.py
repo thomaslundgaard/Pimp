@@ -21,7 +21,6 @@ class ServerInterface(QtCore.QObject, MPDClient):
         self.lastSong=-9999
         self.lastTime=-9999
         self.lastPlaylist=-9999
-        self.connect()
 
     def connect(self):
         server = self.settings.value("server")
