@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import os,sys
+import sys
 from PyQt4 import QtCore,QtGui
 from mainWindow import MainWindow
 
@@ -14,5 +14,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-
  
