@@ -55,10 +55,10 @@ class ServerInterface(QtCore.QObject, MPDClient):
             self.disconnected()
             return
         if status['playlist'] != self.lastPlaylist or \
-         status['songid'] != self.lastSong:
+         'songid' in status and status['songid'] != self.lastSong:
             self.sigPlaylistChanged.emit(int(status['playlist']))
             self.lastPlaylist = status['playlist']
-        if status['songid'] != self.lastSong:
+        if 'songid' in status and status['songid'] != self.lastSong:
             self.sigSongChanged.emit(int(status['songid']))
             self.lastSong = status['songid']
         if 'time' in status and status['time'] != self.lastTime:

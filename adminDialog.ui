@@ -12,8 +12,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>591</width>
-    <height>188</height>
+    <width>600</width>
+    <height>400</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -32,8 +32,62 @@
   <property name="styleSheet">
    <string notr="true"/>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
-   <item row="10" column="0" colspan="6">
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QLabel" name="label_2">
+     <property name="minimumSize">
+      <size>
+       <width>363</width>
+       <height>25</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>363</width>
+       <height>25</height>
+      </size>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>16</pointsize>
+       <weight>75</weight>
+       <italic>false</italic>
+       <bold>true</bold>
+       <underline>false</underline>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+     </property>
+     <property name="text">
+      <string>Please enter admin &amp;password:</string>
+     </property>
+     <property name="buddy">
+      <cstring>pwdEdit</cstring>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="infoLabel">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>13</pointsize>
+       <italic>true</italic>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(255, 0, 0);
+background-color: rgba(255, 255, 255, 0);</string>
+     </property>
+     <property name="text">
+      <string>TextLabel</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QLineEdit" name="pwdEdit">
      <property name="font">
       <font>
@@ -45,167 +99,84 @@
      </property>
     </widget>
    </item>
-   <item row="11" column="2">
-    <widget class="QPushButton" name="minimizeBtn">
-     <property name="minimumSize">
-      <size>
-       <width>100</width>
-       <height>60</height>
-      </size>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>15</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>&amp;Minimize</string>
-     </property>
-    </widget>
-   </item>
-   <item row="11" column="3">
-    <widget class="QPushButton" name="quitBtn">
-     <property name="minimumSize">
-      <size>
-       <width>100</width>
-       <height>60</height>
-      </size>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>15</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>&amp;Quit</string>
-     </property>
-    </widget>
-   </item>
-   <item row="11" column="5">
-    <widget class="QPushButton" name="cancelBtn">
-     <property name="minimumSize">
-      <size>
-       <width>100</width>
-       <height>60</height>
-      </size>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>15</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>&amp;Cancel</string>
-     </property>
-    </widget>
-   </item>
-   <item row="12" column="3">
-    <spacer name="verticalSpacer">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>40</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item row="11" column="0">
-    <spacer name="horizontalSpacer">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>40</width>
-       <height>20</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item row="0" column="0" colspan="6">
-    <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QLabel" name="label_2">
+      <widget class="QPushButton" name="minimizeBtn">
        <property name="minimumSize">
         <size>
-         <width>363</width>
-         <height>25</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>363</width>
-         <height>25</height>
+         <width>100</width>
+         <height>60</height>
         </size>
        </property>
        <property name="font">
         <font>
-         <pointsize>16</pointsize>
-         <weight>75</weight>
-         <italic>false</italic>
-         <bold>true</bold>
-         <underline>false</underline>
+         <pointsize>15</pointsize>
         </font>
        </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
-       </property>
        <property name="text">
-        <string>Please enter admin &amp;password:</string>
-       </property>
-       <property name="buddy">
-        <cstring>pwdEdit</cstring>
+        <string>&amp;Minimize</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="infoLabel">
-       <property name="enabled">
-        <bool>true</bool>
+      <widget class="QPushButton" name="quitBtn">
+       <property name="minimumSize">
+        <size>
+         <width>100</width>
+         <height>60</height>
+        </size>
        </property>
        <property name="font">
         <font>
-         <pointsize>13</pointsize>
-         <italic>true</italic>
+         <pointsize>15</pointsize>
         </font>
        </property>
-       <property name="styleSheet">
-        <string notr="true">color: rgb(255, 0, 0);
-background-color: rgba(255, 255, 255, 0);</string>
+       <property name="text">
+        <string>&amp;Quit</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton">
+       <property name="minimumSize">
+        <size>
+         <width>100</width>
+         <height>60</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>15</pointsize>
+        </font>
        </property>
        <property name="text">
-        <string>TextLabel</string>
+        <string>&amp;Settings</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="cancelBtn">
+       <property name="minimumSize">
+        <size>
+         <width>100</width>
+         <height>60</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>15</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>&amp;Cancel</string>
        </property>
       </widget>
      </item>
     </layout>
    </item>
-   <item row="11" column="4">
-    <widget class="QPushButton" name="pushButton">
-     <property name="minimumSize">
-      <size>
-       <width>100</width>
-       <height>60</height>
-      </size>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>15</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>&amp;Settings</string>
-     </property>
-    </widget>
-   </item>
   </layout>
  </widget>
- <tabstops>
-  <tabstop>pwdEdit</tabstop>
- </tabstops>
  <resources>
   <include location="res.qrc"/>
  </resources>
@@ -217,8 +188,8 @@ background-color: rgba(255, 255, 255, 0);</string>
    <slot>minimizeApp()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>128</x>
-     <y>171</y>
+     <x>137</x>
+     <y>240</y>
     </hint>
     <hint type="destinationlabel">
      <x>48</x>
@@ -233,8 +204,8 @@ background-color: rgba(255, 255, 255, 0);</string>
    <slot>cancelDialog()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>580</x>
-     <y>171</y>
+     <x>589</x>
+     <y>306</y>
     </hint>
     <hint type="destinationlabel">
      <x>414</x>
@@ -249,8 +220,8 @@ background-color: rgba(255, 255, 255, 0);</string>
    <slot>quitApp()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>265</x>
-     <y>139</y>
+     <x>274</x>
+     <y>372</y>
     </hint>
     <hint type="destinationlabel">
      <x>230</x>
@@ -269,8 +240,8 @@ background-color: rgba(255, 255, 255, 0);</string>
      <y>82</y>
     </hint>
     <hint type="destinationlabel">
-     <x>116</x>
-     <y>150</y>
+     <x>125</x>
+     <y>240</y>
     </hint>
    </hints>
   </connection>

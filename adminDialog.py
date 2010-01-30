@@ -2,6 +2,7 @@
 
 from PyQt4 import QtGui, QtCore
 from adminDialog_ui import Ui_AdminDialog
+from virtualKeyboard import VirtualKeyboard
 import settingsDialog
 from settings import Settings
 
@@ -13,6 +14,9 @@ class AdminDialog(QtGui.QDialog):
         self.ui.infoLabel.hide()
         self.resize(-1, -1)
         self.ui.pwdEdit.setFocus()
+        vkb = VirtualKeyboard(self,self.ui.pwdEdit)
+        vkb.setMinimumSize(320,240)
+        self.layout().addWidget(vkb)
     
     def checkPwd(self):
         settings = Settings()

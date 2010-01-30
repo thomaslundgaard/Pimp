@@ -9,12 +9,6 @@ class MainWindow(QtGui.QStackedWidget):
         QtGui.QStackedWidget.__init__(self)
         self.isFullscreen = False
         self.resize(800, 600)
-        self.setStyleSheet("\
-                background: qlineargradient(spread:pad, x1:1, y1:1, x2:1,\
-                    y2:0, stop:0.565217 rgba(50, 50, 50, 255), \
-                    stop:1 rgba(100, 100, 100, 255)); \
-                font: 14pt \"Sans Serif\"; \
-                color: rgb(237, 237, 237);")\
         
         self.server = ServerInterface()
         self.mainWidget = MainWidget(self)

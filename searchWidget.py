@@ -3,6 +3,7 @@ from PyQt4 import QtGui
 from searchWidget_ui import Ui_SearchWidget
 from virtualKeyboard import VirtualKeyboard
 from settings import Settings
+from songItem import SongItem
 
 class SearchWidget(QtGui.QWidget):
     def __init__(self, parent):
@@ -28,6 +29,8 @@ class SearchWidget(QtGui.QWidget):
         self.cancel()
     def cancel(self):
         self.parentWidget().gotoMainWidget()
+        self.clearResults()
+        self.ui.searchLine.clear()
     def searchTextChanged(self, text):
         words = str(text).split()
         self.keyWords = [word.lower() for word in words if len(word) >= 2]
@@ -41,7 +44,7 @@ class SearchWidget(QtGui.QWidget):
 
         self.clearResults()
         for result in results:
-            self.resultList.append(SearchEntry(result))
+            self.resultList.append(SongItem(result))
         self.resultList.sort(self._sortResults, reverse=True)
 
         for item in self.resultList:
@@ -62,7 +65,7 @@ class SearchWidget(QtGui.QWidget):
         self.parentWidget().server.add(entry.filename)
 
     def _sortResults(self,x,y):
-        #function for sorting SearchEntries
+        #function for sorting SongItems
         #return 1 if x > y
         #return 0 if x = y
         #return -1 if x < y
@@ -106,31 +109,4 @@ class SearchWidget(QtGui.QWidget):
                     return -1
         return 0
 
-class SearchEntry:
-    def __init__(self,description):
-        try: self.title=description['title']
-        except KeyError: self.title = None
-        try: self.artist=description['artist']
-        except KeyError: self.artist = None
-        try: self.filename=description['file']
-        except KeyError: self.filename = None
-        try: self.album = description['album']
-        except KeyError: self.album = None
-        try: self.time =int( description['time'])
-        except KeyError: self.time = None
-
-        # Generate text entry
-        self.textEntry = ""
-        if self.artist or self.title:
-            if self.artist:
-                self.textEntry = self.textEntry + self.artist + " - "
-            else:
-                self.textEntry = self.textEntry + "Unknown Artist - "
-            if self.title:
-                self.textEntry = self.textEntry + self.title
-            else:
-                self.textEntry += "Unknown Title"
-        else:
-            self.textEntry += self.filename
-        self.textEntry += ' (%i:%02i)' % (self.time/60, self.time%60)
 

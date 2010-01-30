@@ -84,13 +84,16 @@ class VirtualKeyboard(QtGui.QWidget):
         self.inputField = lineEdit
 
     def _onCharKeyDown(self, char):
-        self.inputField.insert(char)
+        try: self.inputField.insert(char)
+        except AttributeError: pass
 
     def _onBackspaceDown(self):
-        self.inputField.backspace()
+        try: self.inputField.backspace()
+        except AttributeError: pass
 
     def _onClearDown(self):
-        self.inputField.clear()
+        try: self.inputField.clear()
+        except AttributeError: pass
         
 
 class keyboardPushbutton(QtGui.QPushButton):

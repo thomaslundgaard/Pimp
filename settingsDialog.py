@@ -1,7 +1,7 @@
 from PyQt4 import QtCore, QtGui
 from settingsDialog_ui import Ui_SettingsDialog
 from settings import Settings
-
+from virtualKeyboard import VirtualKeyboard
 
 class SettingsDialog (QtGui.QDialog):
     def __init__ (self, parent=None):
@@ -13,6 +13,9 @@ class SettingsDialog (QtGui.QDialog):
         self.ui.pwdEdit.setText (conf.value("adminPassword"))
         self.ui.pwdRepeatEdit.setText (conf.value("adminPassword"))
         self.ui.maxPlaylistSpinBox.setValue (int(conf.value("maxPlaylist")))
+        #self.vkb = VirtualKeyboard(self)
+        #self.vkb.setMinimumSize(320,240)
+        #self.layout().addWidget(self.vkb)
 
     def okBtn (self):
         if self.ui.pwdEdit.text() != self.ui.pwdRepeatEdit.text():
@@ -31,3 +34,8 @@ class SettingsDialog (QtGui.QDialog):
     def cancelBtn (self):
         self.close()
 
+class LineEdit (QtGui.QLineEdit):
+    sigGotFocus = QtCore.pyqtSignal(LineEdit)
+    def focusInEvent(self,event):
+        QtGui.QLineEdit.focusInEvent(self,event)
+        self.sigGotFocus.emit(self)
