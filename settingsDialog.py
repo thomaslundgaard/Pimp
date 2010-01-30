@@ -35,7 +35,7 @@ class SettingsDialog (QtGui.QDialog):
         self.close()
 
 class LineEdit (QtGui.QLineEdit):
-    sigGotFocus = QtCore.pyqtSignal(LineEdit)
+    sigGotFocus = QtCore.pyqtSignal(QtGui.QLineEdit)
     def focusInEvent(self,event):
         QtGui.QLineEdit.focusInEvent(self,event)
         self.sigGotFocus.emit(self)
