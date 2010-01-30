@@ -80,7 +80,7 @@ class VirtualKeyboard(QtGui.QWidget):
 
         self.setLayout(grid)
 
-    def setInputField(self, lineEdit):
+    def setInputLine(self, lineEdit):
         self.inputField = lineEdit
 
     def _onCharKeyDown(self, char):
