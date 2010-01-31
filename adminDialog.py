@@ -12,11 +12,11 @@ class AdminDialog(QtGui.QDialog):
         self.ui = Ui_AdminDialog ()
         self.ui.setupUi (self)
         self.ui.infoLabel.hide()
-        self.resize(-1, -1)
         self.ui.pwdEdit.setFocus()
         vkb = VirtualKeyboard(self,self.ui.pwdEdit)
-        vkb.setMinimumSize(320,240)
+        vkb.setMinimumSize(600,300)
         self.layout().addWidget(vkb)
+        self.resize(-1, -1)
     
     def checkPwd(self):
         settings = Settings()

@@ -20,6 +20,8 @@ class MainWindow(QtGui.QStackedWidget):
 
     def gotoFullscreen(self):
         self.isFullscreen = True
+        self.mainWidget.ui.adminBtn.setText ("Admin /\nLeave fullscreen")
+        self.mainWidget.ui.fullscreenBtn.setVisible(False)
         self.showFullScreen()
         self.activateWindow()
         self.raise_()
@@ -28,6 +30,8 @@ class MainWindow(QtGui.QStackedWidget):
         self.isFullscreen = False
         self.showNormal()
         self.showMinimized()
+        self.mainWidget.ui.adminBtn.setText ("Admin")
+        self.mainWidget.ui.fullscreenBtn.setVisible(True)
 
     def closeEvent(self, event):
         if self.isFullscreen:
