@@ -102,7 +102,7 @@ background-color: rgba(255, 255, 255, 0);</string>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QPushButton" name="minimizeBtn">
+      <widget class="QPushButton" name="leaveFullscreenBtn">
        <property name="minimumSize">
         <size>
          <width>100</width>
@@ -115,7 +115,7 @@ background-color: rgba(255, 255, 255, 0);</string>
         </font>
        </property>
        <property name="text">
-        <string>&amp;Minimize</string>
+        <string>&amp;Leave Fullscreen</string>
        </property>
       </widget>
      </item>
@@ -182,34 +182,18 @@ background-color: rgba(255, 255, 255, 0);</string>
  </resources>
  <connections>
   <connection>
-   <sender>minimizeBtn</sender>
-   <signal>clicked()</signal>
-   <receiver>AdminDialog</receiver>
-   <slot>minimizeApp()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>137</x>
-     <y>240</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>48</x>
-     <y>114</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>cancelBtn</sender>
    <signal>clicked()</signal>
    <receiver>AdminDialog</receiver>
    <slot>cancelDialog()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>589</x>
-     <y>306</y>
+     <x>764</x>
+     <y>338</y>
     </hint>
     <hint type="destinationlabel">
-     <x>414</x>
-     <y>15</y>
+     <x>741</x>
+     <y>261</y>
     </hint>
    </hints>
   </connection>
@@ -220,28 +204,28 @@ background-color: rgba(255, 255, 255, 0);</string>
    <slot>quitApp()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>274</x>
-     <y>372</y>
+     <x>394</x>
+     <y>343</y>
     </hint>
     <hint type="destinationlabel">
-     <x>230</x>
-     <y>179</y>
+     <x>333</x>
+     <y>261</y>
     </hint>
    </hints>
   </connection>
   <connection>
    <sender>pwdEdit</sender>
    <signal>returnPressed()</signal>
-   <receiver>minimizeBtn</receiver>
+   <receiver>leaveFullscreenBtn</receiver>
    <slot>click()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>36</x>
-     <y>82</y>
+     <x>39</x>
+     <y>228</y>
     </hint>
     <hint type="destinationlabel">
-     <x>125</x>
-     <y>240</y>
+     <x>39</x>
+     <y>306</y>
     </hint>
    </hints>
   </connection>
@@ -252,20 +236,36 @@ background-color: rgba(255, 255, 255, 0);</string>
    <slot>settings()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>424</x>
-     <y>141</y>
+     <x>592</x>
+     <y>343</y>
     </hint>
     <hint type="destinationlabel">
-     <x>438</x>
-     <y>181</y>
+     <x>538</x>
+     <y>263</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>leaveFullscreenBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>AdminDialog</receiver>
+   <slot>leaveFullscreen()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>95</x>
+     <y>307</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>107</x>
+     <y>255</y>
     </hint>
    </hints>
   </connection>
  </connections>
  <slots>
-  <slot>minimizeApp()</slot>
   <slot>quitApp()</slot>
   <slot>cancelDialog()</slot>
   <slot>settings()</slot>
+  <slot>leaveFullscreen()</slot>
  </slots>
 </ui>

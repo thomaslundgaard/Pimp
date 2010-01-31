@@ -29,7 +29,7 @@ class AdminDialog(QtGui.QDialog):
            self.ui.pwdEdit.setFocus()
            return False
 
-    def minimizeApp(self):
+    def leaveFullscreen(self):
         if self.checkPwd():
             self.parent().parent().leaveFullscreen()
             self.close()

@@ -29,7 +29,6 @@ class MainWindow(QtGui.QStackedWidget):
     def leaveFullscreen(self):
         self.isFullscreen = False
         self.showNormal()
-        self.showMinimized()
         self.mainWidget.ui.adminBtn.setText ("Admin")
         self.mainWidget.ui.fullscreenBtn.setVisible(True)
 
