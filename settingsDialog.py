@@ -51,9 +51,3 @@ class SettingsDialog (QtGui.QDialog):
             self.vkb.setInputLine(self.ui.mpdPwdEdit)
         if new == self.ui.mpdPortEdit:
             self.vkb.setInputLine(self.ui.mpdPortEdit)
-
-class LineEdit (QtGui.QLineEdit):
-    sigGotFocus = QtCore.pyqtSignal(QtGui.QLineEdit)
-    def focusInEvent(self,event):
-        QtGui.QLineEdit.focusInEvent(self,event)
-        self.sigGotFocus.emit(self)
