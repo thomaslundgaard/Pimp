@@ -53,4 +53,5 @@ class MainWindow(QtGui.QStackedWidget):
 
     def gotoSearchWidget(self):
         self.setCurrentWidget (self.searchWidget)
+        self.searchWidget.ui.searchLine.setFocus()
 

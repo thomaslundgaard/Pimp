@@ -8,9 +8,9 @@ class Settings (QtCore.QSettings):
         self.default = { \
                 "adminPassword":		"hidden", \
                 "maxPlaylist":			"5", \
-                "server":	    		"localhost", \
-                "port":		    		"6600", \
-                "password": 		    "", \
+                "mpdServer":	    		"localhost", \
+                "mpdPort":		    		"6600", \
+                "mpdPassword": 		    "", \
                 "vkRow1":               "1234567890", \
                 "vkRow2":               "qwertyuiop", \
                 "vkRow3":               "asdfghjkl", \
