@@ -14,15 +14,12 @@ class MainWidget(QtGui.QWidget):
                 self.ui.curTitle, self.ui.curArtist, self.ui.songProgress, \
                 self.ui.searchBtn, self.ui.playlist )
         self.shuffleList = []
-        self.disconnected()     # setup UI to reflect current status
+        self.onDisconnect()     # setup UI to reflect current status
 
         # Signals from MPD server
-        self.parent().server.sigConnected.connect(self.connected)
-        self.parent().server.sigDisconnected.connect(self.disconnected)
-        self.parent().server.sigStateChanged.connect(self.stateChanged)
-        self.parent().server.sigSongChanged.connect(self.songChanged)
-        self.parent().server.sigTimeChanged.connect(self.timeChanged)
-        self.parent().server.sigPlaylistChanged.connect(self.playlistChanged)
+        self.parent().server.sigConnected.connect(self.onConnect)
+        self.parent().server.sigDisconnected.connect(self.onDisconnect)
+        self.parent().server.sigStatusChanged.connect(self.onStatusChange)
 
     def enterAdmin(self):
         dialog = adminDialog.AdminDialog(self)
@@ -37,18 +34,39 @@ class MainWidget(QtGui.QWidget):
         else:
             self.parent().gotoFullscreen()
 
-    def stateChanged(self, state):
-        if state == 'stop':
-            self.ui.curTitle.setText ("Not playing")
-            self.ui.curArtist.setText ("")
-            self.ui.songProgress.setFormat("")
-            self.ui.songProgress.setValue(0)
-        elif state == "play":
-            self.songChanged(0) #update artist and title labels
+    def onStatusChange(self, changeList, status):
+        if status['state'] == 'stop' and \
+                len(self.parent().server.playlistinfo()) <= 0:
+            self.addRandomTrack()
+            self.parent().server.play()
+        if 'time' in changeList:
+            self.updateTime(status)
+        if 'playlist' in changeList or 'song' in changeList or \
+                'state' in changeList:
+            self.updateUi(status)
 
-    def songChanged(self, songId):
-        if self.parent().server.status()['state'] != 'stop':
-            curSong = SongItem(self.parent().server.currentsong())
+    def updateTime(self, status):
+        if status['state'] == 'play' or status['state'] == 'pause':
+            elapsed, total = status['time'].split(":")
+            elapsed = int(elapsed)
+            total = int(total)
+            txt = "%d:%02d/%d:%02d" \
+                    % (elapsed/60, elapsed%60, total/60, total%60)
+            self.ui.songProgress.setValue(elapsed)
+            self.ui.songProgress.setMaximum(total)
+            self.ui.songProgress.setFormat(txt)
+        else:
+            self.ui.songProgress.setValue(0)
+        timeBeforePlAdd = int(status['xfade']) + 5
+        if total-elapsed <= timeBeforePlAdd:
+            if len(self.parent().server.playlistinfo()) <= 1:
+                self.addRandomTrack()
+
+    def updateUi(self, status):
+        curSong = SongItem(self.parent().server.currentsong())
+        playlist = self.parent().server.playlistinfo()
+        # update labels
+        if status['state'] != 'stop':
             if curSong.title or curSong.artist:
                 if curSong.title:
                     title = curSong.title
@@ -65,33 +83,29 @@ class MainWidget(QtGui.QWidget):
 
             self.ui.curTitle.setText(unicode(title,"utf8"))
             self.ui.curArtist.setText(unicode(artist,"utf8"))
-
-            curItem = self.ui.playlist.item(curSong.pos)
-            curItem.setFont (QtGui.QFont("Arial", -1, QtGui.QFont.Bold))
-            self.ui.playlist.scrollToItem (curItem, \
-                    QtGui.QAbstractItemView.PositionAtCenter)
-
-    def timeChanged(self, elapsed, total):
-        txt = "%d:%02d/%d:%02d" % (elapsed/60, elapsed%60, total/60, total%60)
-        self.ui.songProgress.setValue (elapsed)
-        self.ui.songProgress.setMaximum (total)
-        self.ui.songProgress.setFormat(txt)
-
-    def playlistChanged(self, playlistId):
+        else:
+            self.ui.curTitle.setText ("Not playing")
+            self.ui.curArtist.setText ("")
+            self.ui.songProgress.setFormat("")
+            self.ui.songProgress.setValue(0)
+        # update playlist
         self.ui.playlist.clear()
-        playlist = self.parent().server.playlistinfo()
         for song in playlist:
             item = SongItem(song)
             self.ui.playlist.addItem( unicode( \
                     "%i. %s" % (item.pos + 1, item.textEntry),"utf8"))
-        self.songChanged(0) #hack to remark the playing song
-        if len(playlist) <= 0:
-            if len(self.shuffleList) <= 0:
-                self.createShuffleList()
-            self.parent().server.add(self.shuffleList.pop())
-            self.parent().server.play()
+        # make current track bold
+        curItem = self.ui.playlist.item(curSong.pos)
+        curItem.setFont (QtGui.QFont("Arial", -1, QtGui.QFont.Bold))
+        self.ui.playlist.scrollToItem (curItem, \
+                QtGui.QAbstractItemView.PositionAtCenter)
 
-    def connected(self):
+    def addRandomTrack(self):
+        if len(self.shuffleList) <= 0:
+            self.createShuffleList()
+        self.parent().server.add(self.shuffleList.pop())
+
+    def onConnect(self):
         for widget in self.widgets:
             widget.setDisabled(False)
         self.ui.curTitle.setText("Not playing")
@@ -112,7 +126,7 @@ class MainWidget(QtGui.QWidget):
                 in self.parent().server.listall() if 'file' in dict]
         random.shuffle(self.shuffleList)
 
-    def disconnected(self):
+    def onDisconnect(self):
         for widget in self.widgets:
             widget.setDisabled(True)
         self.ui.curArtist.setText("")
