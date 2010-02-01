@@ -3,6 +3,7 @@
 from PyQt4 import QtCore
 from settings import Settings
 from mpd import *
+from helperFunctions import *
 import socket
 from datetime import datetime
 
@@ -27,6 +28,7 @@ class ServerInterface(QtCore.QObject, MPDClient):
         server = str(self.settings.value("mpdServer"))
         port = str(self.settings.value("mpdPort"))
         password = str(self.settings.value("mpdPassword"))
+        print server, port, password
         try:
             MPDClient.connect (self, host=server, port=port)
         except socket.error:
@@ -80,3 +82,6 @@ class ServerInterface(QtCore.QObject, MPDClient):
         self.killTimer(self.timerId)
         MPDClient.disconnect(self)
         self.connect()
+
+    def updateDB(self):
+        tracks = map(parseTrackInfo,self.listallinfo())
