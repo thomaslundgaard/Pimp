@@ -24,9 +24,9 @@ class ServerInterface(QtCore.QObject, MPDClient):
         self.lastPlaylist=-9999
 
     def connect(self):
-        server = self.settings.value("mpdServer")
-        port = self.settings.value("mpdPort")
-        password = self.settings.value("mpdPassword")
+        server = str(self.settings.value("mpdServer"))
+        port = str(self.settings.value("mpdPort"))
+        password = str(self.settings.value("mpdPassword"))
         try:
             MPDClient.connect (self, host=server, port=port)
         except socket.error:
