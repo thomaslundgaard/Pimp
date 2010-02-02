@@ -11,17 +11,14 @@ from datetime import datetime
 class ServerInterface(QtCore.QObject, MPDClient):
     sigConnected = QtCore.pyqtSignal()
     sigDisconnected = QtCore.pyqtSignal()
-    sigStateChanged = QtCore.pyqtSignal(str)
-    sigSongChanged = QtCore.pyqtSignal(int)
-    sigTimeChanged = QtCore.pyqtSignal(int,int)     # (elapsed, total)
-    sigPlaylistChanged = QtCore.pyqtSignal(int)
+    sigStatusChanged = QtCore.pyqtSignal(list,dict)     # changeList, mpdStatus
 
     def __init__(self):
         QtCore.QObject.__init__(self)
         MPDClient.__init__(self)
         self.settings = Settings()
         self.lastState=-9999
-        self.lastSong=-9999
+        self.lastSongid=-9999
         self.lastTime=-9999
         self.lastPlaylist=-9999
         self.trackDB = sqlite3.connect(':memory:')
@@ -50,6 +47,7 @@ class ServerInterface(QtCore.QObject, MPDClient):
         return True
 
     def timerEvent(self, event):
+        changeList = []
         try:
             status = self.status()
         except socket.error:
@@ -58,20 +56,19 @@ class ServerInterface(QtCore.QObject, MPDClient):
         except ConnectionError:
             self.disconnected()
             return
-        if status['playlist'] != self.lastPlaylist or \
-         'songid' in status and status['songid'] != self.lastSong:
-            self.sigPlaylistChanged.emit(int(status['playlist']))
+        if status['playlist'] != self.lastPlaylist:
+            changeList.append('playlist')
             self.lastPlaylist = status['playlist']
-        if 'songid' in status and status['songid'] != self.lastSong:
-            self.sigSongChanged.emit(int(status['songid']))
-            self.lastSong = status['songid']
+        if 'songid' in status and status['songid'] != self.lastSongid:
+            changeList.append('song')
+            self.lastSongid = status['songid']
         if 'time' in status and status['time'] != self.lastTime:
-            elapsed, total = status['time'].split(":")
-            self.sigTimeChanged.emit(int(elapsed), int(total))
+            changeList.append('time')
             self.lastTime = status['time']
         if status['state'] != self.lastState:
-            self.sigStateChanged.emit(status['state'])
+            changeList.append('state')
             self.lastState = status['state']
+        self.sigStatusChanged.emit(changeList, status)
 
     def disconnected(self):
         print datetime.now().isoformat(" ") + \
