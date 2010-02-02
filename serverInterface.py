@@ -5,6 +5,7 @@ from settings import Settings
 from mpd import *
 from helperFunctions import *
 import socket
+import sqlite3
 from datetime import datetime
 
 class ServerInterface(QtCore.QObject, MPDClient):
@@ -23,6 +24,7 @@ class ServerInterface(QtCore.QObject, MPDClient):
         self.lastSong=-9999
         self.lastTime=-9999
         self.lastPlaylist=-9999
+        self.trackDB = sqlite3.connect(':memory:')
 
     def connect(self):
         server = str(self.settings.value("mpdServer"))
@@ -85,3 +87,11 @@ class ServerInterface(QtCore.QObject, MPDClient):
 
     def updateDB(self):
         tracks = map(parseTrackInfo,self.listallinfo())
+        cursor = self.trackDB.cursor()
+        cursor.execute('''create table tracks
+        (title text, artist text, album text,
+        genre text, time integer, pos integer, tag text)
+        ''')
+        for track in tracks:
+            cursor.execute('''insert into tracks(title, artist, album, 
+            genre, time, pos, tag) values( ?, ?, ?, ?, ?, ?, ?) ''',track.values())
