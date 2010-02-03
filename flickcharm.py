@@ -39,7 +39,7 @@ class FlickCharm(QObject):
     def activateOn(self, widget):
         if isinstance(widget, QWebView):
             frame = widget.page().mainFrame()
-            frame.setScrollBarPolicy(Qt.Vertical, Qt.ScrollBarAlwaysOff)
+            #frame.setScrollBarPolicy(Qt.Vertical, Qt.ScrollBarAlwaysOff)
             frame.setScrollBarPolicy(Qt.Horizontal, Qt.ScrollBarAlwaysOff)
             widget.installEventFilter(self)
             self.d.flickData[widget] = FlickData()
@@ -47,7 +47,7 @@ class FlickCharm(QObject):
             self.d.flickData[widget].state = FlickData.Steady
         else:
             widget.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-            widget.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+            #widget.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
             viewport = widget.viewport()
             viewport.installEventFilter(self)
             widget.installEventFilter(self)
