@@ -1,10 +1,12 @@
 - allow browsing for songs
 - give som feedback in searchWidget when adding songs.. maybe show playlist
   there?
+- improve searchWidget ui to give more horisontal space to resultlist
 - move addrandom method and shufflelist to serverinterface
 - update local sql DB when necessary
 - prevent adding duplicates to playlist
 - fix bug: unable to add songs with utf-8 characters in filename to playlist
 - prevent flickcharm from jumping back on dragging after autoscroll
+- (optional) allow admin to clearplaylist, goto next song, etc
 - (optional) automatically download covers and show on main widget
 - (optional) autoupdate mpd database on startup
