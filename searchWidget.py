@@ -4,6 +4,7 @@ from searchWidget_ui import Ui_SearchWidget
 from virtualKeyboard import VirtualKeyboard
 from settings import Settings
 from helperFunctions import asciify
+from flickcharm import *
 
 class SearchWidget(QtGui.QWidget):
     def __init__(self, parent):
@@ -13,6 +14,8 @@ class SearchWidget(QtGui.QWidget):
         vkb = VirtualKeyboard()
         vkb.setInputLine(self.ui.searchLine)
         self.ui.vbox.addWidget(vkb)
+        self.charm = FlickCharm()
+        self.charm.activateOn(self.ui.resultList)
         
         self.keyWords = []
         self.resultList = []
