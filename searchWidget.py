@@ -23,9 +23,8 @@ class SearchWidget(QtGui.QWidget):
         self.resultList = []
 
         #set stretch factors
-        self.ui.vbox.setStretchFactor(vkb,4)
-        self.ui.vbox.setStretchFactor(self.ui.hbox,1)
-        self.ui.vbox.setStretchFactor(self.ui.resultList,2)
+        self.ui.vbox.setStretchFactor(vkb,6)
+        self.ui.vbox.setStretchFactor(self.ui.gridLayout,5)
         
     def addContinue(self):
         self._addToPlaylist()

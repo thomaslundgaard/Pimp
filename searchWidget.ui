@@ -15,23 +15,16 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
+    <widget class="QLineEdit" name="searchLine"/>
+   </item>
+   <item>
     <layout class="QVBoxLayout" name="vbox">
      <item>
-      <widget class="QLineEdit" name="searchLine"/>
-     </item>
-     <item>
-      <widget class="QListWidget" name="resultList">
-       <property name="horizontalScrollBarPolicy">
-        <enum>Qt::ScrollBarAlwaysOff</enum>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="hbox">
-       <item>
-        <widget class="QPushButton" name="addContBtn">
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="3" column="1">
+        <widget class="QPushButton" name="closeBtn">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
@@ -43,14 +36,14 @@
           </size>
          </property>
          <property name="text">
-          <string>Add &amp;&amp; Continue</string>
+          <string>Close</string>
          </property>
         </widget>
        </item>
-       <item>
+       <item row="2" column="1">
         <widget class="QPushButton" name="addCloseBtn">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
@@ -66,10 +59,26 @@
          </property>
         </widget>
        </item>
-       <item>
-        <widget class="QPushButton" name="closeBtn">
+       <item row="1" column="0" rowspan="4">
+        <widget class="QListWidget" name="resultList">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="verticalScrollBarPolicy">
+          <enum>Qt::ScrollBarAsNeeded</enum>
+         </property>
+         <property name="horizontalScrollBarPolicy">
+          <enum>Qt::ScrollBarAlwaysOff</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QPushButton" name="addContBtn">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
@@ -81,9 +90,22 @@
           </size>
          </property>
          <property name="text">
-          <string>Close</string>
+          <string>Add &amp;&amp; Continue</string>
          </property>
         </widget>
+       </item>
+       <item row="4" column="1">
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>0</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
        </item>
       </layout>
      </item>
