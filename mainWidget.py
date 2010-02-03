@@ -2,7 +2,7 @@
 from PyQt4 import QtCore,QtGui
 import random
 from mainWidget_ui import Ui_MainWidget
-from songItem import SongItem
+from helperFunctions import parseTrackInfo
 import adminDialog
 
 class MainWidget(QtGui.QWidget):
@@ -63,26 +63,20 @@ class MainWidget(QtGui.QWidget):
                 self.addRandomTrack()
 
     def updateUi(self, status):
-        curSong = SongItem(self.parent().server.currentsong())
+        curSong = parseTrackInfo(self.parent().server.currentsong())
         playlist = self.parent().server.playlistinfo()
         # update labels
         if status['state'] != 'stop':
-            if curSong.title or curSong.artist:
-                if curSong.title:
-                    title = curSong.title
-                else: title = "Unknown title"
-                if curSong.artist:
-                    artist = curSong.artist
-                else: artist = "Unknown artist"
-                    #self.ui.curTitle.setText (unicode(curSong.title,"utf8"))
-            else:
-                title = curSong.filename.split('/').pop().split('-').pop().split('.')[0:-1]
-                title = "".join(title).strip()
-                artist = curSong.filename.split('/').pop().split('-').pop(0).split('.')[0:-1]
-                artist = "".join(artist).strip()
-
-            self.ui.curTitle.setText(unicode(title,"utf8"))
-            self.ui.curArtist.setText(unicode(artist,"utf8"))
+            if curSong['title']:
+                title = curSong['title']
+            else: title = "Unknown title"
+           
+            if curSong['artist']:
+                artist = curSong['artist']
+            else: artist = "Unknown artist"
+            
+            self.ui.curTitle.setText(title)
+            self.ui.curArtist.setText(artist)
         else:
             self.ui.curTitle.setText ("Not playing")
             self.ui.curArtist.setText ("")
@@ -91,11 +85,11 @@ class MainWidget(QtGui.QWidget):
         # update playlist
         self.ui.playlist.clear()
         for song in playlist:
-            item = SongItem(song)
-            self.ui.playlist.addItem( unicode( \
-                    "%i. %s" % (item.pos + 1, item.textEntry),"utf8"))
+            item = parseTrackInfo(song)
+            self.ui.playlist.addItem("%i. %s - %s" \
+                    % (item['pos'] + 1 , item['artist'], item['title']))
         # make current track bold
-        curItem = self.ui.playlist.item(curSong.pos)
+        curItem = self.ui.playlist.item(curSong['pos'])
         curItem.setFont (QtGui.QFont("Arial", -1, QtGui.QFont.Bold))
         self.ui.playlist.scrollToItem (curItem, \
                 QtGui.QAbstractItemView.PositionAtCenter)

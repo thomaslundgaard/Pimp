@@ -27,7 +27,6 @@ class ServerInterface(QtCore.QObject, MPDClient):
         server = str(self.settings.value("mpdServer"))
         port = str(self.settings.value("mpdPort"))
         password = str(self.settings.value("mpdPassword"))
-        print server, port, password
         try:
             MPDClient.connect (self, host=server, port=port)
         except socket.error:
@@ -44,6 +43,7 @@ class ServerInterface(QtCore.QObject, MPDClient):
                 return False
         self.sigConnected.emit()
         self.timerId = self.startTimer(400)
+        self.updateDB()
         return True
 
     def timerEvent(self, event):
@@ -83,12 +83,40 @@ class ServerInterface(QtCore.QObject, MPDClient):
         self.connect()
 
     def updateDB(self):
-        tracks = map(parseTrackInfo,self.listallinfo())
+        tracklist = [track for track in self.listallinfo() if 'file' in track]
+        tracks = map(parseTrackInfo,tracklist)
         cursor = self.trackDB.cursor()
         cursor.execute('''create table tracks
-        (title text, artist text, album text,
+        (title text, artist text, file text, album text,
         genre text, time integer, pos integer, tag text)
         ''')
-        for track in tracks:
-            cursor.execute('''insert into tracks(title, artist, album, 
-            genre, time, pos, tag) values( ?, ?, ?, ?, ?, ?, ?) ''',track.values())
+        for t in tracks:
+            cursor.execute('''insert into tracks(title, artist, file, album, 
+            genre, time, pos, tag) values( ?, ?, ?, ?, ?, ?, ?, ?) ''',\
+            (t['title'], t['artist'], t['file'], t['album'], t['genre'], t['time'],\
+            t['pos'], t['tag'])
+            )
+        self.trackDB.commit()
+        cursor.close()
+
+    def searchDB(self,keywords):
+        keywords = [ '%' + word + '%' for word in keywords]
+        cursor = self.trackDB.cursor()
+        query = """ select * from tracks where tag like ?"""
+        for i in range(len(keywords) - 1):
+            query += """ and tag like ?"""
+
+        query += " order by tag asc"
+
+        cursor.execute(query, tuple(keywords))
+        for row in cursor:
+            yield {'title':     row[0],\
+                   'artist':    row[1],\
+                   'file':      row[2],\
+                   'album':     row[3],\
+                   'genre':     row[4],\
+                   'time':      row[5],\
+                   'pos':       row[6],\
+                   'tag':       row[7],
+                }
+        cursor.close()

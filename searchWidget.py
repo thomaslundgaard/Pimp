@@ -3,7 +3,7 @@ from PyQt4 import QtGui
 from searchWidget_ui import Ui_SearchWidget
 from virtualKeyboard import VirtualKeyboard
 from settings import Settings
-from songItem import SongItem
+from helperFunctions import asciify
 
 class SearchWidget(QtGui.QWidget):
     def __init__(self, parent):
@@ -33,22 +33,16 @@ class SearchWidget(QtGui.QWidget):
         self.ui.searchLine.clear()
     def searchTextChanged(self, text):
         words = str(text).split()
-        self.keyWords = [word.lower() for word in words if len(word) >= 2]
-        arglist = []
-        for word in self.keyWords:
-            arglist.extend(["any",word])
-        if len(arglist) > 0:
-            results = self.parentWidget().server.search(*arglist)
-        else:
-            results=[]
+        keyWords = [asciify(word.lower().strip()) for word in words if len(word) >= 2]
 
-        self.clearResults()
-        for result in results:
-            self.resultList.append(SongItem(result))
-        self.resultList.sort(self._sortResults, reverse=True)
+        if len(keyWords) > 0:
 
-        for item in self.resultList:
-            self.ui.resultList.addItem(unicode(item.textEntry,"utf-8"))
+            self.clearResults()
+            for result in self.parent().server.searchDB(keyWords):
+                self.resultList.append(result)
+                self.ui.resultList.addItem("%s - %s  (%i:%02i)" % \
+                        (result['artist'] , result['title'],\
+                        result['time']/60, result['time']%60 ))
     def clearResults(self):
         self.resultList = []
         self.ui.resultList.clear()
@@ -62,51 +56,5 @@ class SearchWidget(QtGui.QWidget):
         row = self.ui.resultList.currentRow()
         try: entry = self.resultList[row]
         except KeyError: return
-        self.parentWidget().server.add(entry.filename)
-
-    def _sortResults(self,x,y):
-        #function for sorting SongItems
-        #return 1 if x > y
-        #return 0 if x = y
-        #return -1 if x < y
-
-        if x.artist and y.artist:
-            for word in self.keyWords:
-                cmpx = x.artist.lower().find(word)
-                cmpy = y.artist.lower().find(word)
-                if cmpx >= 0 and cmpy >= 0:
-                    return cmpy-cmpx
-                elif cmpx > cmpy:
-                    return 1
-                elif cmpx < cmpy:
-                    return -1
-        
-        if x.title and y.title:
-            for word in self.keyWords:
-                cmpx = x.title.lower().find(word)
-                cmpy = y.title.lower().find(word)
-                if cmpx >= 0 and cmpy >= 0:
-                    return cmpy-cmpx
-                if cmpx > cmpy:
-                    return 1
-                elif cmpx < cmpy:
-                    return -1
-        if x.title and not y.title:
-            return 1
-        elif not x.title and y.title:
-            return -1
-        if x.artist and not y.artist:
-            return 1
-        elif not x.artist and y.artist:
-            return -1
-        if not (x.title or x.artist or y.title or y.artist):
-            for word in self.keyWords:
-                cmpx = x.filename.lower().find(word)
-                cmpy = y.filename.lower().find(word)
-                if cmpx > cmpy:
-                    return 1
-                elif cmpx < cmpy:
-                    return -1
-        return 0
-
+        self.parent().server.add(entry['file'])
 
