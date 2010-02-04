@@ -36,7 +36,7 @@
           </size>
          </property>
          <property name="text">
-          <string>Close</string>
+          <string>&amp;Close</string>
          </property>
         </widget>
        </item>
@@ -55,7 +55,7 @@
           </size>
          </property>
          <property name="text">
-          <string>Add &amp;&amp; Close</string>
+          <string>&amp;Add &amp;&amp; Close</string>
          </property>
         </widget>
        </item>
@@ -66,6 +66,11 @@
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>15</pointsize>
+          </font>
          </property>
          <property name="verticalScrollBarPolicy">
           <enum>Qt::ScrollBarAsNeeded</enum>
@@ -90,7 +95,7 @@
           </size>
          </property>
          <property name="text">
-          <string>Add &amp;&amp; Continue</string>
+          <string>Add &amp;&amp; &amp;Continue</string>
          </property>
         </widget>
        </item>
