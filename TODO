@@ -1,7 +1,6 @@
 - allow browsing for songs
 - update local sql DB when necessary
 - fix bug: unable to add songs with utf-8 characters in filename to playlist
-- prevent flickcharm from jumping back on dragging after autoscroll
 - give user feedback on startup DB loading
 - (optional) automatically download covers and show on main widget
 - (optional) autoupdate mpd database on startup

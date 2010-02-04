@@ -5,7 +5,6 @@ from PyQt4.QtWebKit import *
 import sys
 
 class FlickData:
-    
     Steady = 0
     Pressed = 1
     ManualScroll = 2
@@ -23,19 +22,15 @@ class FlickData:
 
 
 class FlickCharmPrivate:
-    
     def __init__(self):
         self.flickData = {}
         self.ticker = QBasicTimer()
 
-
 class FlickCharm(QObject):
-    
     def __init__(self, parent = None):
         QObject.__init__(self, parent)
         self.d = FlickCharmPrivate()
         
-    
     def activateOn(self, widget):
         if isinstance(widget, QWebView):
             frame = widget.page().mainFrame()
@@ -55,7 +50,6 @@ class FlickCharm(QObject):
             self.d.flickData[viewport].widget = widget
             self.d.flickData[viewport].state = FlickData.Steady
 
-    
     def deactivateFrom(self, widget):
         if isinstance(widget, QWebView):
             widget.removeEventFilter(self)
@@ -66,9 +60,7 @@ class FlickCharm(QObject):
             widget.removeEventFilter(self)
             del(self.d.flickData[viewport])
 
-    
     def eventFilter(self, object, event):
-        
         if not object.isWidgetType():
             return False;
     
@@ -134,6 +126,7 @@ class FlickCharm(QObject):
                 consumed = True
                 data.state = FlickData.Stop
                 data.speed = QPoint(0, 0)
+                data.offset = scrollOffset(data.widget)
             elif eventType == QEvent.MouseButtonRelease:
                 consumed = True
                 data.state = FlickData.Steady
@@ -152,7 +145,6 @@ class FlickCharm(QObject):
     
         return consumed
 
-    
     def timerEvent(self, event):
         count = 0
         for data in self.d.flickData.values():
@@ -174,7 +166,6 @@ class FlickCharm(QObject):
     
         QObject.timerEvent(self, event);
     
-    
 def scrollOffset(widget):
     if isinstance(widget, QWebView):
         frame = widget.page().mainFrame()
@@ -185,7 +176,6 @@ def scrollOffset(widget):
         y = widget.verticalScrollBar().value()
     return QPoint(x, y)
         
-        
 def setScrollOffset(widget, p):
     if isinstance(widget, QWebView):
         frame = widget.page().mainFrame()
@@ -194,7 +184,6 @@ def setScrollOffset(widget, p):
         widget.horizontalScrollBar().setValue(p.x())
         widget.verticalScrollBar().setValue(p.y())
       
-
 def deaccelerate(speed, a=1, maxVal=64):
     x = qBound(-maxVal, speed.x(), maxVal)
     y = qBound(-maxVal, speed.y(), maxVal)
@@ -208,11 +197,9 @@ def deaccelerate(speed, a=1, maxVal=64):
         y = min(0, y + a)
     return QPoint(x, y)
 
-
 def qBound(minVal, current, maxVal):
     return max(min(current, maxVal), minVal)
     
-
 def removeAll(list, val):
     found = False
     ret = []
@@ -222,3 +209,4 @@ def removeAll(list, val):
         else:
             ret.append(element)
     return (found, ret)
+
