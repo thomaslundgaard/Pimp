@@ -16,9 +16,6 @@
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QGroupBox" name="groupBox_2">
-     <property name="styleSheet">
-      <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
-     </property>
      <property name="title">
       <string>General Settings</string>
      </property>
@@ -27,9 +24,6 @@
        <layout class="QFormLayout" name="formLayout_3">
         <item row="0" column="0">
          <widget class="QLabel" name="label_2">
-          <property name="styleSheet">
-           <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
-          </property>
           <property name="text">
            <string>&amp;New admin password:</string>
           </property>
@@ -53,9 +47,6 @@
         </item>
         <item row="1" column="0">
          <widget class="QLabel" name="label_3">
-          <property name="styleSheet">
-           <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
-          </property>
           <property name="text">
            <string>&amp;Repeat new admin password:</string>
           </property>
@@ -76,9 +67,6 @@
         </item>
         <item row="2" column="0">
          <widget class="QLabel" name="label">
-          <property name="styleSheet">
-           <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
-          </property>
           <property name="text">
            <string>&amp;Max number of songs in playlist:</string>
           </property>
@@ -100,9 +88,6 @@
    </item>
    <item>
     <widget class="QGroupBox" name="groupBox">
-     <property name="styleSheet">
-      <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
-     </property>
      <property name="title">
       <string>MPD Setting (restart required)</string>
      </property>
@@ -126,9 +111,6 @@
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
-          </property>
           <property name="text">
            <string>MPD &amp;Server:</string>
           </property>
@@ -151,9 +133,6 @@
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
-          </property>
           <property name="text">
            <string>MPD &amp;Port:</string>
           </property>
@@ -175,9 +154,6 @@
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
           </property>
           <property name="text">
            <string>MPD P&amp;assword:</string>
