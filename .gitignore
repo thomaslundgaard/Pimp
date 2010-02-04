@@ -1,0 +1,4 @@
+*.pyc
+*_ui.py
+*_rc.py
+*.swp

@@ -2,5 +2,7 @@
 - update local sql DB when necessary
 - fix bug: unable to add songs with utf-8 characters in filename to playlist
 - give user feedback on startup DB loading
+- make ui react better when connection to mpd cannot be established (it must be
+  posible to change connection settings)
 - (optional) automatically download covers and show on main widget
 - (optional) autoupdate mpd database on startup
