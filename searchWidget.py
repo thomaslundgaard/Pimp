@@ -11,6 +11,7 @@ class SearchWidget(QtGui.QWidget):
         QtGui.QWidget.__init__(self, parent)
         self.ui = Ui_SearchWidget()
         self.ui.setupUi(self)
+        self.ui.infoLabel.hide()
         vkb = VirtualKeyboard()
         vkb.setInputLine(self.ui.searchLine)
         self.ui.vbox.addWidget(vkb)
@@ -55,10 +56,15 @@ class SearchWidget(QtGui.QWidget):
         settings = Settings()
         playlistLength = self.parent().server.status()['playlistlength']
         if int(playlistLength) >= int(settings.value("maxPlaylist")):
+            self.ui.infoLabel.setText("Playlist full!")
+            self.ui.infoLabel.show()
             return
 
         row = self.ui.resultList.currentRow()
         try: entry = self.resultList[row]
         except KeyError: return
         self.parent().server.add(entry['file'])
+        self.ui.infoLabel.setText("Added %s - %s" % \
+                (entry['artist'] , entry['title']))
+        self.ui.infoLabel.show()
 
