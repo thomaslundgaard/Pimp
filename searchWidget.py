@@ -16,8 +16,6 @@ class SearchWidget(QtGui.QWidget):
         self.ui.vbox.addWidget(vkb)
         self.charm = FlickCharm()
         self.charm.activateOn(self.ui.resultList)
-        self.ui.resultList.setVerticalScrollMode(\
-                self.ui.resultList.ScrollPerPixel)
         
         self.keyWords = []
         self.resultList = []

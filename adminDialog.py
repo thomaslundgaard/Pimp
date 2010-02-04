@@ -12,16 +12,16 @@ class AdminDialog(QtGui.QDialog):
         self.ui = Ui_AdminDialog ()
         self.ui.setupUi (self)
         self.ui.infoLabel.hide()
-        # Hack to update playPauseBtn
-        self.onServerStatusChange(['state'], \
-                self.parent().parent().server.status() )
         self.ui.pwdEdit.setFocus()
         vkb = VirtualKeyboard(self,self.ui.pwdEdit)
         vkb.setMinimumSize(600,300)
         self.layout().addWidget(vkb)
-        self.resize(-1, -1)
+        # Hack to update playPauseBtn
+        self.onServerStatusChange(['state'], \
+                self.parent().parent().server.status() )
         self.parent().parent().server.sigStatusChanged.connect( \
                 self.onServerStatusChange)
+        self.resize(-1, -1)
     
     def checkPwd(self):
         settings = Settings()
@@ -66,7 +66,6 @@ class AdminDialog(QtGui.QDialog):
         if self.checkPwd():
             dialog = settingsDialog.SettingsDialog(self)
             dialog.exec_()
-            self.close()
         
     def quitApp(self):
         if self.checkPwd():

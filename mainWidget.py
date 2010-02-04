@@ -3,12 +3,15 @@ from PyQt4 import QtCore,QtGui
 from mainWidget_ui import Ui_MainWidget
 from helperFunctions import parseTrackInfo
 import adminDialog
+from flickcharm import *
 
 class MainWidget(QtGui.QWidget):
     def __init__(self, parent):
         QtGui.QWidget.__init__(self, parent)
         self.ui = Ui_MainWidget()
         self.ui.setupUi(self)
+        self.charm = FlickCharm()
+        self.charm.activateOn(self.ui.playlist)
         self.widgets = (self.ui.stateLabel, self.ui.label_2, self.ui.label_5, \
                 self.ui.curTitle, self.ui.curArtist, self.ui.songProgress, \
                 self.ui.searchBtn, self.ui.playlist )

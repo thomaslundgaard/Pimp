@@ -1,1 +1,4 @@
-Requires python-mpd: http://jatreuman.indefero.net/p/python-mpd/
+run from source lib, with `make`
+
+Requires python-mpd from http://jatreuman.indefero.net/p/python-mpd/
+Uses flickcharm-python from http://code.google.com/p/flickcharm-python/
