@@ -1,13 +1,17 @@
 # -*- coding: utf-8 -*-
 
-from PyQt4 import QtCore
-from settings import Settings
-from mpd import *
-from helperFunctions import *
 import random
 import socket
 import sqlite3
+import time
 from datetime import datetime
+
+from PyQt4 import QtCore, QtGui
+from mpd import *
+
+from settings import Settings
+from dbUpdateWidget import DbUpdateWidget
+from helperFunctions import *
 
 class ServerInterface(QtCore.QObject, MPDClient):
     sigConnected = QtCore.pyqtSignal()
@@ -22,9 +26,10 @@ class ServerInterface(QtCore.QObject, MPDClient):
         self.lastSongid=-9999
         self.lastTime=-9999
         self.lastPlaylist=-9999
-        self.trackDB = sqlite3.connect(':memory:')
         self.clearFlag = False
         self.shuffleList = []
+        self.sigConnected.connect(self._onConnect)
+        self.trackDB = None 
 
     def connect(self):
         server = str(self.settings.value("mpdServer"))
@@ -46,7 +51,6 @@ class ServerInterface(QtCore.QObject, MPDClient):
                 return False
         self.sigConnected.emit()
         self.timerId = self.startTimer(400)
-        self.updateDB()
         return True
 
     def timerEvent(self, event):
@@ -85,11 +89,31 @@ class ServerInterface(QtCore.QObject, MPDClient):
         MPDClient.disconnect(self)
         self.connect()
 
-    def updateDB(self):
+    def _onConnect(self):
+        if not self.trackDB:
+            self.trackDB = sqlite3.connect(':memory:')
+
+    def updateDBs(self):
+        dialog = DbUpdateWidget()
+        dialog.ui.mpdupdatePixmap.show()
+        dialog.show()
+        jobID = self.update()
+        app = QtGui.qApp
+        while True:
+            time.sleep(0.1)
+            app.processEvents()
+            stat = self.status()
+            if not ('updating_db' in stat and stat['updating_db'] == jobID):
+                break
+        dialog.ui.mpdupdatePixmap.setEnabled(True)
+        dialog.ui.sqlupdatePixmap.show()
+        app.processEvents()
+        app.processEvents()
         tracklist = [track for track in self.listallinfo() if 'file' in track]
         tracks = map(parseTrackInfo,tracklist)
         cursor = self.trackDB.cursor()
-        cursor.execute('''create table tracks
+        cursor.execute("drop table if exists tracks")
+        cursor.execute('''create table if not exists tracks
         (title text, artist text, file text, album text,
         genre text, time integer, pos integer, tag text)
         ''')
@@ -101,6 +125,10 @@ class ServerInterface(QtCore.QObject, MPDClient):
             )
         self.trackDB.commit()
         cursor.close()
+        dialog.ui.sqlupdatePixmap.setEnabled(True)
+        app.processEvents()
+        app.processEvents()
+        time.sleep(1)
 
     def searchDB(self,keywords):
         keywords = [ '%' + word + '%' for word in keywords]

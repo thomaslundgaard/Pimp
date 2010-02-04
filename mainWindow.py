@@ -16,6 +16,7 @@ class MainWindow(QtGui.QStackedWidget):
         self.searchWidget = SearchWidget(self)
         self.addWidget(self.searchWidget)
         self.server.connect()
+        self.server.updateDBs()
         self.startTimer(1000)
 
     def gotoFullscreen(self):
