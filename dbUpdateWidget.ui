@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>DbUpdateWidget</class>
+ <widget class="QWidget" name="DbUpdateWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>82</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Updating Database</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="2">
+    <widget class="QLabel" name="mpdupdatePixmap">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="pixmap">
+      <pixmap>res/tick.svg</pixmap>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QLabel" name="mpdupdateLabel">
+     <property name="text">
+      <string>Updating MPD database...</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QLabel" name="sqlupdateLabel">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="text">
+      <string>Transferring MPD DB to local memory...</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="2">
+    <widget class="QLabel" name="sqlupdatePixmap">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="pixmap">
+      <pixmap>res/tick.svg</pixmap>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
