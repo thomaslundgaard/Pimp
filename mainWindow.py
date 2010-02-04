@@ -52,6 +52,9 @@ class MainWindow(QtGui.QStackedWidget):
         self.setCurrentWidget (self.mainWidget)
 
     def gotoSearchWidget(self):
+        self.searchWidget.clearResults()
+        self.searchWidget.ui.searchLine.clear()
+        self.searchWidget.ui.infoLabel.hide()
         self.setCurrentWidget (self.searchWidget)
         self.searchWidget.ui.searchLine.setFocus()
 

@@ -71,86 +71,121 @@
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout">
+    <layout class="QVBoxLayout" name="verticalLayout_2">
      <item>
-      <widget class="QPushButton" name="leaveFullscreenBtn">
-       <property name="minimumSize">
-        <size>
-         <width>100</width>
-         <height>60</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <pointsize>15</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>&amp;Leave Fullscreen</string>
-       </property>
-      </widget>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QPushButton" name="leaveFullscreenBtn">
+         <property name="minimumSize">
+          <size>
+           <width>100</width>
+           <height>60</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>&amp;Leave fullscreen</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="playPauseBtn">
+         <property name="minimumSize">
+          <size>
+           <width>100</width>
+           <height>60</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>&amp;Play/Pause</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="nextBtn">
+         <property name="minimumSize">
+          <size>
+           <width>100</width>
+           <height>60</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>&amp;Next track</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="clearBtn">
+         <property name="minimumSize">
+          <size>
+           <width>100</width>
+           <height>60</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>&amp;Clear playlist</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
      <item>
-      <widget class="QPushButton" name="quitBtn">
-       <property name="minimumSize">
-        <size>
-         <width>100</width>
-         <height>60</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <pointsize>15</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>&amp;Quit</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButton">
-       <property name="minimumSize">
-        <size>
-         <width>100</width>
-         <height>60</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <pointsize>15</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>&amp;Settings</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="cancelBtn">
-       <property name="minimumSize">
-        <size>
-         <width>100</width>
-         <height>60</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <pointsize>15</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>&amp;Cancel</string>
-       </property>
-      </widget>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QPushButton" name="pushButton">
+         <property name="minimumSize">
+          <size>
+           <width>100</width>
+           <height>60</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>&amp;Settings</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="quitBtn">
+         <property name="minimumSize">
+          <size>
+           <width>100</width>
+           <height>60</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>&amp;Quit</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="cancelBtn">
+         <property name="minimumSize">
+          <size>
+           <width>100</width>
+           <height>60</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>&amp;Cancel</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
     </layout>
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="res.qrc"/>
- </resources>
+ <tabstops>
+  <tabstop>pwdEdit</tabstop>
+  <tabstop>leaveFullscreenBtn</tabstop>
+  <tabstop>playPauseBtn</tabstop>
+  <tabstop>nextBtn</tabstop>
+  <tabstop>clearBtn</tabstop>
+  <tabstop>pushButton</tabstop>
+  <tabstop>quitBtn</tabstop>
+  <tabstop>cancelBtn</tabstop>
+ </tabstops>
+ <resources/>
  <connections>
   <connection>
    <sender>cancelBtn</sender>
@@ -159,8 +194,8 @@
    <slot>cancelDialog()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>764</x>
-     <y>338</y>
+     <x>788</x>
+     <y>303</y>
     </hint>
     <hint type="destinationlabel">
      <x>741</x>
@@ -176,7 +211,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>394</x>
-     <y>343</y>
+     <y>303</y>
     </hint>
     <hint type="destinationlabel">
      <x>333</x>
@@ -195,8 +230,8 @@
      <y>228</y>
     </hint>
     <hint type="destinationlabel">
-     <x>39</x>
-     <y>306</y>
+     <x>50</x>
+     <y>303</y>
     </hint>
    </hints>
   </connection>
@@ -207,8 +242,8 @@
    <slot>settings()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>592</x>
-     <y>343</y>
+     <x>591</x>
+     <y>303</y>
     </hint>
     <hint type="destinationlabel">
      <x>538</x>
@@ -223,12 +258,60 @@
    <slot>leaveFullscreen()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>95</x>
-     <y>307</y>
+     <x>106</x>
+     <y>303</y>
     </hint>
     <hint type="destinationlabel">
      <x>107</x>
      <y>255</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>nextBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>AdminDialog</receiver>
+   <slot>nextTrack()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>171</x>
+     <y>360</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>203</x>
+     <y>391</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>clearBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>AdminDialog</receiver>
+   <slot>clearPlaylist()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>372</x>
+     <y>359</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>401</x>
+     <y>392</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>playPauseBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>AdminDialog</receiver>
+   <slot>playPause()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>609</x>
+     <y>355</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>632</x>
+     <y>394</y>
     </hint>
    </hints>
   </connection>
@@ -238,5 +321,8 @@
   <slot>cancelDialog()</slot>
   <slot>settings()</slot>
   <slot>leaveFullscreen()</slot>
+  <slot>nextTrack()</slot>
+  <slot>clearPlaylist()</slot>
+  <slot>playPause()</slot>
  </slots>
 </ui>

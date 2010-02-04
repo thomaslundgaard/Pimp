@@ -11,7 +11,6 @@ class SearchWidget(QtGui.QWidget):
         QtGui.QWidget.__init__(self, parent)
         self.ui = Ui_SearchWidget()
         self.ui.setupUi(self)
-        self.ui.infoLabel.hide()
         vkb = VirtualKeyboard()
         vkb.setInputLine(self.ui.searchLine)
         self.ui.vbox.addWidget(vkb)
@@ -29,13 +28,13 @@ class SearchWidget(QtGui.QWidget):
         
     def addContinue(self):
         self._addToPlaylist()
+
     def addClose(self):
         self._addToPlaylist()
         self.cancel()
     def cancel(self):
         self.parentWidget().gotoMainWidget()
-        self.clearResults()
-        self.ui.searchLine.clear()
+
     def searchTextChanged(self, text):
         words = str(text).split()
         keyWords = [asciify(word.lower().strip()) for word in words if len(word) >= 2]

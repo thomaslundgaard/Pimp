@@ -37,8 +37,11 @@ class MainWidget(QtGui.QWidget):
     def onStatusChange(self, changeList, status):
         if status['state'] == 'stop' and \
                 len(self.parent().server.playlistinfo()) <= 0:
-            self.addRandomTrack()
-            self.parent().server.play()
+            if self.parent().server.clearFlag:
+                self.parent().server.clearFlag = False
+            else:
+                self.addRandomTrack()
+                self.parent().server.play()
         if 'time' in changeList:
             self.updateTime(status)
         if 'playlist' in changeList or 'song' in changeList or \
@@ -89,10 +92,11 @@ class MainWidget(QtGui.QWidget):
             self.ui.playlist.addItem("%i. %s - %s" \
                     % (item['pos'] + 1 , item['artist'], item['title']))
         # make current track bold
-        curItem = self.ui.playlist.item(curSong['pos'])
-        curItem.setFont (QtGui.QFont("Arial", -1, QtGui.QFont.Bold))
-        self.ui.playlist.scrollToItem (curItem, \
-                QtGui.QAbstractItemView.PositionAtCenter)
+        if curSong['pos'] != None:
+            curItem = self.ui.playlist.item(curSong['pos'])
+            curItem.setFont (QtGui.QFont("Arial", -1, QtGui.QFont.Bold))
+            self.ui.playlist.scrollToItem (curItem, \
+                    QtGui.QAbstractItemView.PositionAtCenter)
 
     def addRandomTrack(self):
         if len(self.shuffleList) <= 0:

@@ -22,6 +22,7 @@ class ServerInterface(QtCore.QObject, MPDClient):
         self.lastTime=-9999
         self.lastPlaylist=-9999
         self.trackDB = sqlite3.connect(':memory:')
+        self.clearFlag = False
 
     def connect(self):
         server = str(self.settings.value("mpdServer"))
@@ -120,3 +121,18 @@ class ServerInterface(QtCore.QObject, MPDClient):
                    'tag':       row[7],
                 }
         cursor.close()
+
+    def clearExceptCurrent(self):
+        playlist = self.playlistinfo()
+        try:
+            curId = self.status()['songid']
+        except KeyError:
+            print "key error"
+            self.clearFlag = True
+            self.clear()
+            return
+        for item in playlist:
+            if item['id'] != curId:
+                self.deleteid(item['id'])
+
+
