@@ -135,4 +135,15 @@ class ServerInterface(QtCore.QObject, MPDClient):
             if item['id'] != curId:
                 self.deleteid(item['id'])
 
+    def addToPlaylist(self, filename):
+        for item in self.playlistinfo():
+            if parseTrackInfo(item)['file'] == filename:
+                return "alreadyInPlaylist"
+        playlistLength = int(self.status()['playlistlength'])
+        if playlistLength >= int(self.settings.value("maxPlaylist")):
+            return "playlistFull"
+        else:
+            self.add(filename)
+            return "added"
+
 

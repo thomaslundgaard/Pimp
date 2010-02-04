@@ -1,7 +1,6 @@
 - allow browsing for songs
 - move addrandom method and shufflelist to serverinterface
 - update local sql DB when necessary
-- prevent adding duplicates to playlist
 - fix bug: unable to add songs with utf-8 characters in filename to playlist
 - prevent flickcharm from jumping back on dragging after autoscroll
 - give user feedback on startup DB loading

@@ -2,7 +2,7 @@
 import unicodedata, sys
 import string
 
-def parseTrackInfo( description):
+def parseTrackInfo(description):
     try: title=description['title']
     except KeyError: title = ''
     try: artist=description['artist']
