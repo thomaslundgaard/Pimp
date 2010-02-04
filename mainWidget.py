@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from PyQt4 import QtCore,QtGui
-import random
 from mainWidget_ui import Ui_MainWidget
 from helperFunctions import parseTrackInfo
 import adminDialog
@@ -13,7 +12,6 @@ class MainWidget(QtGui.QWidget):
         self.widgets = (self.ui.stateLabel, self.ui.label_2, self.ui.label_5, \
                 self.ui.curTitle, self.ui.curArtist, self.ui.songProgress, \
                 self.ui.searchBtn, self.ui.playlist )
-        self.shuffleList = []
         self.onDisconnect()     # setup UI to reflect current status
 
         # Signals from MPD server
@@ -40,7 +38,7 @@ class MainWidget(QtGui.QWidget):
             if self.parent().server.clearFlag:
                 self.parent().server.clearFlag = False
             else:
-                self.addRandomTrack()
+                self.parent().server.addRandomTrack()
                 self.parent().server.play()
         if 'time' in changeList:
             self.updateTime(status)
@@ -63,7 +61,7 @@ class MainWidget(QtGui.QWidget):
         timeBeforePlAdd = int(status['xfade']) + 5
         if total-elapsed <= timeBeforePlAdd:
             if len(self.parent().server.playlistinfo()) <= 1:
-                self.addRandomTrack()
+                self.parent().server.addRandomTrack()
 
     def updateUi(self, status):
         curSong = parseTrackInfo(self.parent().server.currentsong())
@@ -98,11 +96,6 @@ class MainWidget(QtGui.QWidget):
             self.ui.playlist.scrollToItem (curItem, \
                     QtGui.QAbstractItemView.PositionAtCenter)
 
-    def addRandomTrack(self):
-        if len(self.shuffleList) <= 0:
-            self.createShuffleList()
-        self.parent().server.add(self.shuffleList.pop())
-
     def onConnect(self):
         for widget in self.widgets:
             widget.setDisabled(False)
@@ -119,10 +112,6 @@ class MainWidget(QtGui.QWidget):
         except AttributeError:
             print "Can't activate consume mode automatically"
         self.parent().server.play()
-    def createShuffleList(self):
-        self.shuffleList = [dict['file'] for dict \
-                in self.parent().server.listall() if 'file' in dict]
-        random.shuffle(self.shuffleList)
 
     def onDisconnect(self):
         for widget in self.widgets:

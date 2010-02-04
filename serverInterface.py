@@ -4,6 +4,7 @@ from PyQt4 import QtCore
 from settings import Settings
 from mpd import *
 from helperFunctions import *
+import random
 import socket
 import sqlite3
 from datetime import datetime
@@ -23,6 +24,7 @@ class ServerInterface(QtCore.QObject, MPDClient):
         self.lastPlaylist=-9999
         self.trackDB = sqlite3.connect(':memory:')
         self.clearFlag = False
+        self.shuffleList = []
 
     def connect(self):
         server = str(self.settings.value("mpdServer"))
@@ -146,4 +148,13 @@ class ServerInterface(QtCore.QObject, MPDClient):
             self.add(filename)
             return "added"
 
+    def addRandomTrack(self):
+        if len(self.shuffleList) <= 0:
+            self._createShuffleList()
+        self.add(self.shuffleList.pop())
+        
+    def _createShuffleList(self):
+        self.shuffleList = [dict['file'] for dict \
+                in self.listall() if 'file' in dict]
+        random.shuffle(self.shuffleList)
 
