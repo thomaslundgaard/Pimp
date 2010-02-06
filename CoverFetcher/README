@@ -1,0 +1,59 @@
+Cover Fetcher (for AmaroK 1.4)
+Version: 1.0-2009-02-09
+
+Markus Straub <code@ravage.at>
+License: GPLv3
+
+
+Description:
+Fetches album art from Discogs.com and Last.fm.
+
+The built in Amarok Cover Manager only allows fetching from amazon.com, which may be fine if your music collection largely consists of popular music. But if large parts of your music collection are vinyl rips or releases on underground labels, searching discogs.com will yield much better results.
+This script allows fetching album cover art for the currently playing track from discogs.com by clicking onto any track in the playlist and selecting:
+"Fetch Covers" -> "For Currently Playing Track"
+Already existing local album art (image files from the currently playing track's folder) as well as relevant album art from Last.fm and Discogs.com can then be browsed / saved / deleted.
+
+Hint:
+If the window is not opening in the foreground but started minimized with the taskbar item flashing, the KDE focus stealing prevention level doesn't allow focussing our window. This can be fixed by setting this:
+System Settings > Window Behaviour > Advanced > Focus Stealing Prevention Level: None
+
+Prerequisites:
+- Qt4
+- PyQt4 (Python bindings for QT)
+
+Keyboard Shortcuts:
+The GUI can be used completely through keyboard interaction.
+Show CoverFetcher Tab: Alt+F
+Show Configuration Tab: Alt+C
+Show Log Tab: Alt+L
+Save image: Alt+S
+Delete image: Alt+D
+Show next image: Alt+RightArrow
+Show previous image: Alt+LeftArrow
+(Un)fit cover to window: Alt+Z
+Quit: Alt+F4 / Escape
+
+ChangeLog:
+Version 1.0-2009-02-09
+- fixed: discogs.com changed their XML format, so I had to adapt as well
+- added: a "search" button for better mouse interaction
+Version 0.3.1.1-2008-08-17
+- bugfix: program would hang if last.fm were not reachable
+Version 0.3.1-2008-08-03
+- added: naming schemes (fixed, album name, unambiguous id from discogs/last.fm)
+Version 0.3-2008-07-16
+- added: support for fetching covers from last.fm
+- added: full unicode support
+- added: configuration tab
+- bugfix: script can now be stopped from Amarok Script Manager
+- bugfix: marking text in logwindow will no longer cause text to be inserted in the wrong position
+Version 0.2.1-2008-07-09
+- GUI keyboard interaction improved
+Version 0.2-2008-07-07
+- GUI redesign
+- many fixes & changes under the hood
+Version 0.1-2008-06-23:
+- initial release
+
+Tested / developed running:
+Python 2.5.2, PyQt 4.4.4, Amarok 1.4.10, KDE 4.2, Kubuntu 8.10

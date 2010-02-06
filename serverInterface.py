@@ -9,7 +9,7 @@ from PyQt4 import QtCore, QtGui
 from mpd import *
 
 from settings import Settings
-from dbUpdateWidget import DbUpdateWidget
+from dbUpdate import *
 from helperFunctions import *
 
 class ServerInterfaceError(Exception):
@@ -23,11 +23,12 @@ class AddToPlaylistError(Exception):
 class ServerInterface(QtCore.QObject):
     sigConnected = QtCore.pyqtSignal()
     sigDisconnected = QtCore.pyqtSignal()
+    sigDbUpdated = QtCore.pyqtSignal()
     sigStatusChanged = QtCore.pyqtSignal(list,dict)     # changeList, mpdStatus
 
-    def __init__(self):
-        QtCore.QObject.__init__(self)
-        self.server = MPDClient()
+    def __init__(self, parent=None):
+        QtCore.QObject.__init__(self, parent)
+        self.client = MPDClient()
         self.settings = Settings()
         self.lastState=-9999
         self.lastSongid=-9999
@@ -35,6 +36,7 @@ class ServerInterface(QtCore.QObject):
         self.lastPlaylist=-9999
         self.connected = False
         self.shuffleList = []
+        self.timerId = False
         self.trackDB = None 
         self.sigConnected.connect(self._onConnected)
         self.sigStatusChanged.connect(self._onStatusChanged)
@@ -44,23 +46,67 @@ class ServerInterface(QtCore.QObject):
         port = str(self.settings.value("mpdPort"))
         password = str(self.settings.value("mpdPassword"))
         try:
-            self.server.connect(host=server, port=port)
+            self.client.connect(host=server, port=port)
         except socket.error:
             print datetime.now().isoformat(" ") + \
             ": Unable to connect to MPD: Socket error (will try again in 2 sec)"
             QtCore.QTimer.singleShot(2000, self.connect)
-            raise ServerInterfaceError()
+            return
         if password != "":
             try:
-                self.server.password(password)
+                self.client.password(password)
             except CommandError:
                 print datetime.now().isoformat(" ") + \
                         ": Unable to connect to MPD: Invalid password"
-                raise ServerInterfaceError()
+                return
+        if not self.trackDB:    # this is the first connection
+            self.dbUpdate()
+        else:
+            self.connected = True
+            self.sigConnected.emit()
+            
+    def dbUpdate(self):
+        self.trackDB = sqlite3.connect(':memory:')
+        self.dbUpdateDialog = DbUpdateDialog()
+        self.dbUpdateDialog.ui.mpdupdatePixmap.show()
+        self.dbUpdateDialog.setModal(True)
+        self.dbUpdateDialog.show()
+        self.dbUpdateWorker = DbUpdateWorker(self.client)
+        self.dbUpdateWorker.sigRemoteUpdateFinished.connect( \
+                self.onRemoteUpdateFinished)
+        self.dbUpdateWorker.sigDbDownloaded.connect(self.onDbDownloaded)
+        self.dbUpdateWorker.sigDbUpdateFailed.connect(self.onDbUpdateFailed)
+        self.dbUpdateWorker.start()
+
+    def onRemoteUpdateFinished(self):
+        self.dbUpdateDialog.ui.mpdupdatePixmap.setEnabled(True)
+        self.dbUpdateDialog.ui.sqlupdatePixmap.show()
+
+    def onDbUpdateFailed(self):
+        self.trackDB = None
+        self.dbUpdateDialog.accept()
+        self._lostConnection()
+
+    def onDbDownloaded(self, tracks):
+        cursor = self.trackDB.cursor()
+        cursor.execute("drop table if exists tracks")
+        cursor.execute('''create table if not exists tracks
+        (title text, artist text, file text, album text,
+        genre text, time integer, pos integer, tag text)
+        ''')
+        for t in tracks:
+            cursor.execute('''insert into tracks(title, artist, file, album, 
+            genre, time, pos, tag) values( ?, ?, ?, ?, ?, ?, ?, ?) ''',\
+            (t['title'], t['artist'], t['file'], t['album'], t['genre'], t['time'],\
+            t['pos'], t['tag'])
+            )
+        self.trackDB.commit()
+        cursor.close()
+        self.dbUpdateDialog.ui.sqlupdatePixmap.setEnabled(True)
+        self.dbUpdateDialog.accept()
         self.connected = True
         self.sigConnected.emit()
-        self.timerId = self.startTimer(400)
-        return
+        self.sigDbUpdated.emit()
 
     def play(self):
         if not self.connected:
@@ -68,7 +114,7 @@ class ServerInterface(QtCore.QObject):
         if int(self.status()['playlistlength']) == 0:
             self.addRandomTrack()
         try:
-            return self.server.play()
+            return self.client.play()
         except (socket.error, ConnectionError):
             self._lostConnection()
             raise ServerInterfaceError()
@@ -77,8 +123,8 @@ class ServerInterface(QtCore.QObject):
         if not self.connected:
             raise ServerInterfaceError()
         try:
-            if self.server.status()['state'] == 'play':
-                return self.server.pause()
+            if self.client.status()['state'] == 'play':
+                return self.client.pause()
             else:
                 return self.play()
         except (socket.error, ConnectionError):
@@ -89,7 +135,7 @@ class ServerInterface(QtCore.QObject):
         if not self.connected:
             raise ServerInterfaceError()
         try:
-            return self.server.next()
+            return self.client.next()
         except (socket.error, ConnectionError):
             self._lostConnection()
             raise ServerInterfaceError()
@@ -98,7 +144,7 @@ class ServerInterface(QtCore.QObject):
         if not self.connected:
             raise ServerInterfaceError()
         try:
-            return self.server.add(filename)
+            return self.client.add(filename)
         except (socket.error, ConnectionError):
             self._lostConnection()
             raise ServerInterfaceError()
@@ -107,7 +153,7 @@ class ServerInterface(QtCore.QObject):
         if not self.connected:
             raise ServerInterfaceError()
         try:
-            return self.server.status()
+            return self.client.status()
         except (socket.error, ConnectionError):
             self._lostConnection()
             raise ServerInterfaceError()
@@ -116,7 +162,7 @@ class ServerInterface(QtCore.QObject):
         if not self.connected:
             raise ServerInterfaceError()
         try:
-            return self.server.currentsong()
+            return self.client.currentsong()
         except (socket.error, ConnectionError):
             self._lostConnection()
             raise ServerInterfaceError()
@@ -125,7 +171,7 @@ class ServerInterface(QtCore.QObject):
         if not self.connected:
             raise ServerInterfaceError()
         try:
-            return self.server.playlistinfo()
+            return self.client.playlistinfo()
         except (socket.error, ConnectionError):
             self._lostConnection()
             raise ServerInterfaceError()
@@ -134,7 +180,7 @@ class ServerInterface(QtCore.QObject):
         if not self.connected:
             raise ServerInterfaceError()
         try:
-            return self.server.listall()
+            return self.client.listall()
         except (socket.error, ConnectionError):
             self._lostConnection()
             raise ServerInterfaceError()
@@ -143,7 +189,7 @@ class ServerInterface(QtCore.QObject):
         if not self.connected:
             raise ServerInterfaceError()
         try:
-            return self.server.listallinfo()
+            return self.client.listallinfo()
         except (socket.error, ConnectionError):
             self._lostConnection()
             raise ServerInterfaceError()
@@ -152,7 +198,7 @@ class ServerInterface(QtCore.QObject):
         if not self.connected:
             raise ServerInterfaceError()
         try:
-            return self.server.deleteid(id)
+            return self.client.deleteid(id)
         except (socket.error, ConnectionError):
             self._lostConnection()
             raise ServerInterfaceError()
@@ -161,7 +207,7 @@ class ServerInterface(QtCore.QObject):
         if not self.connected:
             raise ServerInterfaceError()
         try:
-            return self.server.update()
+            return self.client.update()
         except (socket.error, ConnectionError):
             self._lostConnection()
             raise ServerInterfaceError()
@@ -174,7 +220,7 @@ class ServerInterface(QtCore.QObject):
             self.clear()    # clear completely if not playing
         for item in playlist:
             if item['id'] != curId:
-                self.server.deleteid(item['id'])
+                self.deleteid(item['id'])
 
     def addToPlaylist(self, filename):
         for item in self.playlistinfo():
@@ -193,46 +239,6 @@ class ServerInterface(QtCore.QObject):
                 [dict['file'] for dict in self.listall() if 'file' in dict]
             random.shuffle(self.shuffleList)
         self.add(self.shuffleList.pop())
-
-    def updateDBs(self):
-        dialog = DbUpdateWidget()
-        dialog.ui.mpdupdatePixmap.show()
-        try:
-            dialog.show()
-            jobID = self.update()
-            app = QtGui.qApp
-            while True:
-                time.sleep(0.1)
-                app.processEvents()
-                stat = self.status()
-                if not ('updating_db' in stat and stat['updating_db'] == jobID):
-                    break
-            dialog.ui.mpdupdatePixmap.setEnabled(True)
-            dialog.ui.sqlupdatePixmap.show()
-            app.processEvents()
-            app.processEvents()
-            tracklist = [track for track in self.listallinfo() if 'file' in track]
-            tracks = map(parseTrackInfo,tracklist)
-            cursor = self.trackDB.cursor()
-            cursor.execute("drop table if exists tracks")
-            cursor.execute('''create table if not exists tracks
-            (title text, artist text, file text, album text,
-            genre text, time integer, pos integer, tag text)
-            ''')
-            for t in tracks:
-                cursor.execute('''insert into tracks(title, artist, file, album, 
-                genre, time, pos, tag) values( ?, ?, ?, ?, ?, ?, ?, ?) ''',\
-                (t['title'], t['artist'], t['file'], t['album'], t['genre'], t['time'],\
-                t['pos'], t['tag'])
-                )
-            self.trackDB.commit()
-            cursor.close()
-            dialog.ui.sqlupdatePixmap.setEnabled(True)
-            app.processEvents()
-            app.processEvents()
-            time.sleep(1)
-        except ServerInterfaceError:
-            return
 
     def searchDB(self,keywords):
         keywords = [ '%' + word + '%' for word in keywords]
@@ -291,26 +297,21 @@ class ServerInterface(QtCore.QObject):
                 self.addRandomTrack()
 
     def _onConnected(self):
-        if not self.trackDB:
-            self.trackDB = sqlite3.connect(':memory:')
-
+        self.timerId = self.startTimer(400)
         try:
-            self.server.random(0)
-            self.server.repeat(1)
+            self.client.random(0)
+            self.client.repeat(1)
             try:
-                self.server.single(0)
-                self.server.consume(1)
+                self.client.single(0)
+                self.client.consume(1)
             except AttributeError:
                 # Ugly hack: python-mpd doesn't support these commands (yet),
                 # so we just add them
-                self.server._commands["consume"] = self.server._commands["play"]
-                self.server._commands["single"] = self.server._commands["play"]
-                self.server.single(0)
-                self.server.consume(1)
-        except socket.error:
-            self._lostConnection()
-            return
-        except ConnectionError:
+                self.client._commands["consume"] = self.client._commands["play"]
+                self.client._commands["single"] = self.client._commands["play"]
+                self.client.single(0)
+                self.client.consume(1)
+        except (socket.error, ConnectionError):
             self._lostConnection()
             return
         self.play()
@@ -318,13 +319,15 @@ class ServerInterface(QtCore.QObject):
     def _lostConnection(self):
         print datetime.now().isoformat(" ") + \
                 ": Lost connection to MPD. Trying to reconnect..."
+        if self.timerId:
+            self.killTimer(self.timerId)
+            self. timerId = False
         self.lastState = -9999
         self.lastSong = -9999
         self.lastTime = -9999
         self.lastPlaylist = -9999
         self.connected = False
         self.sigDisconnected.emit()
-        self.killTimer(self.timerId)
-        MPDClient.disconnect(self.server)
+        self.client.disconnect()
         self.connect()
 
