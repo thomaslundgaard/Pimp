@@ -173,7 +173,7 @@ class ServerInterface(QtCore.QObject, MPDClient):
         if playlistLength >= int(self.settings.value("maxPlaylist")):
             return "playlistFull"
         else:
-            self.add(filename)
+            self.add(filename.encode("utf-8"))
             return "added"
 
     def addRandomTrack(self):

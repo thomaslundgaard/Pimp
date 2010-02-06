@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>82</height>
+    <height>96</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -26,6 +26,12 @@
    </item>
    <item row="0" column="1">
     <widget class="QLabel" name="mpdupdateLabel">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>40</height>
+      </size>
+     </property>
      <property name="text">
       <string>Updating MPD database...</string>
      </property>
@@ -38,6 +44,12 @@
     <widget class="QLabel" name="sqlupdateLabel">
      <property name="enabled">
       <bool>true</bool>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>40</height>
+      </size>
      </property>
      <property name="text">
       <string>Transferring MPD DB to local memory...</string>

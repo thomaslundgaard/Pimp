@@ -33,15 +33,18 @@ class SearchWidget(QtGui.QWidget):
         if self._addToPlaylist():
             self.cancel()
 
+    def switchToBrowse(self):
+        pass
+
     def cancel(self):
-        self.parentWidget().gotoMainWidget()
+        self.parent().gotoMainWidget()
 
     def searchTextChanged(self, text):
         words = str(text).split()
         keyWords = [asciify(word.lower().strip()) for word in words if len(word) >= 2]
 
+        self.clearResults()
         if len(keyWords) > 0:
-            self.clearResults()
             for result in self.parent().server.searchDB(keyWords):
                 self.resultList.append(result)
                 self.ui.resultList.addItem("%s - %s  (%i:%02i)" % \

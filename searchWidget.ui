@@ -21,7 +21,7 @@
     <layout class="QVBoxLayout" name="vbox">
      <item>
       <layout class="QGridLayout" name="gridLayout">
-       <item row="3" column="1">
+       <item row="4" column="1">
         <widget class="QPushButton" name="closeBtn">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
@@ -59,7 +59,7 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="0" rowspan="4">
+       <item row="1" column="0" rowspan="6">
         <widget class="QListWidget" name="resultList">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -90,22 +90,28 @@
           </size>
          </property>
          <property name="text">
-          <string>Add &amp;&amp; &amp;Continue</string>
+          <string>Add &amp;&amp; C&amp;ontinue</string>
          </property>
         </widget>
        </item>
-       <item row="4" column="1">
-        <spacer name="verticalSpacer">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
+       <item row="3" column="1">
+        <widget class="QPushButton" name="browseBtn">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
          </property>
-         <property name="sizeHint" stdset="0">
+         <property name="maximumSize">
           <size>
-           <width>0</width>
-           <height>40</height>
+           <width>16777215</width>
+           <height>75</height>
           </size>
          </property>
-        </spacer>
+         <property name="text">
+          <string>&amp;Browse</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>
@@ -132,8 +138,8 @@
    <slot>addContinue()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>88</x>
-     <y>279</y>
+     <x>411</x>
+     <y>95</y>
     </hint>
     <hint type="destinationlabel">
      <x>5</x>
@@ -148,8 +154,8 @@
    <slot>addClose()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>249</x>
-     <y>282</y>
+     <x>444</x>
+     <y>157</y>
     </hint>
     <hint type="destinationlabel">
      <x>5</x>
@@ -164,8 +170,8 @@
    <slot>cancel()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>404</x>
-     <y>272</y>
+     <x>444</x>
+     <y>227</y>
     </hint>
     <hint type="destinationlabel">
      <x>449</x>
@@ -189,11 +195,28 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>browseBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>SearchWidget</receiver>
+   <slot>switchToBrowse()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>408</x>
+     <y>210</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>4</x>
+     <y>244</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>addContinue()</slot>
   <slot>addClose()</slot>
   <slot>cancel()</slot>
   <slot>searchTextChanged(QString)</slot>
+  <slot>switchToBrowse()</slot>
  </slots>
 </ui>

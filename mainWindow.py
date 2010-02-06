@@ -15,6 +15,8 @@ class MainWindow(QtGui.QStackedWidget):
         self.addWidget(self.mainWidget)
         self.searchWidget = SearchWidget(self)
         self.addWidget(self.searchWidget)
+        self.browseWidget = BrowseWidget(self)
+        self.addWidget(self.BrowseWidget)
         self.server.connect()
         self.server.updateDBs()
         self.startTimer(1000)
@@ -58,4 +60,6 @@ class MainWindow(QtGui.QStackedWidget):
         self.searchWidget.ui.infoLabel.hide()
         self.setCurrentWidget (self.searchWidget)
         self.searchWidget.ui.searchLine.setFocus()
+    def gotoBrowseWidget(self):
+        self.setCurrentWidget(self.browseWidget)
 
