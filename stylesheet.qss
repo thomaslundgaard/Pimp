@@ -10,9 +10,9 @@
 #curTitle, #genreList, #artistList{
 	font: 22pt "Sans Serif"; 
 }
-#genreList{
+/*#genreList{
     min-height: 250px;
-}
+}*/
 QLineEdit {
 	border-style: groove;
 	border-width: 1px;
