@@ -92,14 +92,12 @@ class ServerInterface(QtCore.QObject):
         cursor = self.trackDB.cursor()
         cursor.execute("drop table if exists tracks")
         cursor.execute('''create table if not exists tracks
-        (title text, artist text, file text, album text,
-        genre text, time integer, pos integer, tag text)
+        (title text, artist text, file text, time integer, tag text)
         ''')
         for t in tracks:
-            cursor.execute('''insert into tracks(title, artist, file, album, 
-            genre, time, pos, tag) values( ?, ?, ?, ?, ?, ?, ?, ?) ''',\
-            (t['title'], t['artist'], t['file'], t['album'], t['genre'], t['time'],\
-            t['pos'], t['tag'])
+            cursor.execute('''insert into tracks(title, artist, file, 
+            time, tag) values( ?, ?, ?, ?, ?) ''',\
+            (t['title'], t['artist'], t['file'], t['time'], t['tag'])
             )
         self.trackDB.commit()
         cursor.close()
@@ -145,7 +143,7 @@ class ServerInterface(QtCore.QObject):
         if not self.connected:
             raise ServerInterfaceError()
         try:
-            return self.client.add(filename)
+            return self.client.add(filename.encode("utf-8"))
         except (socket.error, ConnectionError):
             self._lostConnection()
             raise ServerInterfaceError()
@@ -231,22 +229,27 @@ class ServerInterface(QtCore.QObject):
         if playlistLength >= int(self.settings.value("maxPlaylist")):
             raise AddToPlaylistError("Playlist full!")
         else:
-            self.add(filename.encode("utf-8"))
+            self.add(filename)
             self.play()
 
     def addRandomTrack(self):
         if len(self.shuffleList) <= 0:
-            self.shuffleList = \
-                [dict['file'] for dict in self.listall() if 'file' in dict]
+            cursor = self.trackDB.cursor()
+            cursor.execute("select file from tracks")
+            self.shuffleList = [item[0] for item in cursor]
+            cursor.close()
             random.shuffle(self.shuffleList)
+
         self.add(self.shuffleList.pop())
 
-    def searchDB(self,keywords):
-        keywords = [ '%' + word + '%' for word in keywords]
+    def searchDBtag(self, anded, *argwords):
+        keywords = [ '%' + word + '%' for word in argwords]
+        if anded: lop = 'and'
+        else: lop='or'
         cursor = self.trackDB.cursor()
         query = """ select * from tracks where tag like ?"""
         for i in range(len(keywords) - 1):
-            query += """ and tag like ?"""
+            query += " %s tag like ?" % lop
 
         query += " order by tag asc"
 
@@ -255,11 +258,8 @@ class ServerInterface(QtCore.QObject):
             yield {'title':     row[0],\
                    'artist':    row[1],\
                    'file':      row[2],\
-                   'album':     row[3],\
-                   'genre':     row[4],\
-                   'time':      row[5],\
-                   'pos':       row[6],\
-                   'tag':       row[7],
+                   'time':      row[3],\
+                   'tag':       row[4],
                 }
         cursor.close()
 

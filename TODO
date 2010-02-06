@@ -1,4 +1,3 @@
-- allow browsing for songs
 - improve parseTrackInfo pop-split show with some regex
 - setup package distribution system
 - (future) interchange flickcharm with QAbstractKineticScroller when Qt becomes real cross-platform again (damn you Nokia)

@@ -34,6 +34,15 @@
          <verstretch>3</verstretch>
         </sizepolicy>
        </property>
+       <property name="horizontalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOff</enum>
+       </property>
+       <property name="verticalScrollMode">
+        <enum>QAbstractItemView::ScrollPerPixel</enum>
+       </property>
+       <property name="horizontalScrollMode">
+        <enum>QAbstractItemView::ScrollPerItem</enum>
+       </property>
       </widget>
      </item>
      <item>
@@ -53,6 +62,15 @@
          <horstretch>0</horstretch>
          <verstretch>1</verstretch>
         </sizepolicy>
+       </property>
+       <property name="horizontalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOff</enum>
+       </property>
+       <property name="verticalScrollMode">
+        <enum>QAbstractItemView::ScrollPerPixel</enum>
+       </property>
+       <property name="horizontalScrollMode">
+        <enum>QAbstractItemView::ScrollPerItem</enum>
        </property>
       </widget>
      </item>
@@ -94,10 +112,22 @@
          <verstretch>1</verstretch>
         </sizepolicy>
        </property>
+       <property name="horizontalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOff</enum>
+       </property>
+       <property name="verticalScrollMode">
+        <enum>QAbstractItemView::ScrollPerPixel</enum>
+       </property>
       </widget>
      </item>
      <item>
       <widget class="QLabel" name="infoLabel">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Ignored" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="text">
         <string>Added ...</string>
        </property>
@@ -231,11 +261,45 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>artistList</sender>
+   <signal>itemSelectionChanged()</signal>
+   <receiver>browseWidget</receiver>
+   <slot>onArtistChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>74</x>
+     <y>88</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>137</x>
+     <y>1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>genreList</sender>
+   <signal>itemSelectionChanged()</signal>
+   <receiver>browseWidget</receiver>
+   <slot>onGenreChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>110</x>
+     <y>271</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>158</x>
+     <y>203</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>cancel()</slot>
   <slot>switchToSearch()</slot>
   <slot>addClose()</slot>
   <slot>addContinue()</slot>
+  <slot>onArtistChanged()</slot>
+  <slot>onGenreChanged()</slot>
  </slots>
 </ui>

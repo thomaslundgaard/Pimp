@@ -129,7 +129,7 @@
      <item>
       <widget class="QPushButton" name="Browse">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
@@ -195,12 +195,6 @@ screen</string>
      <property name="selectionMode">
       <enum>QAbstractItemView::NoSelection</enum>
      </property>
-     <property name="verticalScrollMode">
-      <enum>QAbstractItemView::ScrollPerPixel</enum>
-     </property>
-     <property name="horizontalScrollMode">
-      <enum>QAbstractItemView::ScrollPerPixel</enum>
-     </property>
     </widget>
    </item>
   </layout>
@@ -214,8 +208,8 @@ screen</string>
    <slot>enterAdmin()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>711</x>
-     <y>294</y>
+     <x>715</x>
+     <y>214</y>
     </hint>
     <hint type="destinationlabel">
      <x>665</x>
@@ -230,8 +224,8 @@ screen</string>
    <slot>enterSearch()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>601</x>
-     <y>294</y>
+     <x>499</x>
+     <y>214</y>
     </hint>
     <hint type="destinationlabel">
      <x>655</x>
@@ -246,12 +240,28 @@ screen</string>
    <slot>enterFullscreen()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>777</x>
-     <y>257</y>
+     <x>821</x>
+     <y>214</y>
     </hint>
     <hint type="destinationlabel">
      <x>803</x>
      <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Browse</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWidget</receiver>
+   <slot>enterBrowse()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>593</x>
+     <y>188</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>826</x>
+     <y>24</y>
     </hint>
    </hints>
   </connection>
@@ -260,5 +270,6 @@ screen</string>
   <slot>enterAdmin()</slot>
   <slot>enterSearch()</slot>
   <slot>enterFullscreen()</slot>
+  <slot>enterBrowse()</slot>
  </slots>
 </ui>
