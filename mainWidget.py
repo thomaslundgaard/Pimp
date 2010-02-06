@@ -32,6 +32,9 @@ class MainWidget(QtGui.QWidget):
     def enterSearch(self):
         self.parent().gotoSearchWidget()
 
+    def enterBrowse(self):
+        self.parent().gotoBrowseWidget()
+
     def enterFullscreen(self):
         if self.parent().isFullscreen:
             self.enterAdmin()

@@ -34,7 +34,7 @@ class SearchWidget(QtGui.QWidget):
             self.cancel()
 
     def switchToBrowse(self):
-        pass
+        self.parent().gotoBrowseWidget()
 
     def cancel(self):
         self.parent().gotoMainWidget()
@@ -45,7 +45,7 @@ class SearchWidget(QtGui.QWidget):
 
         self.clearResults()
         if len(keyWords) > 0:
-            for result in QtGui.qApp.server.searchDB(keyWords):
+            for result in QtGui.qApp.server.searchDBtag(True,*keyWords):
                 self.resultList.append(result)
                 self.ui.resultList.addItem("%s - %s  (%i:%02i)" % \
                         (result['artist'] , result['title'],\
@@ -58,20 +58,21 @@ class SearchWidget(QtGui.QWidget):
     def _addToPlaylist(self):
         row = self.ui.resultList.currentRow()
         if row < 0:
-            return
+            return False
         try:
             entry = self.resultList[row]
         except IndexError:
-            return
+            return False
         try:
             answer = QtGui.qApp.server.addToPlaylist(entry['file'])
             self.ui.infoLabel.setText("Added %s - %s" % \
                     (entry['artist'] , entry['title']))
             self.ui.infoLabel.show()
+            return True
         except ServerInterfaceError:
-            return
+            return False
         except AddToPlaylistError as inst:
             self.ui.infoLabel.setText(inst.args[0])
             self.ui.infoLabel.show()
-            return
+            return False
 

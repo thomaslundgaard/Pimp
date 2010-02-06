@@ -6,7 +6,8 @@
 	color: rgb(237, 237, 237);
 	background-color: rgb(100, 100, 100);
 }
-#resultList, #curArtist, #curTitle {
+#resultList, #trackList, #curArtist, 
+#curTitle, #genreList, #artistList{
 	font: 22pt "Sans Serif"; 
 }
 QLineEdit {

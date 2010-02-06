@@ -64,4 +64,5 @@ class MainWindow(QtGui.QStackedWidget):
         self.searchWidget.ui.searchLine.setFocus()
     def gotoBrowseWidget(self):
         self.setCurrentWidget(self.browseWidget)
+        self.browseWidget.ui.infoLabel.hide()
 
