@@ -21,13 +21,17 @@ class BrowseWidget(QtGui.QWidget):
         self.genreCharm.activateOn(self.ui.genreList)
     
         self.artistList = []
-        self.genreList = [[u'Electronic','trance','dance','house','tech','electro','chiptune','hardstyle'],\
+        self.genreList = [[u'All'],\
+                          [u'Electronic','trance','dance','house','tech','electro','chiptune','hardstyle'],\
                           [u'Rock','metal','rock','punk','heavy','trash','guitar'],\
                           [u'Pop 70-80-90s','80','70','pop','disco','90'],\
                           [u'Rap / Hip-Hop','rap','hip hop','reggae','gangsta'],\
                          ]
         for genre in self.genreList:
             self.ui.genreList.addItem(genre[0])
+        item = self.ui.genreList.item(0)
+        item.setFont (QtGui.QFont("Arial", -1, QtGui.QFont.Bold))
+
         self.trackList = []
     def addContinue(self):
         self._addToPlaylist()
@@ -45,16 +49,22 @@ class BrowseWidget(QtGui.QWidget):
     def updateArtistList(self):
         self.ui.artistList.clear()
         self.artistList = []
+
         cursor = QtGui.qApp.server.trackDB.cursor()
-        cursor.execute("select distinct artist from tracks asc")
-        artists = cursor.fetchall()
-        for artist in artists:
-            cursor.execute("select count(*) from tracks \
-                    where artist == ?",artist)
-            count = cursor.fetchall()[0][0]
-            self.ui.artistList.addItem("%s (%i)" % (artist[0], count))
-            self.artistList.append(artist[0])
-            
+        cursor.execute("select artist from tracks order by artist asc")
+        count = 1
+        prevArtist = -1
+        for artist in cursor:
+            if artist[0] != prevArtist and prevArtist >= 0:
+                self.artistList.append(prevArtist)
+                self.ui.artistList.addItem("%s (%i)" % (prevArtist, count))
+                count = 1
+            else:
+                count += 1
+            prevArtist = artist[0]
+        self.artistList.append(prevArtist)
+        self.ui.artistList.addItem("%s (%i)" % (prevArtist, count))
+
         cursor.close()
 
     def onArtistChanged(self):
@@ -94,8 +104,27 @@ class BrowseWidget(QtGui.QWidget):
             genre = self.genreList[self.ui.genreList.currentRow()]
         except IndexError:
             return
+        
         self.ui.trackList.clear()
         self.trackList = []
+        
+        if genre[0] == u'All':
+            cursor = QtGui.qApp.server.trackDB.cursor()
+            cursor.execute("select * from tracks order by tag asc")
+            for row in cursor:
+                track = {'title':     row[0],\
+                    'artist':    row[1],\
+                    'file':      row[2],\
+                    'time':      row[3],\
+                    'tag':       row[4],
+                }
+                self.trackList.append(track)
+                self.ui.trackList.addItem("%s - %s  (%i:%02i)" % \
+                    (track['artist'] , track['title'],\
+                    track['time']/60, track['time']%60 ))
+            cursor.close()
+            return
+
         for track in QtGui.qApp.server.searchDBtag(False,*genre[1:-1]):
             self.trackList.append(track)
             self.ui.trackList.addItem("%s - %s  (%i:%02i)" % \

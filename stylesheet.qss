@@ -10,6 +10,9 @@
 #curTitle, #genreList, #artistList{
 	font: 22pt "Sans Serif"; 
 }
+#genreList{
+    min-height: 250px;
+}
 QLineEdit {
 	border-style: groove;
 	border-width: 1px;
@@ -47,5 +50,6 @@ QScrollBar:up-arrow:vertical, QScrollBar::down-arrow:vertical {
 }
 
 QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
-	background: none;
+	/*background: none;*/
+	background-color: rgb(80, 80, 80);
 }

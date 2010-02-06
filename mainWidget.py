@@ -83,16 +83,8 @@ class MainWidget(QtGui.QWidget):
             return
         # update labels
         if status['state'] != 'stop':
-            if curSong['title']:
-                title = curSong['title']
-            else: title = "Unknown title"
-           
-            if curSong['artist']:
-                artist = curSong['artist']
-            else: artist = "Unknown artist"
-            
-            self.ui.curTitle.setText(title)
-            self.ui.curArtist.setText(artist)
+            self.ui.curTitle.setText(curSong['title'])
+            self.ui.curArtist.setText(curSong['artist'])
         else:
             self.ui.curTitle.setText ("Not playing")
             self.ui.curArtist.setText ("")
