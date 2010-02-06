@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import socket
 from PyQt4 import QtCore, QtGui
 from searchWidget import SearchWidget
 from mainWidget import MainWidget
@@ -11,6 +12,7 @@ class MainWindow(QtGui.QStackedWidget):
         self.isFullscreen = False
         self.resize(800, 600)
         
+        socket.setdefaulttimeout(2)
         self.server = ServerInterface(self)
         QtGui.qApp.server = self.server
         self.mainWidget = MainWidget(self)

@@ -30,6 +30,10 @@ class ServerInterface(QtCore.QObject):
         QtCore.QObject.__init__(self, parent)
         self.client = MPDClient()
         self.settings = Settings()
+        self.mpdServer = str(self.settings.value("mpdServer"))
+        self.mpdPort = str(self.settings.value("mpdPort"))
+        self.mpdPassword = str(self.settings.value("mpdPassword"))
+
         self.lastState=-9999
         self.lastSongid=-9999
         self.lastTime=-9999
@@ -42,19 +46,16 @@ class ServerInterface(QtCore.QObject):
         self.sigStatusChanged.connect(self._onStatusChanged)
 
     def connect(self):
-        server = str(self.settings.value("mpdServer"))
-        port = str(self.settings.value("mpdPort"))
-        password = str(self.settings.value("mpdPassword"))
         try:
-            self.client.connect(host=server, port=port)
+            self.client.connect(host=self.mpdServer, port=self.mpdPort)
         except socket.error:
             print datetime.now().isoformat(" ") + \
             ": Unable to connect to MPD: Socket error (will try again in 2 sec)"
             QtCore.QTimer.singleShot(2000, self.connect)
             return
-        if password != "":
+        if self.mpdPassword != "":
             try:
-                self.client.password(password)
+                self.client.password(self.mpdPassword)
             except CommandError:
                 print datetime.now().isoformat(" ") + \
                         ": Unable to connect to MPD: Invalid password"

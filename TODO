@@ -1,5 +1,4 @@
 - allow browsing for songs
-- make ui react better to long connection times in server.status() (long timeout
-  times causes ui hangs)
+- improve parseTrackInfo pop-split show with some regex
+- setup package distribution system
 - (future) interchange flickcharm with QAbstractKineticScroller when Qt becomes real cross-platform again (damn you Nokia)
-- (optional) automatically download covers and show on main widget
