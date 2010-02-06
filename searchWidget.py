@@ -5,6 +5,7 @@ from virtualKeyboard import VirtualKeyboard
 from settings import Settings
 from helperFunctions import asciify
 from flickcharm import *
+from serverInterface import ServerInterfaceError
 
 class SearchWidget(QtGui.QWidget):
     def __init__(self, parent):
@@ -43,7 +44,7 @@ class SearchWidget(QtGui.QWidget):
 
         self.clearResults()
         if len(keyWords) > 0:
-            for result in self.parent().server.searchDB(keyWords):
+            for result in QtGui.qApp.server.searchDB(keyWords):
                 self.resultList.append(result)
                 self.ui.resultList.addItem("%s - %s  (%i:%02i)" % \
                         (result['artist'] , result['title'],\
@@ -61,7 +62,10 @@ class SearchWidget(QtGui.QWidget):
             entry = self.resultList[row]
         except IndexError:
             return False
-        answer = self.parent().server.addToPlaylist(entry['file'])
+        try:
+            answer = QtGui.qApp.server.addToPlaylist(entry['file'])
+        except ServerInterfaceError:
+            return
         if answer == "added":
             self.ui.infoLabel.setText("Added %s - %s" % \
                     (entry['artist'] , entry['title']))

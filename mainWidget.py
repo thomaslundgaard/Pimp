@@ -15,12 +15,15 @@ class MainWidget(QtGui.QWidget):
         self.widgets = (self.ui.stateLabel, self.ui.label_2, self.ui.label_5, \
                 self.ui.curTitle, self.ui.curArtist, self.ui.songProgress, \
                 self.ui.searchBtn, self.ui.playlist )
-        self.onDisconnect()     # setup UI to reflect current status
-
+        # setup UI to reflect current status
+        if QtGui.qApp.server.connected:
+            self.onServerConnected()
+        else:
+            self.onServerDisconnected()
         # Signals from MPD server
-        self.parent().server.sigConnected.connect(self.onConnect)
-        self.parent().server.sigDisconnected.connect(self.onDisconnect)
-        self.parent().server.sigStatusChanged.connect(self.onStatusChange)
+        QtGui.qApp.server.sigConnected.connect(self.onServerConnected)
+        QtGui.qApp.server.sigDisconnected.connect(self.onServerDisconnected)
+        QtGui.qApp.server.sigStatusChanged.connect(self.onServerStatusChanged)
 
     def enterAdmin(self):
         dialog = adminDialog.AdminDialog(self)
@@ -35,14 +38,21 @@ class MainWidget(QtGui.QWidget):
         else:
             self.parent().gotoFullscreen()
 
-    def onStatusChange(self, changeList, status):
-        if status['state'] == 'stop' and \
-                len(self.parent().server.playlistinfo()) <= 0:
-            if self.parent().server.clearFlag:
-                self.parent().server.clearFlag = False
-            else:
-                self.parent().server.addRandomTrack()
-                self.parent().server.play()
+    def onServerConnected(self):
+        for widget in self.widgets:
+            widget.setDisabled(False)
+        self.ui.curTitle.setText("Not playing")
+
+    def onServerDisconnected(self):
+        for widget in self.widgets:
+            widget.setDisabled(True)
+        self.ui.curArtist.setText("")
+        self.ui.curTitle.setText("Not connected")
+        self.ui.playlist.clear()
+        self.ui.songProgress.setValue(0)
+        self.ui.songProgress.setFormat("")
+
+    def onServerStatusChanged(self, changeList, status):
         if 'time' in changeList:
             self.updateTime(status)
         if 'playlist' in changeList or 'song' in changeList or \
@@ -61,14 +71,13 @@ class MainWidget(QtGui.QWidget):
             self.ui.songProgress.setFormat(txt)
         else:
             self.ui.songProgress.setValue(0)
-        timeBeforePlAdd = int(status['xfade']) + 5
-        if total-elapsed <= timeBeforePlAdd:
-            if len(self.parent().server.playlistinfo()) <= 1:
-                self.parent().server.addRandomTrack()
 
     def updateUi(self, status):
-        curSong = parseTrackInfo(self.parent().server.currentsong())
-        playlist = self.parent().server.playlistinfo()
+        try:
+            curSong = parseTrackInfo(QtGui.qApp.server.currentsong())
+            playlist = QtGui.qApp.server.playlistinfo()
+        except ServerInterfaceError:
+            return
         # update labels
         if status['state'] != 'stop':
             if curSong['title']:
@@ -98,30 +107,4 @@ class MainWidget(QtGui.QWidget):
             curItem.setFont (QtGui.QFont("Arial", -1, QtGui.QFont.Bold))
             self.ui.playlist.scrollToItem (curItem, \
                     QtGui.QAbstractItemView.PositionAtCenter)
-
-    def onConnect(self):
-        for widget in self.widgets:
-            widget.setDisabled(False)
-        self.ui.curTitle.setText("Not playing")
-        status = self.parent().server.status()
-        self.parent().server.random(0)
-        self.parent().server.repeat(1)
-        try:
-            self.parent().server.single(0)
-        except AttributeError:
-            print "Can't deactivate single mode automatically"
-        try:
-            self.parent().server.consume(1)
-        except AttributeError:
-            print "Can't activate consume mode automatically"
-        self.parent().server.play()
-
-    def onDisconnect(self):
-        for widget in self.widgets:
-            widget.setDisabled(True)
-        self.ui.curArtist.setText("")
-        self.ui.curTitle.setText("Not connected")
-        self.ui.playlist.clear()
-        self.ui.songProgress.setValue(0)
-        self.ui.songProgress.setFormat("")
 

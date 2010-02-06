@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from PyQt4 import QtCore, QtGui
-from serverInterface import ServerInterface
+from serverInterface import *
 from searchWidget import SearchWidget
 from mainWidget import MainWidget
 
@@ -10,15 +10,19 @@ class MainWindow(QtGui.QStackedWidget):
         self.isFullscreen = False
         self.resize(800, 600)
         
-        self.server = ServerInterface()
+        QtGui.qApp.server = ServerInterface()
         self.mainWidget = MainWidget(self)
         self.addWidget(self.mainWidget)
         self.searchWidget = SearchWidget(self)
         self.addWidget(self.searchWidget)
         self.browseWidget = BrowseWidget(self)
         self.addWidget(self.BrowseWidget)
-        self.server.connect()
-        self.server.updateDBs()
+        QtGui.qApp.server.sigDisconnected.connect(self.gotoMainWidget)
+        try:
+            QtGui.qApp.server.connect()
+            QtGui.qApp.server.updateDBs()
+        except ServerInterfaceError:
+            pass
         self.startTimer(1000)
 
     def gotoFullscreen(self):
