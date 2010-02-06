@@ -3,6 +3,7 @@ from PyQt4 import QtCore, QtGui
 from serverInterface import *
 from searchWidget import SearchWidget
 from mainWidget import MainWidget
+from browseWidget import BrowseWidget
 
 class MainWindow(QtGui.QStackedWidget):
     def __init__(self):
@@ -16,7 +17,7 @@ class MainWindow(QtGui.QStackedWidget):
         self.searchWidget = SearchWidget(self)
         self.addWidget(self.searchWidget)
         self.browseWidget = BrowseWidget(self)
-        self.addWidget(self.BrowseWidget)
+        self.addWidget(self.browseWidget)
         QtGui.qApp.server.sigDisconnected.connect(self.gotoMainWidget)
         try:
             QtGui.qApp.server.connect()

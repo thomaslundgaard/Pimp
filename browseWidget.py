@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 from PyQt4 import QtGui
-from browseWidget import Ui_browseWidget
+from browseWidget_ui import Ui_browseWidget
 from flickcharm import *
 
 class BrowseWidget(QtGui.QWidget):
     def __init__(self, parent):
         QtGui.QWidget.__init__(self, parent)
-        self.ui = Ui_BrowseWidget()
+        self.ui = Ui_browseWidget()
         self.ui.setupUi(self)
 
         #setup flickcharm
