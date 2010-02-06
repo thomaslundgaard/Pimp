@@ -6,6 +6,7 @@ from settings import Settings
 from helperFunctions import asciify
 from flickcharm import *
 from serverInterface import ServerInterfaceError
+from serverInterface import AddToPlaylistError
 
 class SearchWidget(QtGui.QWidget):
     def __init__(self, parent):
@@ -57,26 +58,20 @@ class SearchWidget(QtGui.QWidget):
     def _addToPlaylist(self):
         row = self.ui.resultList.currentRow()
         if row < 0:
-            return False
+            return
         try:
             entry = self.resultList[row]
         except IndexError:
-            return False
+            return
         try:
             answer = QtGui.qApp.server.addToPlaylist(entry['file'])
-        except ServerInterfaceError:
-            return
-        if answer == "added":
             self.ui.infoLabel.setText("Added %s - %s" % \
                     (entry['artist'] , entry['title']))
             self.ui.infoLabel.show()
-            return True
-        elif answer == "playlistFull":
-            self.ui.infoLabel.setText("Playlist full!")
+        except ServerInterfaceError:
+            return
+        except AddToPlaylistError as inst:
+            self.ui.infoLabel.setText(inst.args[0])
             self.ui.infoLabel.show()
-            return False
-        elif answer == "alreadyInPlaylist":
-            self.ui.infoLabel.setText("Song already in playlist!")
-            self.ui.infoLabel.show()
-            return False
+            return
 

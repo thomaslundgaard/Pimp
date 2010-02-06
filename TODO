@@ -5,7 +5,6 @@
 - make ui react better to long connection times in server.status() (long timeout
   times causes ui hangs)
 - try using mpc to set single and consume
-- use exceptions to give addToPlaylist feedback
 - fix bug: unable to add songs with utf-8 characters in filename to playlist
 - (future) interchange flickcharm with QAbstractKineticScroller when Qt becomes real cross-platform again (damn you Nokia)
 - (optional) automatically download covers and show on main widget

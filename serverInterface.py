@@ -13,7 +13,12 @@ from dbUpdateWidget import DbUpdateWidget
 from helperFunctions import *
 
 class ServerInterfaceError(Exception):
-    pass
+    def __init__(self):
+        Exception.__init__(self)
+
+class AddToPlaylistError(Exception):
+    def __init__(self, message):
+        Exception.__init__(self, message)
 
 class ServerInterface(QtCore.QObject):
     sigConnected = QtCore.pyqtSignal()
@@ -64,10 +69,7 @@ class ServerInterface(QtCore.QObject):
             self.addRandomTrack()
         try:
             return self.server.play()
-        except socket.error:
-            self._lostConnection()
-            raise ServerInterfaceError()
-        except ConnectionError:
+        except (socket.error, ConnectionError):
             self._lostConnection()
             raise ServerInterfaceError()
 
@@ -79,10 +81,7 @@ class ServerInterface(QtCore.QObject):
                 return self.server.pause()
             else:
                 return self.play()
-        except socket.error:
-            self._lostConnection()
-            raise ServerInterfaceError()
-        except ConnectionError:
+        except (socket.error, ConnectionError):
             self._lostConnection()
             raise ServerInterfaceError()
 
@@ -91,10 +90,7 @@ class ServerInterface(QtCore.QObject):
             raise ServerInterfaceError()
         try:
             return self.server.next()
-        except socket.error:
-            self._lostConnection()
-            raise ServerInterfaceError()
-        except ConnectionError:
+        except (socket.error, ConnectionError):
             self._lostConnection()
             raise ServerInterfaceError()
 
@@ -103,10 +99,7 @@ class ServerInterface(QtCore.QObject):
             raise ServerInterfaceError()
         try:
             return self.server.add(filename)
-        except socket.error:
-            self._lostConnection()
-            raise ServerInterfaceError()
-        except ConnectionError:
+        except (socket.error, ConnectionError):
             self._lostConnection()
             raise ServerInterfaceError()
 
@@ -115,10 +108,7 @@ class ServerInterface(QtCore.QObject):
             raise ServerInterfaceError()
         try:
             return self.server.status()
-        except socket.error:
-            self._lostConnection()
-            raise ServerInterfaceError()
-        except ConnectionError:
+        except (socket.error, ConnectionError):
             self._lostConnection()
             raise ServerInterfaceError()
 
@@ -127,10 +117,7 @@ class ServerInterface(QtCore.QObject):
             raise ServerInterfaceError()
         try:
             return self.server.currentsong()
-        except socket.error:
-            self._lostConnection()
-            raise ServerInterfaceError()
-        except ConnectionError:
+        except (socket.error, ConnectionError):
             self._lostConnection()
             raise ServerInterfaceError()
 
@@ -139,10 +126,7 @@ class ServerInterface(QtCore.QObject):
             raise ServerInterfaceError()
         try:
             return self.server.playlistinfo()
-        except socket.error:
-            self._lostConnection()
-            raise ServerInterfaceError()
-        except ConnectionError:
+        except (socket.error, ConnectionError):
             self._lostConnection()
             raise ServerInterfaceError()
 
@@ -151,10 +135,7 @@ class ServerInterface(QtCore.QObject):
             raise ServerInterfaceError()
         try:
             return self.server.listall()
-        except socket.error:
-            self._lostConnection()
-            raise ServerInterfaceError()
-        except ConnectionError:
+        except (socket.error, ConnectionError):
             self._lostConnection()
             raise ServerInterfaceError()
 
@@ -163,10 +144,7 @@ class ServerInterface(QtCore.QObject):
             raise ServerInterfaceError()
         try:
             return self.server.listallinfo()
-        except socket.error:
-            self._lostConnection()
-            raise ServerInterfaceError()
-        except ConnectionError:
+        except (socket.error, ConnectionError):
             self._lostConnection()
             raise ServerInterfaceError()
 
@@ -175,10 +153,7 @@ class ServerInterface(QtCore.QObject):
             raise ServerInterfaceError()
         try:
             return self.server.deleteid(id)
-        except socket.error:
-            self._lostConnection()
-            raise ServerInterfaceError()
-        except ConnectionError:
+        except (socket.error, ConnectionError):
             self._lostConnection()
             raise ServerInterfaceError()
 
@@ -187,10 +162,7 @@ class ServerInterface(QtCore.QObject):
             raise ServerInterfaceError()
         try:
             return self.server.update()
-        except socket.error:
-            self._lostConnection()
-            raise ServerInterfaceError()
-        except ConnectionError:
+        except (socket.error, ConnectionError):
             self._lostConnection()
             raise ServerInterfaceError()
 
@@ -207,14 +179,13 @@ class ServerInterface(QtCore.QObject):
     def addToPlaylist(self, filename):
         for item in self.playlistinfo():
             if parseTrackInfo(item)['file'] == filename:
-                return "alreadyInPlaylist"
+                raise AddToPlaylistError("Track already in playlist!")
         playlistLength = int(self.status()['playlistlength'])
         if playlistLength >= int(self.settings.value("maxPlaylist")):
-            return "playlistFull"
+            raise AddToPlaylistError("Playlist full!")
         else:
             self.add(filename.encode("utf-8"))
             self.play()
-            return "added"
 
     def addRandomTrack(self):
         if len(self.shuffleList) <= 0:
