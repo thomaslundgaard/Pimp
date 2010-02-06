@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import unicodedata, sys
+import re       # regex
 import string
 
 def parseTrackInfo(description):
@@ -23,18 +24,25 @@ def parseTrackInfo(description):
     if isinstance(artist,list):
         artist = " & ".join(artist)
 
-    if not (title or artist):
-        title = filename.split('/').pop().split('-').pop().split('.')[0:-1]
-        title = "".join(title).strip()
-        artist = filename.split('/').pop().split('-').pop(0).split('.').pop(0)
-
+    if not title or not artist:
+        try:
+            regex = "[^a-zA-Z]*[^0-9a-zA-Z]?(.*)[^0-9a-zA-Z]*[\.\-]+\
+[^0-9a-zA-Z]*(.*)\..*?$"
+            m = re.search(regex, filename.split("/")[-1] )
+            artist = m.group(1)
+            title = m.group(2)
+        except (IndexError, AttributeError):
+            artist = "Unknown"
+            try:
+                m = re.search("(.*)\..*?$", filename.split("/")[-1] )
+                title = m.group(1)
+            except (IndexError, AttributeError):
+                title = "Unknown"
     searchString = asciify(("%s %s %s %s %s" % (artist, title, album, genre, filename)).lower())
 
-    return {'title':    unicode(title,'utf-8'),\
-            'artist':   unicode(artist,'utf-8'),\
+    return {'title':    unicode(title,'utf-8').title(),\
+            'artist':   unicode(artist,'utf-8').title(),\
             'file':     unicode(filename,'utf-8'),\
-            'album':    unicode(album,'utf-8'),\
-            'genre':    unicode(genre,'utf-8'),\
             'time':     time,\
             'pos':      pos,\
             'tag':      searchString,\
@@ -117,3 +125,4 @@ tranmap = unaccented_map()
 def asciify(input):
     input = unicode(input, 'utf-8',errors='ignore')
     return input.translate(tranmap)
+
