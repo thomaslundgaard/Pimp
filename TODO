@@ -1,10 +1,6 @@
 - allow browsing for songs
 - improve startup db update -- also exception handling
-- make ui react better when connection to mpd cannot be established (it must be
-  posible to change connection settings)
 - make ui react better to long connection times in server.status() (long timeout
   times causes ui hangs)
-- try using mpc to set single and consume
-- fix bug: unable to add songs with utf-8 characters in filename to playlist
 - (future) interchange flickcharm with QAbstractKineticScroller when Qt becomes real cross-platform again (damn you Nokia)
 - (optional) automatically download covers and show on main widget

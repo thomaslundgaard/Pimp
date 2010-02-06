@@ -299,12 +299,14 @@ class ServerInterface(QtCore.QObject):
             self.server.repeat(1)
             try:
                 self.server.single(0)
-            except AttributeError:
-                print "Can't deactivate single mode automatically"
-            try:
                 self.server.consume(1)
             except AttributeError:
-                print "Can't activate consume mode automatically"
+                # Ugly hack: python-mpd doesn't support these commands (yet),
+                # so we just add them
+                self.server._commands["consume"] = self.server._commands["play"]
+                self.server._commands["single"] = self.server._commands["play"]
+                self.server.single(0)
+                self.server.consume(1)
         except socket.error:
             self._lostConnection()
             return
