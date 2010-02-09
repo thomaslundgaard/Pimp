@@ -5,11 +5,11 @@ from mainWindow import MainWindow
 
 def main():
     app = QtGui.QApplication(sys.argv)
-    app.setWindowIcon(QtGui.QIcon("res/karaoke.png"))
+    app.setWindowIcon(QtGui.QIcon("../pixmaps/karaoke.png"))
     app.setOrganizationName("Blupix");
     app.setApplicationName("PyMpdJuke");
 
-    app.styleSheet = QtCore.QFile("stylesheet.qss")
+    app.styleSheet = QtCore.QFile("../resources/stylesheet.qss")
     app.styleSheet.open(QtCore.QIODevice.ReadOnly)
     app.setStyleSheet( str(app.styleSheet.readAll()) )
     app.styleSheet.close()

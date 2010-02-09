@@ -39,7 +39,7 @@
       <bool>false</bool>
      </property>
      <property name="pixmap">
-      <pixmap>res/tick.svg</pixmap>
+      <pixmap>../pixmaps/tick.svg</pixmap>
      </property>
     </widget>
    </item>
@@ -65,7 +65,7 @@
       <bool>false</bool>
      </property>
      <property name="pixmap">
-      <pixmap>res/tick.svg</pixmap>
+      <pixmap>../pixmaps/tick.svg</pixmap>
      </property>
     </widget>
    </item>
