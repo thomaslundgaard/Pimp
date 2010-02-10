@@ -44,6 +44,7 @@ class ServerInterface(QtCore.QObject):
         self.trackDB = None 
         self.sigConnected.connect(self._onConnected)
         self.sigStatusChanged.connect(self._onStatusChanged)
+        QtGui.qApp.aboutToQuit.connect(self.stop)
 
     def connect(self):
         try:
@@ -114,6 +115,15 @@ class ServerInterface(QtCore.QObject):
             self.addRandomTrack()
         try:
             return self.client.play()
+        except (socket.error, ConnectionError):
+            self._lostConnection()
+            raise ServerInterfaceError()
+
+    def stop(self):
+        if not self.connected:
+            raise ServerInterfaceError()
+        try:
+            return self.client.stop()
         except (socket.error, ConnectionError):
             self._lostConnection()
             raise ServerInterfaceError()

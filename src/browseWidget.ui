@@ -159,7 +159,7 @@
           </sizepolicy>
          </property>
          <property name="text">
-          <string>Add &amp;
+          <string>Add &amp;&amp;
  C&amp;ontinue</string>
          </property>
         </widget>
