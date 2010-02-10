@@ -44,7 +44,7 @@ class ServerInterface(QtCore.QObject):
         self.trackDB = None 
         self.sigConnected.connect(self._onConnected)
         self.sigStatusChanged.connect(self._onStatusChanged)
-        QtGui.qApp.aboutToQuit.connect(self.stop)
+        QtGui.qApp.aboutToQuit.connect(self._onAppQuit)
 
     def connect(self):
         try:
@@ -293,6 +293,13 @@ class ServerInterface(QtCore.QObject):
             self.lastState = status['state']
         if changeList:
             self.sigStatusChanged.emit(changeList, status)
+
+    def _onAppQuit(self):
+        if self.settings.value("stopOnQuit") == "True":
+            try:
+                self.stop()
+            except ServerInterfaceError:
+                pass
 
     def _onStatusChanged(self, changeList, status):
         if 'state' in changeList and status['state'] == 'stop' and \

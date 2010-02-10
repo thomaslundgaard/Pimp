@@ -16,6 +16,10 @@ class SettingsDialog (QtGui.QDialog):
         self.ui.mpdServerEdit.setText (conf.value("mpdServer"))
         self.ui.mpdPortEdit.setText (conf.value("mpdPort"))
         self.ui.mpdPasswordEdit.setText (conf.value("mpdPassword"))
+        if( conf.value("stopOnQuit") == "True" ):
+            self.ui.stopOnQuitCheckBox.setChecked(True)
+        else:
+            self.ui.stopOnQuitCheckBox.setChecked(False)
         self.vkb = VirtualKeyboard(self)
         self.vkb.setMinimumSize(600,300)
         self.layout().addWidget(self.vkb)
@@ -36,6 +40,10 @@ class SettingsDialog (QtGui.QDialog):
         conf.setValue ("mpdServer", self.ui.mpdServerEdit.text() )
         conf.setValue ("mpdPort", self.ui.mpdPortEdit.text() )
         conf.setValue ("mpdPassword", self.ui.mpdPasswordEdit.text() )
+        if self.ui.stopOnQuitCheckBox.isChecked():
+            conf.setValue ("stopOnQuit", "True" )
+        else:
+            conf.setValue ("stopOnQuit", "False" )
         self.close()
 
     def cancelBtn (self):

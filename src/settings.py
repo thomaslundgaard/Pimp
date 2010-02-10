@@ -8,6 +8,7 @@ class Settings (QtCore.QSettings):
         self.default = { \
                 "adminPassword":		"hidden", \
                 "maxPlaylist":			"5", \
+                "stopOnQuit":           "True", \
                 "mpdServer":	    		"localhost", \
                 "mpdPort":		    		"6600", \
                 "mpdPassword": 		    "", \
