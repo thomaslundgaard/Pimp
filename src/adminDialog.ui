@@ -76,9 +76,15 @@
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
         <widget class="QPushButton" name="leaveFullscreenBtn">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="minimumSize">
           <size>
-           <width>100</width>
+           <width>0</width>
            <height>60</height>
           </size>
          </property>
@@ -89,9 +95,15 @@
        </item>
        <item>
         <widget class="QPushButton" name="playPauseBtn">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="minimumSize">
           <size>
-           <width>100</width>
+           <width>0</width>
            <height>60</height>
           </size>
          </property>
@@ -102,9 +114,15 @@
        </item>
        <item>
         <widget class="QPushButton" name="nextBtn">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="minimumSize">
           <size>
-           <width>100</width>
+           <width>0</width>
            <height>60</height>
           </size>
          </property>
@@ -115,9 +133,15 @@
        </item>
        <item>
         <widget class="QPushButton" name="clearBtn">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="minimumSize">
           <size>
-           <width>100</width>
+           <width>0</width>
            <height>60</height>
           </size>
          </property>
@@ -132,9 +156,15 @@
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
         <widget class="QPushButton" name="pushButton">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="minimumSize">
           <size>
-           <width>100</width>
+           <width>0</width>
            <height>60</height>
           </size>
          </property>
@@ -145,9 +175,15 @@
        </item>
        <item>
         <widget class="QPushButton" name="quitBtn">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="minimumSize">
           <size>
-           <width>100</width>
+           <width>0</width>
            <height>60</height>
           </size>
          </property>
@@ -158,9 +194,15 @@
        </item>
        <item>
         <widget class="QPushButton" name="cancelBtn">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="minimumSize">
           <size>
-           <width>100</width>
+           <width>0</width>
            <height>60</height>
           </size>
          </property>

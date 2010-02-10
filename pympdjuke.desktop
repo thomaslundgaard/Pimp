@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=PyMpdJuke
+Comment=Jukebox mediaplayer for parties
+Exec=pympdjuke
+Terminal=false
+Icon=pympdjuke
+Type=Application
+Categories=Application;Multimedia;

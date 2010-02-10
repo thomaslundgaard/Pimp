@@ -12,6 +12,10 @@ class DbUpdateDialog(QtGui.QDialog):
         self.ui.setupUi(self)
         self.ui.mpdupdatePixmap.hide()
         self.ui.sqlupdatePixmap.hide()
+        self.ui.sqlupdatePixmap.setPixmap( \
+                QtGui.QPixmap(QtGui.qApp.pixmapsPath + "/tick.svg"))
+        self.ui.mpdupdatePixmap.setPixmap( \
+                QtGui.QPixmap(QtGui.qApp.pixmapsPath + "/tick.svg"))
 
     def reject(self):
         pass

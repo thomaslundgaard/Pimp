@@ -13,6 +13,9 @@
 /*#genreList{
     min-height: 250px;
 }*/
+QLabel {
+	background-color: rgba(0,0,0,0);
+}
 QLineEdit {
 	border-style: groove;
 	border-width: 1px;
