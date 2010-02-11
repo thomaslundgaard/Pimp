@@ -1,5 +1,5 @@
+# -*- coding: utf-8 -*-
 from PyQt4 import QtCore
-
 
 class Settings (QtCore.QSettings):
     def __init__ (self):

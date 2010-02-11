@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from PyQt4 import QtCore, QtGui
 from settingsDialog_ui import Ui_SettingsDialog
 from settings import Settings
