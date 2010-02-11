@@ -1,4 +1,30 @@
-run from source lib, with `make`
+PyMpdJuke is a MPD frontend, intended to be used as a jukebox at parties. The
+interface is made for use with touchscreens without a connected keyboard.
 
-Requires python-mpd from http://jatreuman.indefero.net/p/python-mpd/
-Uses flickcharm-python from http://code.google.com/p/flickcharm-python/
+******************
+INSTALLING
+******************
+To run/install it, you need:
+	* python
+	* pyqt
+	* python-mpd (http://jatreuman.indefero.net/p/python-mpd)
+Oviously you also need a mpd server to connect to, but it can be running on
+another computer and then be controlled remotely by pympdjuke over the network.
+You can enter your MPD-server settings in the settings dialog in pympdjuke.
+
+To run the app, directly from the source folder:
+	make run
+
+To install to /usr:
+	make install
+
+To install into another dir:
+	make DESTDIR=/usr/local install
+
+******************
+We would like to thank the guy(s?) behind flickcharm-python, which is used to
+make the UI more touchcreen friendly.
+(http://code.google.com/p/flickcharm-python/)
+
+Peace out and happy party'ing!
+

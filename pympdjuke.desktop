@@ -7,4 +7,4 @@ Exec=pympdjuke
 Terminal=false
 Icon=pympdjuke
 Type=Application
-Categories=Application;Multimedia;
+Categories=Application;AudioVideo;

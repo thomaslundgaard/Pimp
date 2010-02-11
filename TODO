@@ -1,7 +1,9 @@
 - setup package distribution system
+- handling of empty mpd libraries
+- search unicode error (line 43 in searchWidget.py)
+
+
 - (future) interchange flickcharm with QAbstractKineticScroller when Qt becomes real cross-platform again (damn you Nokia)
 
 Feedback wishes:
 	- is tag-guessing ok?
-	- speed of UI, especially when selecting a genre with many tracks in "browse
-	  for tracks"
