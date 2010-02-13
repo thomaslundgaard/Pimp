@@ -41,6 +41,7 @@ class ServerInterface(QtCore.QObject):
         self.connected = False
         self.shuffleList = []
         self.timerId = False
+        self.autoAdd = True
         self.trackDB = None 
         self.sigConnected.connect(self._onConnected)
         self.sigStatusChanged.connect(self._onStatusChanged)
@@ -119,6 +120,15 @@ class ServerInterface(QtCore.QObject):
             self._lostConnection()
             raise ServerInterfaceError()
 
+    def pause(self):
+        if not self.connected:
+            raise ServerInterfaceError()
+        try:
+            return self.client.pause()
+        except (socket.error, ConnectionError):
+            self._lostConnection()
+            raise ServerInterfaceError()
+
     def stop(self):
         if not self.connected:
             raise ServerInterfaceError()
@@ -129,16 +139,10 @@ class ServerInterface(QtCore.QObject):
             raise ServerInterfaceError()
 
     def playPause(self):
-        if not self.connected:
-            raise ServerInterfaceError()
-        try:
-            if self.client.status()['state'] == 'play':
-                return self.client.pause()
-            else:
-                return self.play()
-        except (socket.error, ConnectionError):
-            self._lostConnection()
-            raise ServerInterfaceError()
+        if self.status()['state'] == 'play':
+            return self.pause()
+        else:
+            return self.play()
 
     def next(self):
         if not self.connected:
@@ -154,6 +158,15 @@ class ServerInterface(QtCore.QObject):
             raise ServerInterfaceError()
         try:
             return self.client.add(filename.encode("utf-8"))
+        except (socket.error, ConnectionError):
+            self._lostConnection()
+            raise ServerInterfaceError()
+
+    def clear(self):
+        if not self.connected:
+            raise ServerInterfaceError()
+        try:
+            return self.client.clear()
         except (socket.error, ConnectionError):
             self._lostConnection()
             raise ServerInterfaceError()
@@ -222,14 +235,18 @@ class ServerInterface(QtCore.QObject):
             raise ServerInterfaceError()
 
     def clearExceptCurrent(self):
-        playlist = self.playlistinfo()
         try:
-            curId = self.status()['songid']
-        except KeyError:
-            self.clear()    # clear completely if not playing
-        for item in playlist:
-            if item['id'] != curId:
-                self.deleteid(item['id'])
+            playlist = self.playlistinfo()
+            status = self.status()
+            if status['state'] == "play":
+                for item in playlist:
+                    if item['id'] != status['songid']:
+                        self.deleteid(item['id'])
+            else:
+                self.autoAdd = False
+                self.clear()    # clear completely if not playing
+        except ServerInterfaceError:
+            pass
 
     def addToPlaylist(self, filename):
         for item in self.playlistinfo():
@@ -250,7 +267,8 @@ class ServerInterface(QtCore.QObject):
             cursor.close()
             random.shuffle(self.shuffleList)
 
-        self.add(self.shuffleList.pop())
+        if self.shuffleList: # shuffleList can be empty if no tracks in mpd db
+            self.add(self.shuffleList.pop())
 
     def searchDBtag(self, anded, *argwords):
         keywords = [ '%' + word + '%' for word in argwords]
@@ -302,6 +320,9 @@ class ServerInterface(QtCore.QObject):
                 pass
 
     def _onStatusChanged(self, changeList, status):
+        if not self.autoAdd:
+            self.autoAdd = True
+            return
         if 'state' in changeList and status['state'] == 'stop' and \
                 int(status['playlistlength']) == 0:
             self.play()     # play() adds random track
