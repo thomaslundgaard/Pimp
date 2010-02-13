@@ -1,3 +1,5 @@
+- setup package distribution system
+
 - (future) interchange flickcharm with QAbstractKineticScroller when Qt becomes real cross-platform again (damn you Nokia)
 
 Feedback wishes:
