@@ -41,8 +41,8 @@ def parseTrackInfo(description):
     searchString = asciify(unicode(("%s %s %s %s %s" % \
             (artist, title, album, genre, filename)), 'utf-8').lower())
 
-    return {'title':    unicode(title,'utf-8').title(),\
-            'artist':   unicode(artist,'utf-8').title(),\
+    return {'title':    unicode(title,'utf-8').strip().title(),\
+            'artist':   unicode(artist,'utf-8').strip().title(),\
             'file':     unicode(filename,'utf-8'),\
             'time':     time,\
             'pos':      pos,\
