@@ -40,7 +40,7 @@ class SearchWidget(QtGui.QWidget):
         self.parent().gotoMainWidget()
 
     def searchTextChanged(self, text):
-        words = str(text).split()
+        words = unicode(text.toUtf8(), 'utf-8').split()
         keyWords = [asciify(word.lower().strip()) for word in words if len(word) >= 2]
 
         self.clearResults()

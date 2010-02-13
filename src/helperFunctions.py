@@ -38,7 +38,8 @@ def parseTrackInfo(description):
                 title = m.group(1)
             except (IndexError, AttributeError):
                 title = "Unknown"
-    searchString = asciify(("%s %s %s %s %s" % (artist, title, album, genre, filename)).lower())
+    searchString = asciify(unicode(("%s %s %s %s %s" % \
+            (artist, title, album, genre, filename)), 'utf-8').lower())
 
     return {'title':    unicode(title,'utf-8').title(),\
             'artist':   unicode(artist,'utf-8').title(),\
@@ -123,6 +124,5 @@ class unaccented_map(dict):
         __getitem__ = mapchar
 tranmap = unaccented_map()
 def asciify(input):
-    input = unicode(input, 'utf-8',errors='ignore')
     return input.translate(tranmap)
 
