@@ -101,6 +101,6 @@ class keyboardPushbutton(QtGui.QPushButton):
     def __init__(self, *args, **keywords):
         QtGui.QPushButton.__init__(self, *args, **keywords)
     def _onClicked(self):
-        self.sigClicked.emit(str(self.text()).lower())
+        self.sigClicked.emit(unicode(self.text()).lower())
 
 
