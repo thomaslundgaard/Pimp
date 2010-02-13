@@ -127,7 +127,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="Browse">
+      <widget class="QPushButton" name="browseBtn">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -250,7 +250,7 @@ screen</string>
    </hints>
   </connection>
   <connection>
-   <sender>Browse</sender>
+   <sender>browseBtn</sender>
    <signal>clicked()</signal>
    <receiver>MainWidget</receiver>
    <slot>enterBrowse()</slot>

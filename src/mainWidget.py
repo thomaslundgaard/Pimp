@@ -14,7 +14,7 @@ class MainWidget(QtGui.QWidget):
         self.charm.activateOn(self.ui.playlist)
         self.widgets = (self.ui.stateLabel, self.ui.label_2, self.ui.label_5, \
                 self.ui.curTitle, self.ui.curArtist, self.ui.songProgress, \
-                self.ui.searchBtn, self.ui.playlist )
+                self.ui.searchBtn, self.ui.browseBtn, self.ui.playlist )
         # setup UI to reflect current status
         if QtGui.qApp.server.connected:
             self.onServerConnected()
