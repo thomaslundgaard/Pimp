@@ -7,7 +7,10 @@
 	background-color: rgb(100, 100, 100);
 }
 #resultList, #trackList, #curArtist, 
-#curTitle, #genreList, #artistList{
+#curTitle, #genreList, #artistList,
+#allTrackList, #artistTrackList,
+#electronicTrackList, #rockTrackList,
+#popTrackList, #rapTrackList{
 	font: 22pt "Sans Serif"; 
 }
 /*#genreList{

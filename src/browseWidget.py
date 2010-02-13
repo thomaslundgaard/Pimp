@@ -16,10 +16,17 @@ class BrowseWidget(QtGui.QWidget):
         #setup flickcharm
         self.trackCharm = FlickCharm()
         self.trackCharm.activateOn(self.ui.allTrackList)
-        self.trackCharm = FlickCharm()
-        self.trackCharm.activateOn(self.ui.artistTrackList)
-        self.trackCharm = FlickCharm()
-        self.trackCharm.activateOn(self.ui.electronicTrackList)
+        self.artistTrackCharm = FlickCharm()
+        self.artistTrackCharm.activateOn(self.ui.artistTrackList)
+        self.electronicCharm = FlickCharm()
+        self.electronicCharm.activateOn(self.ui.electronicTrackList)
+        self.rockCharm = FlickCharm()
+        self.rockCharm.activateOn(self.ui.rockTrackList)
+        self.popCharm = FlickCharm()
+        self.popCharm.activateOn(self.ui.popTrackList)
+        self.rapCharm = FlickCharm()
+        self.rapCharm.activateOn(self.ui.rapTrackList)
+
         self.artistCharm = FlickCharm()
         self.artistCharm.activateOn(self.ui.artistList)
         self.genreCharm = FlickCharm()
@@ -64,6 +71,7 @@ class BrowseWidget(QtGui.QWidget):
                 cursor = QtGui.qApp.server.trackDB.cursor()
                 cursor.execute("select * from tracks order by tag asc")
                 for row in cursor:
+                    QtGui.qApp.processEvents()
                     track = {'title':     row[0],\
                         'artist':    row[1],\
                         'file':      row[2],\
@@ -86,6 +94,7 @@ class BrowseWidget(QtGui.QWidget):
                 elif genre[0] == u'Rap / Hip-Hop':
                     tracklist = self.ui.rapTrackList
                 for track in QtGui.qApp.server.searchDBtag(False,*genre[1:-1]):
+                    QtGui.qApp.processEvents()
                     item = QtGui.QListWidgetItem("%s - %s  (%i:%02i)" % \
                         (track['artist'] , track['title'],\
                         track['time']/60, track['time']%60 ))
@@ -101,6 +110,7 @@ class BrowseWidget(QtGui.QWidget):
         count = 1
         prevArtist = -1
         for artist in cursor:
+            QtGui.qApp.processEvents()
             if artist[0] != prevArtist and prevArtist >= 0:
                 self.artistList.append(prevArtist)
                 self.ui.artistList.addItem("%s (%i)" % (prevArtist, count))
@@ -155,18 +165,23 @@ class BrowseWidget(QtGui.QWidget):
         if genre[0] == u'All':
             self.ui.trackStackedWidget.setCurrentWidget(self.ui.all)
             self.ui.allTrackList.clearSelection()
+            self.ui.allTrackList.scrollToTop()
         if genre[0] == u'Electronic':
             self.ui.trackStackedWidget.setCurrentWidget(self.ui.electronic)
             self.ui.electronicTrackList.clearSelection()
+            self.ui.electronicTrackList.scrollToTop()
         elif genre[0] == u'Rock':
             self.ui.trackStackedWidget.setCurrentWidget(self.ui.rock)
             self.ui.rockTrackList.clearSelection()
+            self.ui.rockTrackList.scrollToTop()
         elif genre[0] == u'Pop 70-80-90s':
             self.ui.trackStackedWidget.setCurrentWidget(self.ui.pop)
             self.ui.popTrackList.clearSelection()
+            self.ui.popTrackList.scrollToTop()
         elif genre[0] == u'Rap / Hip-Hop':
             self.ui.trackStackedWidget.setCurrentWidget(self.ui.rap)
             self.ui.rapTrackList.clearSelection()
+            self.ui.rapTrackList.scrollToTop()
 
 
     def _addToPlaylist(self):
@@ -207,4 +222,7 @@ class BrowseWidget(QtGui.QWidget):
 
     def clearSelection(self):
         self.ui.genreList.setCurrentRow(0)
+        self.ui.artistList.scrollToTop()
+        self.ui.genreList.scrollToTop()
+        self.ui.allTrackList.scrollToTop()
         self.ui.infoLabel.hide()
