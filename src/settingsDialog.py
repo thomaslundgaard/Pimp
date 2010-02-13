@@ -17,6 +17,10 @@ class SettingsDialog (QtGui.QDialog):
         self.ui.mpdServerEdit.setText (conf.value("mpdServer"))
         self.ui.mpdPortEdit.setText (conf.value("mpdPort"))
         self.ui.mpdPasswordEdit.setText (conf.value("mpdPassword"))
+        if( conf.value("playOnConnect") == "True" ):
+            self.ui.playOnConnectCheckBox.setChecked(True)
+        else:
+            self.ui.playOnConnectCheckBox.setChecked(False)
         if( conf.value("stopOnQuit") == "True" ):
             self.ui.stopOnQuitCheckBox.setChecked(True)
         else:
@@ -41,10 +45,14 @@ class SettingsDialog (QtGui.QDialog):
         conf.setValue ("mpdServer", self.ui.mpdServerEdit.text() )
         conf.setValue ("mpdPort", self.ui.mpdPortEdit.text() )
         conf.setValue ("mpdPassword", self.ui.mpdPasswordEdit.text() )
-        if self.ui.stopOnQuitCheckBox.isChecked():
-            conf.setValue ("stopOnQuit", "True" )
+        if self.ui.playOnConnectCheckBox.isChecked():
+            conf.setValue("playOnConnect", "True" )
         else:
-            conf.setValue ("stopOnQuit", "False" )
+            conf.setValue("playOnConnect", "False" )
+        if self.ui.stopOnQuitCheckBox.isChecked():
+            conf.setValue("stopOnQuit", "True" )
+        else:
+            conf.setValue("stopOnQuit", "False" )
         self.close()
 
     def cancelBtn (self):

@@ -41,7 +41,11 @@ class ServerInterface(QtCore.QObject):
         self.connected = False
         self.shuffleList = []
         self.timerId = False
-        self.autoAdd = True
+        if self.settings.value("playOnConnect") == "True":
+            self.autoAdd = True
+        else:
+            self.autoAdd = False
+
         self.trackDB = None 
         self.sigConnected.connect(self._onConnected)
         self.sigStatusChanged.connect(self._onStatusChanged)
@@ -353,7 +357,8 @@ class ServerInterface(QtCore.QObject):
         except (socket.error, ConnectionError):
             self._lostConnection()
             return
-        self.play()
+        if self.settings.value("playOnConnect") == "True":
+            self.play()
 
     def _lostConnection(self):
         print datetime.now().isoformat(" ") + \
