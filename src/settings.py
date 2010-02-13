@@ -23,7 +23,7 @@ class Settings (QtCore.QSettings):
         if res.toString() == "THIS_KEY_DIDN'T_EXIST":
             return self.default[key]
         else:
-            return res.toString()
+            return unicode(res.toString())
 
 
 

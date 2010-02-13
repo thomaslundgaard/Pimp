@@ -10,7 +10,7 @@ def main():
     QtGui.qApp.pixmapsPath=scriptPath+"/../pixmaps"
     QtGui.qApp.resourcesPath=scriptPath+"/../resources"
 
-    app.setWindowIcon(QtGui.QIcon(QtGui.qApp.pixmapsPath+"/icon16.png"))
+    app.setWindowIcon(QtGui.QIcon(QtGui.qApp.pixmapsPath+"/icon.png"))
     app.setOrganizationName("pympdjuke");
     app.setApplicationName("PyMpdJuke");
 

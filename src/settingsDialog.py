@@ -25,6 +25,11 @@ class SettingsDialog (QtGui.QDialog):
             self.ui.stopOnQuitCheckBox.setChecked(True)
         else:
             self.ui.stopOnQuitCheckBox.setChecked(False)
+        self.ui.vkRow1Edit.setText (conf.value("vkRow1"))
+        self.ui.vkRow2Edit.setText (conf.value("vkRow2"))
+        self.ui.vkRow3Edit.setText (conf.value("vkRow3"))
+        self.ui.vkRow4Edit.setText (conf.value("vkRow4"))
+
         self.vkb = VirtualKeyboard(self)
         self.vkb.setMinimumSize(600,300)
         self.layout().addWidget(self.vkb)
@@ -42,9 +47,6 @@ class SettingsDialog (QtGui.QDialog):
         conf = Settings()
         conf.setValue ("adminPassword", self.ui.adminPasswordEdit.text())
         conf.setValue ("maxPlaylist", self.ui.maxPlaylistSpinBox.value() )
-        conf.setValue ("mpdServer", self.ui.mpdServerEdit.text() )
-        conf.setValue ("mpdPort", self.ui.mpdPortEdit.text() )
-        conf.setValue ("mpdPassword", self.ui.mpdPasswordEdit.text() )
         if self.ui.playOnConnectCheckBox.isChecked():
             conf.setValue("playOnConnect", "True" )
         else:
@@ -53,6 +55,13 @@ class SettingsDialog (QtGui.QDialog):
             conf.setValue("stopOnQuit", "True" )
         else:
             conf.setValue("stopOnQuit", "False" )
+        conf.setValue ("vkRow1", self.ui.vkRow1Edit.text() )
+        conf.setValue ("vkRow2", self.ui.vkRow2Edit.text() )
+        conf.setValue ("vkRow3", self.ui.vkRow3Edit.text() )
+        conf.setValue ("vkRow4", self.ui.vkRow4Edit.text() )
+        conf.setValue ("mpdServer", self.ui.mpdServerEdit.text() )
+        conf.setValue ("mpdPort", self.ui.mpdPortEdit.text() )
+        conf.setValue ("mpdPassword", self.ui.mpdPasswordEdit.text() )
         self.close()
 
     def cancelBtn (self):
@@ -71,3 +80,12 @@ class SettingsDialog (QtGui.QDialog):
             self.vkb.setInputLine(self.ui.mpdPasswordEdit)
         if new == self.ui.mpdPortEdit:
             self.vkb.setInputLine(self.ui.mpdPortEdit)
+        if new == self.ui.vkRow1Edit:
+            self.vkb.setInputLine(self.ui.vkRow1Edit)
+        if new == self.ui.vkRow2Edit:
+            self.vkb.setInputLine(self.ui.vkRow2Edit)
+        if new == self.ui.vkRow3Edit:
+            self.vkb.setInputLine(self.ui.vkRow3Edit)
+        if new == self.ui.vkRow4Edit:
+            self.vkb.setInputLine(self.ui.vkRow4Edit)
+
