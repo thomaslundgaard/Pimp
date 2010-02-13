@@ -1,9 +1,9 @@
 PyMpdJuke is a MPD frontend, intended to be used as a jukebox at parties. The
 interface is made for use with touchscreens without a connected keyboard.
 
-******************
-INSTALLING
-******************
+************************************
+ INSTALLING
+************************************
 To run/install it, you need:
 	* python
 	* pyqt
@@ -21,7 +21,25 @@ To install to /usr:
 To install into another dir:
 	make DESTDIR=/usr/local install
 
-******************
+
+************************************
+ UBUNTU USERS
+************************************
+On ubuntu/debian based systems, you first need to install the following
+packages (use synaptic or your favorite package manager):
+	python-qt4 python-mpd pyqt4-dev-tools
+Then you install PyMpdJuke by running the following two commands, from the folder
+containing this README:
+	make
+	sudo make install
+Then you should install and setup mpd. To get sound output working, follow the guide at:
+	http://ubuntuforums.org/showthread.php?t=1298789
+Now you're good to go, start PyMpdJuke like any other application from the menu
+- or be clever and use gnome-do :).
+
+************************************
+ THANKS
+************************************
 We would like to thank the guy(s?) behind flickcharm-python, which is used to
 make the UI more touchcreen friendly.
 (http://code.google.com/p/flickcharm-python/)
