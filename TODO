@@ -1,5 +1,4 @@
 - setup package distribution system
-- search unicode error (line 43 in searchWidget.py)
 
 - (future) interchange flickcharm with QAbstractKineticScroller when Qt becomes real cross-platform again (damn you Nokia)
 
