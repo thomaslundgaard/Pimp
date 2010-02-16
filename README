@@ -22,7 +22,7 @@ To install into another dir:
 	make DESTDIR=/usr/local install
 
 To make a deb package to /usr on debian systems:
-	sudo dpkg-buildpackage -tc
+	sudo dpkg-buildpackage -tc -A
 
 
 ************************************
