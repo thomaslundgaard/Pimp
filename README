@@ -1,6 +1,21 @@
 PyMpdJuke is a MPD frontend, intended to be used as a jukebox at parties. The
 interface is made for use with touchscreens without a connected keyboard.
 
+Please report bugs on our github page:
+http://github.com/thomaslundgaard/PyMpdJuke/issues
+If you have any feature requests or other ideas, do feel free to post it on the
+github issues page.
+
+************************************
+ TIPS & TRICKS
+************************************
+ * If you forgot your password or one of your fellow admins changed it, it can be
+   found in the configuration file ~/.config/pympdjuke/PyMpdJuke.conf
+ * If you want to change the look (fonts, colors) or sizes of buttons, etc, have
+   a look at the QStyleSheet in /usr/share/pympdjuke/resources/stylesheet.qss.
+   It's syntax is based on CSS, but adapted to the world of applications, see
+   the Qt documentation: http://qt.nokia.com/doc/4.6/stylesheet.html
+
 ************************************
  INSTALLING
 ************************************
@@ -23,7 +38,6 @@ To install into another dir:
 
 To make a deb package to /usr on debian systems:
 	sudo dpkg-buildpackage -tc -A
-
 
 ************************************
  UBUNTU USERS
