@@ -6,7 +6,7 @@ class Settings (QtCore.QSettings):
         QtCore.QSettings.__init__(self)
 
         self.default = { \
-                "adminPassword":		"hidden", \
+                "adminPassword":		"", \
                 "maxPlaylist":			"5", \
                 "playOnConnect":        "True", \
                 "stopOnQuit":           "True", \
