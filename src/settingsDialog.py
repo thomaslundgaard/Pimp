@@ -34,6 +34,10 @@ class SettingsDialog (QtGui.QDialog):
         self.ui.mpdServerEdit.setText (conf.value("mpdServer"))
         self.ui.mpdPortEdit.setText (conf.value("mpdPort"))
         self.ui.mpdPasswordEdit.setText (conf.value("mpdPassword"))
+        if( conf.value("fullscreenOnStart") == "True" ):
+            self.ui.fullscreenOnStartCheckBox.setChecked(True)
+        else:
+            self.ui.fullscreenOnStartCheckBox.setChecked(False)
         if( conf.value("playOnConnect") == "True" ):
             self.ui.playOnConnectCheckBox.setChecked(True)
         else:
@@ -64,6 +68,10 @@ class SettingsDialog (QtGui.QDialog):
         conf = Settings()
         conf.setValue ("adminPassword", self.ui.adminPasswordEdit.text())
         conf.setValue ("maxPlaylist", self.ui.maxPlaylistSpinBox.value() )
+        if self.ui.fullscreenOnStartCheckBox.isChecked():
+            conf.setValue("fullscreenOnStart", "True" )
+        else:
+            conf.setValue("fullscreenOnStart", "False" )
         if self.ui.playOnConnectCheckBox.isChecked():
             conf.setValue("playOnConnect", "True" )
         else:

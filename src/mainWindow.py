@@ -22,6 +22,7 @@ from searchWidget import SearchWidget
 from mainWidget import MainWidget
 from browseWidget import BrowseWidget
 from serverInterface import *
+from settings import *
 
 class MainWindow(QtGui.QStackedWidget):
     def __init__(self, parent=None):
@@ -38,6 +39,9 @@ class MainWindow(QtGui.QStackedWidget):
         self.addWidget(self.searchWidget)
         self.browseWidget = BrowseWidget(self)
         self.addWidget(self.browseWidget)
+        settings = Settings()
+        if settings.value("fullscreenOnStart") == "True":
+            self.gotoFullscreen()
         QtGui.qApp.server.sigDisconnected.connect(self.gotoMainWidget)
         QtGui.qApp.server.connect()
         self.startTimer(1000)

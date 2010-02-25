@@ -25,6 +25,7 @@ class Settings (QtCore.QSettings):
         self.default = { \
                 "adminPassword":		"", \
                 "maxPlaylist":			"5", \
+                "fullscreenOnStart":    "False", \
                 "playOnConnect":        "True", \
                 "stopOnQuit":           "True", \
                 "mpdServer":	    		"localhost", \
