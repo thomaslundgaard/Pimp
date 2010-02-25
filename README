@@ -10,10 +10,11 @@ github issues page.
  TIPS & TRICKS
 ************************************
  * The default password is "" (empty).
- * If you want some more control over your mpd-server, you can leave a
-   conventional mpd-client like qmpdclient or sonata running in the background.
+ * If you want more control over your mpd-server, you can leave a
+   conventional mpd-client like mpc, qmpdclient or sonata running in the
+   background.
  * It is possible to make mpd cross-fade between songs, all you need to do, is
-   to enable it from another mpd-client.
+   to enable it from another mpd-client like mpc, qmpdclient or sonata.
  * If you forgot your password or one of your fellow admins changed it, it can be
    found in the configuration file ~/.config/pympdjuke/PyMpdJuke.conf (it will
    created the first time you change some settings)
@@ -21,6 +22,8 @@ github issues page.
    a look at the QStyleSheet in /usr/share/pympdjuke/resources/stylesheet.qss.
    It's syntax is based on CSS, but adapted to the world of applications, see
    the Qt documentation: http://qt.nokia.com/doc/4.6/stylesheet.html
+   If you create a good-looking stylesheet, do share it with the world on out
+   github page.
 
 ************************************
  INSTALLING
