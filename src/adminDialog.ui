@@ -73,6 +73,24 @@
    <item>
     <layout class="QVBoxLayout" name="verticalLayout_2">
      <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <item>
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>Volume:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QSlider" name="volumeSlider">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
         <widget class="QPushButton" name="leaveFullscreenBtn">
@@ -207,7 +225,7 @@
           </size>
          </property>
          <property name="text">
-          <string>&amp;Cancel</string>
+          <string>&amp;Back</string>
          </property>
         </widget>
        </item>
@@ -237,7 +255,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>788</x>
-     <y>303</y>
+     <y>388</y>
     </hint>
     <hint type="destinationlabel">
      <x>741</x>
@@ -252,8 +270,8 @@
    <slot>quitApp()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>394</x>
-     <y>303</y>
+     <x>527</x>
+     <y>388</y>
     </hint>
     <hint type="destinationlabel">
      <x>333</x>
@@ -268,8 +286,8 @@
    <slot>click()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>39</x>
-     <y>228</y>
+     <x>48</x>
+     <y>225</y>
     </hint>
     <hint type="destinationlabel">
      <x>50</x>
@@ -284,8 +302,8 @@
    <slot>settings()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>591</x>
-     <y>303</y>
+     <x>265</x>
+     <y>388</y>
     </hint>
     <hint type="destinationlabel">
      <x>538</x>
@@ -316,8 +334,8 @@
    <slot>nextTrack()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>171</x>
-     <y>360</y>
+     <x>592</x>
+     <y>320</y>
     </hint>
     <hint type="destinationlabel">
      <x>203</x>
@@ -332,8 +350,8 @@
    <slot>clearPlaylist()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>372</x>
-     <y>359</y>
+     <x>788</x>
+     <y>320</y>
     </hint>
     <hint type="destinationlabel">
      <x>401</x>
@@ -348,12 +366,28 @@
    <slot>playPause()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>609</x>
-     <y>355</y>
+     <x>396</x>
+     <y>320</y>
     </hint>
     <hint type="destinationlabel">
      <x>632</x>
      <y>394</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>volumeSlider</sender>
+   <signal>actionTriggered(int)</signal>
+   <receiver>AdminDialog</receiver>
+   <slot>changeVolume(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>105</x>
+     <y>242</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>295</x>
+     <y>193</y>
     </hint>
    </hints>
   </connection>
@@ -366,5 +400,6 @@
   <slot>nextTrack()</slot>
   <slot>clearPlaylist()</slot>
   <slot>playPause()</slot>
+  <slot>changeVolume(int)</slot>
  </slots>
 </ui>

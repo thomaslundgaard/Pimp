@@ -55,6 +55,7 @@ class ServerInterface(QtCore.QObject):
         self.lastSongid=-9999
         self.lastTime=-9999
         self.lastPlaylist=-9999
+        self.lastVolume=-1
         self.connected = False
         self.shuffleList = []
         self.timerId = False
@@ -201,6 +202,15 @@ class ServerInterface(QtCore.QObject):
             self._lostConnection()
             raise ServerInterfaceError()
 
+    def setvol(self, volume):
+        if not self.connected:
+            raise ServerInterfaceError()
+        try:
+            return self.client.setvol(volume)
+        except (socket.error, ConnectionError):
+            self._lostConnection()
+            raise ServerInterfaceError()
+
     def currentsong(self):
         if not self.connected:
             raise ServerInterfaceError()
@@ -330,6 +340,9 @@ class ServerInterface(QtCore.QObject):
         if status['state'] != self.lastState:
             changeList.append('state')
             self.lastState = status['state']
+        if status['volume'] != self.lastVolume:
+            changeList.append('volume')
+            self.lastVolume = status['volume']
         if changeList:
             self.sigStatusChanged.emit(changeList, status)
 

@@ -1,0 +1,2 @@
+To make a deb package to /usr on debian systems:
+	sudo dpkg-buildpackage -tc -A

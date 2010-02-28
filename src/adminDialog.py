@@ -79,16 +79,33 @@ class AdminDialog(QtGui.QDialog):
                 self.ui.playPauseBtn.setText("Pause &playback")
             else:
                 self.ui.playPauseBtn.setText("Start &playback")
+        if 'volume' in changeList:
+            self.ui.volumeSlider.setValue(int(status['volume']))
                 
     def onServerConnected(self):
         self.ui.playPauseBtn.setEnabled(True)
         self.ui.nextBtn.setEnabled(True)
         self.ui.clearBtn.setEnabled(True)
+        self.ui.volumeSlider.setEnabled(True)
+        volume = int(QtGui.qApp.server.status()['volume'])
+        self.ui.volumeSlider.setValue(volume)
 
     def onServerDisconnected(self):
         self.ui.playPauseBtn.setEnabled(False)
         self.ui.nextBtn.setEnabled(False)
         self.ui.clearBtn.setEnabled(False)
+        self.ui.volumeSlider.setEnabled(False)
+
+    def changeVolume(self, value):
+        if self.checkPwd():
+            try:
+                volume = int(self.ui.volumeSlider.sliderPosition())
+                QtGui.qApp.server.setvol(volume)
+            except ServerInterfaceError:
+                return
+        else:
+            oldVolume = int(QtGui.qApp.server.status()['volume'])
+            self.ui.volumeSlider.setValue(oldVolume)
 
     def nextTrack(self):
         if self.checkPwd():

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>590</width>
-    <height>553</height>
+    <width>575</width>
+    <height>484</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -30,6 +30,9 @@
           <string>General settings</string>
          </property>
          <layout class="QFormLayout" name="formLayout_2">
+          <property name="fieldGrowthPolicy">
+           <enum>QFormLayout::ExpandingFieldsGrow</enum>
+          </property>
           <item row="0" column="0">
            <widget class="QLabel" name="label_2">
             <property name="text">
@@ -111,51 +114,87 @@
             </item>
            </layout>
           </item>
-          <item row="5" column="0">
-           <widget class="QLabel" name="label_8">
-            <property name="text">
-             <string>Autostart MPD playback when connected:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="1">
-           <widget class="QCheckBox" name="playOnConnectCheckBox">
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item row="6" column="1">
-           <widget class="QCheckBox" name="stopOnQuitCheckBox">
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item row="6" column="0">
-           <widget class="QLabel" name="label_6">
-            <property name="text">
-             <string>Stop MPD playback on quit:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="0">
-           <widget class="QLabel" name="label_13">
-            <property name="text">
-             <string>Start as fullscreen:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="1">
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_3">
+      <attribute name="title">
+       <string>Start/Quit</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_4">
+       <item>
+        <widget class="QGroupBox" name="groupBox_4">
+         <property name="title">
+          <string>Behaviour on start &amp;&amp; quit</string>
+         </property>
+         <layout class="QFormLayout" name="formLayout_3">
+          <item row="1" column="1">
            <widget class="QCheckBox" name="fullscreenOnStartCheckBox">
             <property name="text">
              <string/>
             </property>
            </widget>
           </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_8">
+            <property name="text">
+             <string>Autostart MPD playback when connected:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QCheckBox" name="playOnConnectCheckBox">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="label_6">
+            <property name="text">
+             <string>Stop MPD playback on quit:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QCheckBox" name="stopOnQuitCheckBox">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_13">
+            <property name="text">
+             <string>Start as fullscreen:</string>
+            </property>
+           </widget>
+          </item>
          </layout>
         </widget>
        </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_4">
+      <attribute name="title">
+       <string>Virtual keyboard</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_5">
        <item>
         <widget class="QGroupBox" name="groupBox_3">
          <property name="title">
@@ -205,19 +244,6 @@
          </layout>
         </widget>
        </item>
-       <item>
-        <spacer name="verticalSpacer_2">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
       </layout>
      </widget>
      <widget class="QWidget" name="tab_2">
@@ -228,7 +254,7 @@
        <item>
         <widget class="QGroupBox" name="groupBox">
          <property name="title">
-          <string>MPD server settings (restart required)</string>
+          <string>MPD server configuration (restart required)</string>
          </property>
          <layout class="QFormLayout" name="formLayout_4">
           <property name="fieldGrowthPolicy">
