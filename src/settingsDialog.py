@@ -31,6 +31,8 @@ class SettingsDialog (QtGui.QDialog):
         self.ui.adminPasswordEdit.setText (conf.value("adminPassword"))
         self.ui.adminPasswordRepeatEdit.setText (conf.value("adminPassword"))
         self.ui.maxPlaylistSpinBox.setValue (int(conf.value("maxPlaylist")))
+        self.ui.maxTrackLengthSpinBox.setValue( \
+                int(conf.value("maxTrackLength")))
         self.ui.mpdServerEdit.setText (conf.value("mpdServer"))
         self.ui.mpdPortEdit.setText (conf.value("mpdPort"))
         self.ui.mpdPasswordEdit.setText (conf.value("mpdPassword"))
@@ -46,6 +48,18 @@ class SettingsDialog (QtGui.QDialog):
             self.ui.stopOnQuitCheckBox.setChecked(True)
         else:
             self.ui.stopOnQuitCheckBox.setChecked(False)
+        if (conf.value("excludeLongTracks") == "True"):
+            self.ui.excludeLongTracksCheckbox.setChecked(True)
+            self.ui.maxTrackLengthSpinBox.setEnabled(True)
+            self.ui.maxTrackLengthLabel.setEnabled(True)
+            self.ui.maxTrackLengthUp.setEnabled(True)
+            self.ui.maxTrackLengthDown.setEnabled(True)
+        else:
+            self.ui.excludeLongTracksCheckbox.setChecked(False)
+            self.ui.maxTrackLengthSpinBox.setEnabled(False)
+            self.ui.maxTrackLengthLabel.setEnabled(False)
+            self.ui.maxTrackLengthUp.setEnabled(False)
+            self.ui.maxTrackLengthDown.setEnabled(False)
         self.ui.vkRow1Edit.setText (conf.value("vkRow1"))
         self.ui.vkRow2Edit.setText (conf.value("vkRow2"))
         self.ui.vkRow3Edit.setText (conf.value("vkRow3"))
@@ -68,6 +82,11 @@ class SettingsDialog (QtGui.QDialog):
         conf = Settings()
         conf.setValue ("adminPassword", self.ui.adminPasswordEdit.text())
         conf.setValue ("maxPlaylist", self.ui.maxPlaylistSpinBox.value() )
+        conf.setValue ("maxTrackLength", self.ui.maxTrackLengthSpinBox.value() )
+        if self.ui.excludeLongTracksCheckbox.isChecked():
+            conf.setValue("excludeLongTracks", "True")
+        else:
+            conf.setValue("excludeLongTracks", "False")
         if self.ui.fullscreenOnStartCheckBox.isChecked():
             conf.setValue("fullscreenOnStart", "True" )
         else:

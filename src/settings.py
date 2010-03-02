@@ -25,6 +25,8 @@ class Settings (QtCore.QSettings):
         self.default = { \
                 "adminPassword":		"", \
                 "maxPlaylist":			"5", \
+                "excludeLongTracks":    "False",\
+                "maxTrackLength":       "15",\
                 "fullscreenOnStart":    "False", \
                 "playOnConnect":        "True", \
                 "stopOnQuit":           "True", \

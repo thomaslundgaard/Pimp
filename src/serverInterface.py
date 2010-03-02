@@ -113,12 +113,20 @@ class ServerInterface(QtCore.QObject):
         self._lostConnection()
 
     def onDbDownloaded(self, tracks):
+        settings = Settings()
+        if settings.value("excludeLongTracks") == "True":
+            excluding = True
+            maxTrackSeconds = int(settings.value("maxTrackLength")) * 60
+        else:
+            excluding = False
         cursor = self.trackDB.cursor()
         cursor.execute("drop table if exists tracks")
         cursor.execute('''create table if not exists tracks
         (title text, artist text, file text, time integer, tag text)
         ''')
         for t in tracks:
+            if excluding and int(t['time']) > maxTrackSeconds:
+                continue
             cursor.execute('''insert into tracks(title, artist, file, 
             time, tag) values( ?, ?, ?, ?, ?) ''',\
             (t['title'], t['artist'], t['file'], t['time'], t['tag'])

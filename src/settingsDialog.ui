@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>575</width>
+    <width>521</width>
     <height>484</height>
    </rect>
   </property>
@@ -21,17 +21,26 @@
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
-       <string>General</string>
+       <string>&amp;General</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
         <widget class="QGroupBox" name="groupBox_2">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="title">
           <string>General settings</string>
          </property>
          <layout class="QFormLayout" name="formLayout_2">
           <property name="fieldGrowthPolicy">
            <enum>QFormLayout::ExpandingFieldsGrow</enum>
+          </property>
+          <property name="rowWrapPolicy">
+           <enum>QFormLayout::DontWrapRows</enum>
           </property>
           <item row="0" column="0">
            <widget class="QLabel" name="label_2">
@@ -79,7 +88,7 @@
           <item row="2" column="0">
            <widget class="QLabel" name="label">
             <property name="text">
-             <string>&amp;Max number of songs in playlist:</string>
+             <string>Max &amp;number of songs in playlist:</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -114,6 +123,61 @@
             </item>
            </layout>
           </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="label_14">
+            <property name="text">
+             <string>&amp;Exclude long tracks from collection:</string>
+            </property>
+            <property name="buddy">
+             <cstring>excludeLongTracksCheckbox</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="1">
+           <layout class="QHBoxLayout" name="horizontalLayout_3">
+            <item>
+             <widget class="QSpinBox" name="maxTrackLengthSpinBox">
+              <property name="buttonSymbols">
+               <enum>QAbstractSpinBox::NoButtons</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="maxTrackLengthUp">
+              <property name="text">
+               <string>Up</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="maxTrackLengthDown">
+              <property name="text">
+               <string>Down</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item row="3" column="1">
+           <widget class="QCheckBox" name="excludeLongTracksCheckbox">
+            <property name="text">
+             <string>(Restart required)</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="0">
+           <widget class="QLabel" name="maxTrackLengthLabel">
+            <property name="text">
+             <string>Maximum track &amp;length in minutes:</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+            <property name="buddy">
+             <cstring>maxTrackLengthSpinBox</cstring>
+            </property>
+           </widget>
+          </item>
          </layout>
         </widget>
        </item>
@@ -134,7 +198,7 @@
      </widget>
      <widget class="QWidget" name="tab_3">
       <attribute name="title">
-       <string>Start/Quit</string>
+       <string>&amp;Start/Quit</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_4">
        <item>
@@ -153,7 +217,10 @@
           <item row="2" column="0">
            <widget class="QLabel" name="label_8">
             <property name="text">
-             <string>Autostart MPD playback when connected:</string>
+             <string>&amp;Autostart MPD playback when connected:</string>
+            </property>
+            <property name="buddy">
+             <cstring>playOnConnectCheckBox</cstring>
             </property>
            </widget>
           </item>
@@ -167,7 +234,10 @@
           <item row="3" column="0">
            <widget class="QLabel" name="label_6">
             <property name="text">
-             <string>Stop MPD playback on quit:</string>
+             <string>St&amp;op MPD playback on quit:</string>
+            </property>
+            <property name="buddy">
+             <cstring>stopOnQuitCheckBox</cstring>
             </property>
            </widget>
           </item>
@@ -181,7 +251,10 @@
           <item row="1" column="0">
            <widget class="QLabel" name="label_13">
             <property name="text">
-             <string>Start as fullscreen:</string>
+             <string>Start in &amp;fullscreen:</string>
+            </property>
+            <property name="buddy">
+             <cstring>fullscreenOnStartCheckBox</cstring>
             </property>
            </widget>
           </item>
@@ -192,7 +265,7 @@
      </widget>
      <widget class="QWidget" name="tab_4">
       <attribute name="title">
-       <string>Virtual keyboard</string>
+       <string>&amp;Virtual keyboard</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_5">
        <item>
@@ -248,7 +321,7 @@
      </widget>
      <widget class="QWidget" name="tab_2">
       <attribute name="title">
-       <string>MPD Server</string>
+       <string>&amp;MPD Server</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
@@ -374,8 +447,8 @@
    <slot>okBtn()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>353</x>
-     <y>328</y>
+     <x>362</x>
+     <y>474</y>
     </hint>
     <hint type="destinationlabel">
      <x>329</x>
@@ -390,8 +463,8 @@
    <slot>cancelBtn()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>257</x>
-     <y>328</y>
+     <x>266</x>
+     <y>474</y>
     </hint>
     <hint type="destinationlabel">
      <x>228</x>
@@ -406,12 +479,12 @@
    <slot>stepUp()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>335</x>
-     <y>115</y>
+     <x>399</x>
+     <y>167</y>
     </hint>
     <hint type="destinationlabel">
-     <x>269</x>
-     <y>121</y>
+     <x>308</x>
+     <y>167</y>
     </hint>
    </hints>
   </connection>
@@ -422,12 +495,108 @@
    <slot>stepDown()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>377</x>
-     <y>120</y>
+     <x>490</x>
+     <y>167</y>
     </hint>
     <hint type="destinationlabel">
-     <x>269</x>
-     <y>115</y>
+     <x>308</x>
+     <y>167</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>maxTrackLengthUp</sender>
+   <signal>clicked()</signal>
+   <receiver>maxTrackLengthSpinBox</receiver>
+   <slot>stepUp()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>340</x>
+     <y>212</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>300</x>
+     <y>220</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>maxTrackLengthDown</sender>
+   <signal>clicked()</signal>
+   <receiver>maxTrackLengthSpinBox</receiver>
+   <slot>stepDown()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>458</x>
+     <y>214</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>294</x>
+     <y>212</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>excludeLongTracksCheckbox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>maxTrackLengthLabel</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>277</x>
+     <y>186</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>148</x>
+     <y>219</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>excludeLongTracksCheckbox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>maxTrackLengthSpinBox</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>293</x>
+     <y>183</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>302</x>
+     <y>211</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>excludeLongTracksCheckbox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>maxTrackLengthUp</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>285</x>
+     <y>183</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>381</x>
+     <y>207</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>excludeLongTracksCheckbox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>maxTrackLengthDown</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>288</x>
+     <y>186</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>478</x>
+     <y>222</y>
     </hint>
    </hints>
   </connection>
