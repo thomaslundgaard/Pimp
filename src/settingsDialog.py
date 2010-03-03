@@ -118,6 +118,8 @@ class SettingsDialog (QtGui.QDialog):
             self.vkb.setInputLine(self.ui.adminPasswordRepeatEdit)
         if new == self.ui.maxPlaylistSpinBox:
             self.vkb.setInputLine(self.ui.maxPlaylistSpinBox.lineEdit())
+        if new == self.ui.maxTrackLengthSpinBox:
+            self.vkb.setInputLine(self.ui.maxTrackLengthSpinBox.lineEdit())
         if new == self.ui.mpdServerEdit:
             self.vkb.setInputLine(self.ui.mpdServerEdit)
         if new == self.ui.mpdPasswordEdit:
