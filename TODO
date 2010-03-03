@@ -1,7 +1,5 @@
-- setup package distribution system
+Nice to have features:
+ - MPD Crossfade setting in settingsdialog
 
 - (future) interchange flickcharm with QAbstractKineticScroller when Qt becomes real cross-platform again (damn you Nokia)
-
-Feedback wishes:
-	- is tag-guessing ok?
 
