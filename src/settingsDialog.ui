@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>521</width>
+    <width>532</width>
     <height>484</height>
    </rect>
   </property>
@@ -600,9 +600,26 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>tabWidget</sender>
+   <signal>currentChanged(QWidget*)</signal>
+   <receiver>SettingsDialog</receiver>
+   <slot>tabChanged(QWidget*)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>51</x>
+     <y>23</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>2</x>
+     <y>102</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>okBtn()</slot>
   <slot>cancelBtn()</slot>
+  <slot>tabChanged(QWidget*)</slot>
  </slots>
 </ui>
