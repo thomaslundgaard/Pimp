@@ -134,4 +134,13 @@ class SettingsDialog (QtGui.QDialog):
             self.vkb.setInputLine(self.ui.vkRow3Edit)
         if new == self.ui.vkRow4Edit:
             self.vkb.setInputLine(self.ui.vkRow4Edit)
+    
+    def tabChanged(self, newtab):
+        self.vkb.setInputLine(None)
+        #Sets focus to the widget, that last had focus
+        #when the new tab was left. This makes vkb edit the right lineEdit.
+        lastfocusWidget = newtab.focusWidget()
+        newtab.clearFocus()
+        if lastfocusWidget: #Could be None
+            lastfocusWidget.setFocus()
 
