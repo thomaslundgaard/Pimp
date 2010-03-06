@@ -61,7 +61,6 @@ class BrowseWidget(QtGui.QWidget):
         item = self.ui.genreList.item(0)
         item.setFont (QtGui.QFont("Arial", -1, QtGui.QFont.Bold))
 
-        self.trackList = []
     def addContinue(self):
         self._addToPlaylist()
 
@@ -152,20 +151,21 @@ class BrowseWidget(QtGui.QWidget):
             return
         self.ui.artistTrackList.clear()
         self.ui.trackStackedWidget.setCurrentWidget(self.ui.artist)
-        self.trackList = []
         cursor = QtGui.qApp.server.trackDB.cursor()
         cursor.execute(''' select * from tracks where artist == ?
                 order by title asc''', (artist,))
         for row in cursor:
-            dict = {'title':     row[0],\
-                   'artist':    row[1],\
-                   'file':      row[2],\
-                   'time':      row[3],\
-                   'tag':       row[4],
-            }
-            self.ui.artistTrackList.addItem("%s (%i:%02i)" % \
-                (dict['title'],dict['time']/60, dict['time']%60 ))
-            self.trackList.append(dict)
+            #track = {'title':     row[0],\
+                   #'artist':    row[1],\
+                   #'file':      row[2],\
+                   #'time':      row[3],\
+                   #'tag':       row[4],
+            #}
+            item = QtGui.QListWidgetItem("%s - %s  (%i:%02i)" % \
+                (row[1] , row[0],\
+                row[3]/60, row[3]%60 ))
+            item.setData(Qt.UserRole, row[2])
+            self.ui.artistTrackList.addItem(item)
         cursor.close()
 
     def onGenreChanged(self):
