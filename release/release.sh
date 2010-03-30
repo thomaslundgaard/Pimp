@@ -1,5 +1,5 @@
 #!/bin/sh
-pkgname="pympdjuke"
+pkgname="pimp"
 tmpdir="release-tmp"
 pkgver="$1"
 pkgfullname="$pkgname-$pkgver"
@@ -30,7 +30,7 @@ cd "$tmpdir"
 mkdir "$pkgfullname"
 cd ..
 make clean
-cp -r pixmaps icons resources src LICENSE Makefile pympdjuke.desktop README "$tmpdir/$pkgfullname"
+cp -r pixmaps icons resources src LICENSE Makefile pimp.desktop README "$tmpdir/$pkgfullname"
 cd "$tmpdir"
 tar -c --bzip2 -f "../release/$pkgfullname.tar.bz2" "$pkgfullname"
 

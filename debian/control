@@ -1,14 +1,14 @@
-Source: pympdjuke
+Source: pimp
 Section: sound
 Priority: optional
 Maintainer: Peter B. Jørgensen <peterbjorgensen@gmail.com>
 Build-Depends: debhelper (>= 7), pyqt4-dev-tools (>= 4.6-1)
 Standards-Version: 3.8.1
-Homepage: http://github.com/thomaslundgaard/PyMpdJuke
+Homepage: http://github.com/thomaslundgaard/PiMP
 
-Package: pympdjuke
+Package: pimp
 Architecture: all
 Depends: python-qt4 (>= 4.6-1), python-mpd (>= 0.2.1-1)
 Description: MPD frontend with jukebox interface
- PyMpdJuke is a MPD frontend, intended to be used as a jukebox at parties. The
+ PiMP is a MPD frontend, intended to be used as a jukebox at parties. The
  interface is made for use with touchscreens without a connected keyboard.

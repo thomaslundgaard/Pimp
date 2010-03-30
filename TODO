@@ -1,5 +1,6 @@
 Nice to have features:
  - MPD Crossfade setting in settingsdialog
+ - Button to disable virtual keyboard
 
 - (future) interchange flickcharm with QAbstractKineticScroller when Qt becomes real cross-platform again (damn you Nokia)
 

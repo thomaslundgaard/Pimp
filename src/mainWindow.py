@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# PyMpdJuke - A mpd-frontend to be used as a jukebox at parties.
+# PiMP - A mpd-frontend to be used as a jukebox at parties.
 # Copyright (C) 2010 Peter Bjørn
 # Copyright (C) 2010 Thomas Lundgaard
 #

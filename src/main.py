@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# PyMpdJuke - A mpd-frontend to be used as a jukebox at parties.
+# PiMP - A mpd-frontend to be used as a jukebox at parties.
 # Copyright (C) 2010 Peter Bjørn
 # Copyright (C) 2010 Thomas Lundgaard
 #
@@ -28,8 +28,8 @@ def main():
     QtGui.qApp.resourcesPath=scriptPath+"/../resources"
 
     app.setWindowIcon(QtGui.QIcon(QtGui.qApp.pixmapsPath+"/icon.png"))
-    app.setOrganizationName("pympdjuke");
-    app.setApplicationName("PyMpdJuke");
+    app.setOrganizationName("pimp");
+    app.setApplicationName("PiMP");
 
     app.styleSheet = QtCore.QFile(QtGui.qApp.resourcesPath+"/stylesheet.qss")
     app.styleSheet.open(QtCore.QIODevice.ReadOnly)
@@ -37,7 +37,7 @@ def main():
     app.styleSheet.close()
 
     window = MainWindow()
-    window.setWindowTitle("PyMPDJuke")
+    window.setWindowTitle("PiMP")
     window.show()
     sys.exit(app.exec_())
 

@@ -28,7 +28,7 @@ build-stamp: configure-stamp
 
 	# Add here commands to compile the package.
 	$(MAKE)
-	#docbook-to-man debian/pympdjuke.sgml > pympdjuke.1
+	#docbook-to-man debian/pimp.sgml > pimp.1
 
 	touch $@
 
@@ -48,8 +48,8 @@ install: build
 	dh_prep  
 	dh_installdirs
 
-	# Add here commands to install the package into debian/pympdjuke.
-	$(MAKE) DESTDIR=$(CURDIR)/debian/pympdjuke/usr install
+	# Add here commands to install the package into debian/pimp.
+	$(MAKE) DESTDIR=$(CURDIR)/debian/pimp/usr install
 
 
 # Build architecture-independent files here.

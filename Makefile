@@ -9,7 +9,7 @@ PY_FILES=$(shell ls src/*.py 2>/dev/null)
 #PY_COMPILED=$(PY_FILES:.py=.pyc)
 
 DESTDIR=/usr
-INSTALLDIR=$(DESTDIR)/share/pympdjuke
+INSTALLDIR=$(DESTDIR)/share/pimp
 INSTALL_FILES=$(PY_FILES) $(PY_COMPILED) $(shell ls resources/* pixmaps/*)
 
 
@@ -29,22 +29,22 @@ install: build uninstall
 	# executable
 	chmod a+x "$(INSTALLDIR)/src/main.py"
 	mkdir -p "$(DESTDIR)/bin"
-	ln -s "../share/pympdjuke/src/main.py" "$(DESTDIR)/bin/pympdjuke"
+	ln -s "../share/pimp/src/main.py" "$(DESTDIR)/bin/pimp"
 	# .desktop file
 	mkdir -p "$(DESTDIR)/share/applications/"
-	$(INSTALL) "pympdjuke.desktop" "$(DESTDIR)/share/applications/"
+	$(INSTALL) "pimp.desktop" "$(DESTDIR)/share/applications/"
 	# icons
 	for file in $$(ls icons/*.png); do \
 		dir="$(DESTDIR)/share/icons/hicolor/$$(basename $$file .png)/apps"; \
 		mkdir -p "$$dir"; \
-		$(INSTALL) "$$file" "$$dir/pympdjuke.png"; \
+		$(INSTALL) "$$file" "$$dir/pimp.png"; \
 	done
 
 uninstall:
 	- rm -r "$(INSTALLDIR)"
-	- rm -r "$(DESTDIR)/bin/pympdjuke"
-	- rm -r "$(DESTDIR)/share/applications/pympdjuke.desktop"
-	- find "$(DESTDIR)/share/icons/hicolor" -name "pympdjuke.*" -exec rm -f "{}" \;
+	- rm -r "$(DESTDIR)/bin/pimp"
+	- rm -r "$(DESTDIR)/share/applications/pimp.desktop"
+	- find "$(DESTDIR)/share/icons/hicolor" -name "pimp.*" -exec rm -f "{}" \;
 
 clean:
 	find . -name *.pyc -exec rm -f "{}" \;

@@ -1,4 +1,4 @@
-pympdjuke (1.0beta1-1) unstable; urgency=low
+pimp (1.0beta1-1) unstable; urgency=low
 
    * Initial release (Closes: #nnnn)  <nnnn is the bug number of your ITP>
 

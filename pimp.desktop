@@ -2,10 +2,10 @@
 [Desktop Entry]
 Version=1.0
 Encoding=UTF-8
-Name=PyMpdJuke
+Name=PiMP
 Comment=Jukebox mediaplayer for parties
-Exec=pympdjuke
+Exec=pimp
 Terminal=false
-Icon=pympdjuke
+Icon=pimp
 Type=Application
 Categories=Application;AudioVideo;
