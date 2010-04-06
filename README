@@ -1,9 +1,9 @@
-PiMP is a MPD frontend, intended to be used as a jukebox at parties. The
+Pimp is a MPD frontend, intended to be used as a jukebox at parties. The
 interface is made for use with touchscreens without a connected keyboard.
 It was previously known as PyMpdJuke.
 
 Please report bugs on our github page:
-http://github.com/thomaslundgaard/PiMP/issues
+http://github.com/thomaslundgaard/pimp/issues
 If you have any feature requests or other ideas, do feel free to post it on the
 github issues page.
 
@@ -20,7 +20,7 @@ github issues page.
  * It is possible to make mpd cross-fade between songs, all you need to do, is
    to enable it from another mpd-client like mpc, qmpdclient or sonata.
  * If you forgot your password or one of your fellow admins changed it, it can be
-   found in the configuration file ~/.config/pimp/PiMP.conf (it will
+   found in the configuration file ~/.config/pimp/pimp.conf (it will
    created the first time you change some settings)
  * If you want to change the look (fonts, colors) or sizes of buttons, etc, have
    a look at the QStyleSheet in /usr/share/pimp/resources/stylesheet.qss.
@@ -37,8 +37,8 @@ To run/install it, you need:
 	* pyqt
 	* python-mpd (http://jatreuman.indefero.net/p/python-mpd)
 Oviously you also need a mpd server to connect to, but it can be running on
-another computer and then be controlled remotely by PiMP over the network.
-You can enter your MPD-server settings in the settings dialog in PiMP.
+another computer and then be controlled remotely by pimp over the network.
+You can enter your MPD-server settings in the settings dialog in pimp.
 
 To run the app, directly from the source folder:
 	make run
@@ -57,13 +57,13 @@ To install into another dir:
 On ubuntu/debian based systems, you first need to install the following
 packages (use synaptic or your favorite package manager):
 	python-qt4 python-mpd pyqt4-dev-tools
-Then you install PiMP by running the following two commands, from the folder
+Then you install pimp by running the following two commands, from the folder
 containing this README:
 	make
 	sudo make install
 Then you should install and setup mpd. To get sound output working, follow the guide at:
 	http://ubuntuforums.org/showthread.php?t=1298789
-Now you're good to go, start PiMP like any other application from the menu
+Now you're good to go, start pimp like any other application from the menu
 - or be clever and use gnome-do :).
 
 ************************************

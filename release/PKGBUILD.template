@@ -4,7 +4,7 @@ pkgver=
 pkgrel=1
 pkgdesc="A small mpd frontend, intended to be used as a jukebox at parties. With on-screen keyboard for fancy touch-screens."
 arch=(i686 x86_64)
-url="http://github.com/thomaslundgaard/PiMP"
+url="http://github.com/thomaslundgaard/pimp"
 license=('GPLv3')
 groups=()
 depends=(python-mpd pyqt)
@@ -16,7 +16,7 @@ replaces=()
 backup=()
 options=()
 install=()
-source=("http://cloud.github.com/downloads/thomaslundgaard/PiMP/$pkgname-$pkgver.tar.bz2")
+source=("http://cloud.github.com/downloads/thomaslundgaard/pimp/$pkgname-$pkgver.tar.bz2")
 noextract=()
 md5sums=()
 

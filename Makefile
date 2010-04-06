@@ -39,6 +39,11 @@ install: build uninstall
 		mkdir -p "$$dir"; \
 		$(INSTALL) "$$file" "$$dir/pimp.png"; \
 	done
+	for file in $$(ls icons/*.svg); do \
+		dir="$(DESTDIR)/share/icons/hicolor/$$(basename $$file .svg)/apps"; \
+		mkdir -p "$$dir"; \
+		$(INSTALL) "$$file" "$$dir/pimp.svg"; \
+	done
 
 uninstall:
 	- rm -r "$(INSTALLDIR)"

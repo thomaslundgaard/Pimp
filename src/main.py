@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# PiMP - A mpd-frontend to be used as a jukebox at parties.
+# Pimp - A mpd-frontend to be used as a jukebox at parties.
 # Copyright (C) 2010 Peter Bjørn
 # Copyright (C) 2010 Thomas Lundgaard
 #
@@ -29,7 +29,7 @@ def main():
 
     app.setWindowIcon(QtGui.QIcon(QtGui.qApp.pixmapsPath+"/icon.png"))
     app.setOrganizationName("pimp");
-    app.setApplicationName("PiMP");
+    app.setApplicationName("Pimp");
 
     app.styleSheet = QtCore.QFile(QtGui.qApp.resourcesPath+"/stylesheet.qss")
     app.styleSheet.open(QtCore.QIODevice.ReadOnly)
@@ -37,7 +37,7 @@ def main():
     app.styleSheet.close()
 
     window = MainWindow()
-    window.setWindowTitle("PiMP")
+    window.setWindowTitle("Pimp")
     window.show()
     sys.exit(app.exec_())
 
