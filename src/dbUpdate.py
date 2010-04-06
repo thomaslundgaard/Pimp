@@ -40,7 +40,7 @@ class DbUpdateDialog(QtGui.QDialog):
 
 class DbUpdateWorker(QtCore.QThread):
     sigRemoteUpdateFinished = QtCore.pyqtSignal()
-    sigDbDownloaded = QtCore.pyqtSignal(list)   # list with tracks
+    sigDbDownloaded = QtCore.pyqtSignal('PyQt_PyObject') # list with tracks
     sigDbUpdateFailed = QtCore.pyqtSignal()
 
     def __init__(self, mpdClient):
@@ -59,8 +59,8 @@ class DbUpdateWorker(QtCore.QThread):
 
             tracklist = [track for track in self.mpdClient.listallinfo() \
                     if 'file' in track]
-            tracks = map(parseTrackInfo,tracklist)
-            self.sigDbDownloaded.emit(tracks)
+            tracklist = map(parseTrackInfo,tracklist)
+            self.sigDbDownloaded.emit(tracklist)
         except (socket.error, ConnectionError):
             self.sigDbUpdateFailed.emit()
 

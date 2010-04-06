@@ -41,7 +41,8 @@ class ServerInterface(QtCore.QObject):
     sigConnected = QtCore.pyqtSignal()
     sigDisconnected = QtCore.pyqtSignal()
     sigDbUpdated = QtCore.pyqtSignal()
-    sigStatusChanged = QtCore.pyqtSignal(list,dict)     # changeList, mpdStatus
+    sigStatusChanged = QtCore.pyqtSignal('PyQt_PyObject','PyQt_PyObject') 
+                                          # changeList  , mpdStatusDict
 
     def __init__(self, parent=None):
         QtCore.QObject.__init__(self, parent)
@@ -112,6 +113,7 @@ class ServerInterface(QtCore.QObject):
         self.dbUpdateDialog.accept()
         self._lostConnection()
 
+    @QtCore.pyqtSlot('PyQt_PyObject')
     def onDbDownloaded(self, tracks):
         settings = Settings()
         if settings.value("excludeLongTracks") == "True":
@@ -361,6 +363,7 @@ class ServerInterface(QtCore.QObject):
             except ServerInterfaceError:
                 pass
 
+    @QtCore.pyqtSlot('PyQt_PyObject','PyQt_PyObject')
     def _onStatusChanged(self, changeList, status):
         if not self.autoAdd:
             self.autoAdd = True
